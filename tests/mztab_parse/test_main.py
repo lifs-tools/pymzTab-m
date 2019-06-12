@@ -8,7 +8,7 @@ from swagger_client.api_client import ApiClient
 import json
 from collections import namedtuple
 from pprint import pprint
-from mzTab_Parse import mztab_parser
+from mztab_parse import mztab_parser
 
 class MzTabParseTestCase(unittest.TestCase):
 
