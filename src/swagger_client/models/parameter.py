@@ -219,7 +219,7 @@ class Parameter(object):
         
         if sanitize(text) is None: return None
         
-        p = re.compile('\[(.*),(.*),(.*),(.*)\]') # easter egg... two ladies at the sauna
+        p = re.compile(r'\[(.*),(.*),(.*),(.*)\]') # easter egg... two ladies at the sauna
         m = re.match(p,text)
         
         kwargs = {

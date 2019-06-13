@@ -216,18 +216,18 @@ class Instrument(object):
         
         for l in lines:
             if l.startswith('-name'):
-                name_li = re.match('-name\t(.*)', l).group(1)
+                name_li = re.match(r'-name\t(.*)', l).group(1)
             if l.startswith('-source'):
-                source_li = re.match('-source\t(.*)', l).group(1)
+                source_li = re.match(r'-source\t(.*)', l).group(1)
             if l.startswith('-analyzer'):
                 if not analyzer_li: analyzer_li = []
                 analyzer_li.append(l)
             if l.startswith('-detector'):
-                detector_li = re.match('-detector\t(.*)', l).group(1)
+                detector_li = re.match(r'-detector\t(.*)', l).group(1)
         
         analyzer = None
         for l in analyzer_li:
-            parameter_li = re.match('-analyzer\[\d+\](.*)', l).group(1).strip()
+            parameter_li = re.match(r'-analyzer\[\d+\](.*)', l).group(1).strip()
             if not analyzer: analyzer = []
             analyzer.append(Parameter.fromText(parameter_li))
             

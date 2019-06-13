@@ -233,7 +233,7 @@ class Metadata(object):
         """
         if mz_tab_version is None:
             raise ValueError("Invalid value for `mz_tab_version`, must not be `None`")  # noqa: E501
-        if mz_tab_version is not None and not re.search('^\d{1}\.\d{1}\.\d{1}-[A-Z]{1}$', mz_tab_version):  # noqa: E501
+        if mz_tab_version is not None and not re.search(r'^\d{1}\.\d{1}\.\d{1}-[A-Z]{1}$', mz_tab_version):  # noqa: E501
             raise ValueError("Invalid value for `mz_tab_version`, must be a follow pattern or equal to `/^\\\\d{1}\\.\\\\d{1}\\.\\\\d{1}-[A-Z]{1}$/`")  # noqa: E501
 
         self._mz_tab_version = mz_tab_version

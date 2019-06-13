@@ -225,11 +225,11 @@ class Database(object):
         
         for l in lines:
             if l.startswith('-prefix'):
-                prefix = re.match('-prefix\t(.*)', l).group(1)
+                prefix = re.match(r'-prefix\t(.*)', l).group(1)
             elif l.startswith('-version'):
-                version = re.match('-version\t(.*)', l).group(1)
+                version = re.match(r'-version\t(.*)', l).group(1)
             elif l.startswith('-uri'):
-                uri = re.match('-uri\t(.*)', l).group(1)
+                uri = re.match(r'-uri\t(.*)', l).group(1)
             else:
                 param = l
        

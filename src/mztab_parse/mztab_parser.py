@@ -5,7 +5,7 @@ from swagger_client.models import *
 def parseComments(text):
     comments = []
     lines = text.splitlines()
-    p = re.compile('^COM\t(.*)$') # does not strip
+    p = re.compile(r'^COM\t(.*)$') # does not strip
     
     for idx, l in enumerate(lines):
         m = re.match(p,l)
@@ -18,7 +18,7 @@ def parseComments(text):
 def lines_with_Header(header, text):
     header_lines = []
     lines = text.splitlines()
-    p = re.compile('^'+header+'\t(.+)')
+    p = re.compile(r'^'+header+r'\t(.+)')
     
     for idx, l in enumerate(lines):
         m = re.match(p,l)
@@ -31,7 +31,7 @@ def lines_with_Header(header, text):
 
 def get_str(k,lines):
     res = None
-    p = re.compile('^'+k+'\t(.*)$')
+    p = re.compile(r'^'+k+r'\t(.*)$')
     for l in lines:
         m = re.match(p,l)
         if m:
@@ -42,7 +42,7 @@ def get_str(k,lines):
 
 def get_parameter(k,lines):
     res = None
-    p = re.compile('^'+k+'\t(.*)$')
+    p = re.compile(r'^'+k+r'\t(.*)$')
     for l in lines:
         m = re.match(p,l)
         if m:
@@ -55,7 +55,7 @@ def get_parameter(k,lines):
 def get_list_of(klass,k,lines):
     res = []
     intermediate = {}
-    p = re.compile('^'+k+'\[(\d+)\](.*)$')
+    p = re.compile(r'^'+k+r'\[(\d+)\](.*)$')
     
     for l in lines:
         m = re.match(p,l)
@@ -89,7 +89,7 @@ def parseMetadata(text):
         elif v=='Parameter':
             kwargs[k]= get_parameter(attr,lines)
         elif v.startswith('list['):
-            sub_kls = re.match('list\[(.*)\]', v).group(1)
+            sub_kls = re.match(r'list\[(.*)\]', v).group(1)
             klass = getattr(swagger_client.models, sub_kls) 
             kwargs[k]= get_list_of(klass,attr,lines)
         else:

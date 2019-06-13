@@ -369,17 +369,17 @@ class MsRun(object):
         
         for l in lines:
             if l.startswith('-location'):
-                location = re.match('-location\t(.*)', l).group(1)
+                location = re.match(r'-location\t(.*)', l).group(1)
             elif l.startswith('-hash'):
-                hash = re.match('-hash\t(.*)', l).group(1)
+                hash = re.match(r'-hash\t(.*)', l).group(1)
             elif l.startswith('-format'):
-                format = re.match('-format\t(.*)', l).group(1)
+                format = re.match(r'-format\t(.*)', l).group(1)
             elif l.startswith('-id_format'):
-                id_format = re.match('-id_format\t(.*)', l).group(1)
+                id_format = re.match(r'-id_format\t(.*)', l).group(1)
             elif l.startswith('-hash_method'):
-                hash_method = re.match('-hash_method\t(.*)', l).group(1)
+                hash_method = re.match(r'-hash_method\t(.*)', l).group(1)
             elif l.startswith('-instrument_ref'):
-                instrument_ref = re.match('-instrument_ref\t(.*)', l).group(1)
+                instrument_ref = re.match(r'-instrument_ref\t(.*)', l).group(1)
                 
             elif l.startswith('-fragmentation_method'):
                 if not fragmentation_method_li: fragmentation_method_li = []
@@ -395,14 +395,14 @@ class MsRun(object):
             if fragmentation_method_li:
                 fragmentation_method =[]
                 for f in fragmentation_method_li:
-                    f_li = re.match('-fragmentation_method\[\d+\](.*)', l).group(1).strip()
+                    f_li = re.match(r'-fragmentation_method\[\d+\](.*)', l).group(1).strip()
                     fragmentation_method.append(Parameter.fromText(f_li))
             
             scan_polarity = None
             if scan_polarity_li:
                 scan_polarity =[]
                 for f in scan_polarity_li:
-                    f_li = re.match('-scan_polarity\[\d+\](.*)', f).group(1).strip()
+                    f_li = re.match(r'-scan_polarity\[\d+\](.*)', f).group(1).strip()
                     scan_polarity.append(Parameter.fromText(f_li))
         
         kwargs = {'name': name,

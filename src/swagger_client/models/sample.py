@@ -310,7 +310,7 @@ class Sample(object):
         for l in lines:
             
             if l.startswith('-description'):
-                description = re.match('-description\t(.*)', l).group(1)
+                description = re.match(r'-description\t(.*)', l).group(1)
             elif l.startswith('-custom'):
                 custom.append(l)
             elif l.startswith('-species'):
@@ -326,23 +326,23 @@ class Sample(object):
                 
             custom_o = []
             for f in custom:
-                li = re.match('-custom\[\d+\](.*)', l).group(1).strip()
+                li = re.match(r'-custom\[\d+\](.*)', l).group(1).strip()
                 custom_o.append(Parameter.fromText(li))
             species_o = []
             for f in species:
-                li = re.match('-species\[\d+\](.*)', l).group(1).strip()
+                li = re.match(r'-species\[\d+\](.*)', l).group(1).strip()
                 species_o.append(Parameter.fromText(li))
             tissue_o = []
             for f in tissue:
-                li = re.match('-tissue\[\d+\](.*)', l).group(1).strip()
+                li = re.match(r'-tissue\[\d+\](.*)', l).group(1).strip()
                 tissue_o.append(Parameter.fromText(li))
             cell_type_o = []
             for f in cell_type:
-                li = re.match('-cell_type\[\d+\](.*)', l).group(1).strip()
+                li = re.match(r'-cell_type\[\d+\](.*)', l).group(1).strip()
                 cell_type_o.append(Parameter.fromText(li))
             disease_o = []
             for f in disease:
-                li = re.match('-custom\[\d+\](.*)', l).group(1).strip()
+                li = re.match(r'-custom\[\d+\](.*)', l).group(1).strip()
                 disease_o.append(Parameter.fromText(li))
         
         custom = custom_o if len(custom_o) > 0 else None

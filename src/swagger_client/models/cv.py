@@ -221,13 +221,13 @@ class CV(object):
         
         for l in lines:
             if l.startswith('-label'):
-                label = re.match('-label\t(.*)', l).group(1)
+                label = re.match(r'-label\t(.*)', l).group(1)
             elif l.startswith('-full_name'):
-                full_name = re.match('-full_name\t(.*)', l).group(1)
+                full_name = re.match(r'-full_name\t(.*)', l).group(1)
             elif l.startswith('-version'):
-                version = re.match('-version\t(.*)', l).group(1)
+                version = re.match(r'-version\t(.*)', l).group(1)
             elif l.startswith('-uri'):
-                uri = re.match('-uri\t(.*)', l).group(1)
+                uri = re.match(r'-uri\t(.*)', l).group(1)
         
         
         kwargs = {

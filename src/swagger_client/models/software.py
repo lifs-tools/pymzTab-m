@@ -166,7 +166,7 @@ class Software(object):
             
         setting = None
         for s in setting_li:
-            s_li = re.match('-setting\[\d+\](.*)', s).group(1).strip()
+            s_li = re.match(r'-setting\[\d+\](.*)', s).group(1).strip()
             if not setting: setting = []
             setting.append(s_li)
             

@@ -280,14 +280,14 @@ class StudyVariable(object):
         
         for l in lines:
             if l.startswith('-average_function'):
-                average_function_li = re.match('-average_function\t(.*)', l).group(1)
+                average_function_li = re.match(r'-average_function\t(.*)', l).group(1)
             elif l.startswith('-variation_function'):
-                variation_function_li = re.match('-variation_function\t(.*)', l).group(1)
+                variation_function_li = re.match(r'-variation_function\t(.*)', l).group(1)
             elif l.startswith('-description'):
-                description = re.match('-description\t(.*)', l).group(1)
+                description = re.match(r'-description\t(.*)', l).group(1)
                 
             elif l.startswith('-assay_refs'):
-                assay_refs_li = re.match('-assay_refs\t(.*)', l).group(1)
+                assay_refs_li = re.match(r'-assay_refs\t(.*)', l).group(1)
 
             elif l.startswith('-factors'):
                 if not factors_li: factors_li = []
