@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pymztab-m",
+    name="pymztab-m-IaaIaaSPDR",
     version="0.0.1",
     author="Nils Hoffmann",
     author_email="nils.hoffmann@isas.de",
