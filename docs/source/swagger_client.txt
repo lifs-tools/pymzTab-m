@@ -1,0 +1,10 @@
+:mod:`swagger_client`
+=====================
+
+.. automodule:: swagger_client
+   :members:
+   :undoc-members:
+   :special-members:
+   :inherited-members:
+   :show-inheritance:
+

@@ -1,0 +1,10 @@
+:mod:`mztab_parse`
+=====================
+
+.. automodule:: mztab_parser
+   :members:
+   :undoc-members:
+   :special-members:
+   :inherited-members:
+   :show-inheritance:
+

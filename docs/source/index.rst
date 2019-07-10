@@ -10,7 +10,8 @@ Welcome to pymzTab-m's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+* :ref:`swagger_client`
+* :ref:`mztab_parse`
 
 Indices and tables
 ==================
@@ -18,3 +19,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
