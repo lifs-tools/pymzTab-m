@@ -10,13 +10,15 @@ Welcome to pymzTab-m's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-* :ref:`swagger_client`
-* :ref:`mztab_parse`
+Modules
+=======
+
+* `Swagger Client <api/swagger_client.html>`_
+* `mzTab Parser <api/mztab_parse.html>`_
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
 

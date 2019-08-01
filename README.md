@@ -67,3 +67,20 @@ Build the distribution package:
 ```
 python3 setup.py sdist bdist_wheel
 ```
+
+### Building the documentation
+
+The documentation is built using Sphinx. If not installed, you can install it and a default theme with:
+
+```
+pip3 install sphinx sphinx_rtd_theme
+```
+
+Then change to the docs folder and run:
+
+```
+make html
+```
+
+in order to create the html documentation.
+
