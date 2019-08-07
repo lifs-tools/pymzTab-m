@@ -12,4 +12,4 @@ pandas = "*"
 urllib3 = "*"
 certifi = "*"
 six = "*"
-
+sphinx = "*"
