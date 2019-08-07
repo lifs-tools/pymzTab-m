@@ -1,0 +1,7 @@
+swagger\_client.models.study\_variable module
+=============================================
+
+.. automodule:: swagger_client.models.study_variable
+   :members:
+   :undoc-members:
+   :show-inheritance:

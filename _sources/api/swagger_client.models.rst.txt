@@ -1,0 +1,43 @@
+swagger\_client.models package
+==============================
+
+Submodules
+----------
+
+.. toctree::
+
+   swagger_client.models.assay
+   swagger_client.models.column_parameter_mapping
+   swagger_client.models.comment
+   swagger_client.models.contact
+   swagger_client.models.cv
+   swagger_client.models.database
+   swagger_client.models.error
+   swagger_client.models.indexed_element
+   swagger_client.models.instrument
+   swagger_client.models.metadata
+   swagger_client.models.ms_run
+   swagger_client.models.mz_tab
+   swagger_client.models.opt_column_mapping
+   swagger_client.models.parameter
+   swagger_client.models.publication
+   swagger_client.models.publication_item
+   swagger_client.models.sample
+   swagger_client.models.sample_processing
+   swagger_client.models.small_molecule_evidence
+   swagger_client.models.small_molecule_feature
+   swagger_client.models.small_molecule_summary
+   swagger_client.models.software
+   swagger_client.models.spectra_ref
+   swagger_client.models.string_list
+   swagger_client.models.study_variable
+   swagger_client.models.uri
+   swagger_client.models.validation_message
+
+Module contents
+---------------
+
+.. automodule:: swagger_client.models
+   :members:
+   :undoc-members:
+   :show-inheritance:

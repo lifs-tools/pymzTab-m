@@ -1,0 +1,7 @@
+swagger\_client.models.parameter module
+=======================================
+
+.. automodule:: swagger_client.models.parameter
+   :members:
+   :undoc-members:
+   :show-inheritance:

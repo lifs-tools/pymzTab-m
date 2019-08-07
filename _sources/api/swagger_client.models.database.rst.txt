@@ -1,0 +1,7 @@
+swagger\_client.models.database module
+======================================
+
+.. automodule:: swagger_client.models.database
+   :members:
+   :undoc-members:
+   :show-inheritance:

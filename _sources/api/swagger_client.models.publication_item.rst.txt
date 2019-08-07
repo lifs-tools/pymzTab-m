@@ -1,0 +1,7 @@
+swagger\_client.models.publication\_item module
+===============================================
+
+.. automodule:: swagger_client.models.publication_item
+   :members:
+   :undoc-members:
+   :show-inheritance:

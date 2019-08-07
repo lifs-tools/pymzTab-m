@@ -1,0 +1,7 @@
+swagger\_client.models.instrument module
+========================================
+
+.. automodule:: swagger_client.models.instrument
+   :members:
+   :undoc-members:
+   :show-inheritance:

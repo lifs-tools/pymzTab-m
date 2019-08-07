@@ -1,0 +1,7 @@
+swagger\_client.models.mz\_tab module
+=====================================
+
+.. automodule:: swagger_client.models.mz_tab
+   :members:
+   :undoc-members:
+   :show-inheritance:

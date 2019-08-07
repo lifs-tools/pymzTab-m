@@ -1,0 +1,7 @@
+swagger\_client.models.sample\_processing module
+================================================
+
+.. automodule:: swagger_client.models.sample_processing
+   :members:
+   :undoc-members:
+   :show-inheritance:

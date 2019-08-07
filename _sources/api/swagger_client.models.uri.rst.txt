@@ -1,0 +1,7 @@
+swagger\_client.models.uri module
+=================================
+
+.. automodule:: swagger_client.models.uri
+   :members:
+   :undoc-members:
+   :show-inheritance:

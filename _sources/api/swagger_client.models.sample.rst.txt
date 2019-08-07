@@ -1,0 +1,7 @@
+swagger\_client.models.sample module
+====================================
+
+.. automodule:: swagger_client.models.sample
+   :members:
+   :undoc-members:
+   :show-inheritance:
