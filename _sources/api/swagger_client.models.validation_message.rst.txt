@@ -1,0 +1,7 @@
+swagger\_client.models.validation\_message module
+=================================================
+
+.. automodule:: swagger_client.models.validation_message
+   :members:
+   :undoc-members:
+   :show-inheritance:

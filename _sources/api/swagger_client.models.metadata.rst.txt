@@ -1,0 +1,7 @@
+swagger\_client.models.metadata module
+======================================
+
+.. automodule:: swagger_client.models.metadata
+   :members:
+   :undoc-members:
+   :show-inheritance:

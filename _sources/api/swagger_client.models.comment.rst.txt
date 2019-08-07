@@ -1,0 +1,7 @@
+swagger\_client.models.comment module
+=====================================
+
+.. automodule:: swagger_client.models.comment
+   :members:
+   :undoc-members:
+   :show-inheritance:

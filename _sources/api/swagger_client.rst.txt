@@ -1,0 +1,27 @@
+swagger\_client package
+=======================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   swagger_client.api
+   swagger_client.models
+
+Submodules
+----------
+
+.. toctree::
+
+   swagger_client.api_client
+   swagger_client.configuration
+   swagger_client.rest
+
+Module contents
+---------------
+
+.. automodule:: swagger_client
+   :members:
+   :undoc-members:
+   :show-inheritance:

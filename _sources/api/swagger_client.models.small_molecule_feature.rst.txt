@@ -1,0 +1,7 @@
+swagger\_client.models.small\_molecule\_feature module
+======================================================
+
+.. automodule:: swagger_client.models.small_molecule_feature
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,10 @@
+swagger\_client.api package
+===========================
+
+Module contents
+---------------
+
+.. automodule:: swagger_client.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
