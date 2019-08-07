@@ -6,4 +6,19 @@ python:
 install:
  - 'pip install pipenv'
  - 'pipenv install'
-script: 'python -m pytest'
+script: 'pipenv run python3 -m pytest'
+
+after_success:
+ - cd docs
+ - 'pipenv run make html'
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  keep-history: true
+  on:
+    branch: master
+  github-token: $GITHUB_TOKEN
+  local-dir: docs/build/html
+  committer-from-gh: true
+

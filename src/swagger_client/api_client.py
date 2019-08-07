@@ -2,7 +2,7 @@
 """
     mzTab validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab validation service.
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
