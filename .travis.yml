@@ -11,6 +11,7 @@ script: 'pipenv run python3 -m pytest'
 after_success:
  - cd docs
  - 'pipenv run make html'
+ - touch docs/build/html/.nojekyll
 
 deploy:
   provider: pages
