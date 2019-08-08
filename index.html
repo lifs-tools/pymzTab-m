@@ -82,6 +82,7 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Welcome to pymzTab-m’s documentation!</a></li>
 <li><a class="reference internal" href="#related-projects">Related Projects</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li><a class="reference internal" href="#modules">Modules</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
@@ -173,6 +174,34 @@
 <li><p><a class="reference external" href="https://github.com/lifs-tools/jmzTab-m">jmzTab-M Reference Implementation and Validator</a></p></li>
 <li><p><a class="reference external" href="https://github.com/lifs-tools/jmzTab-m-webapp">jmzTab-M Webapplication and Validator</a></p></li>
 </ul>
+</div>
+<div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>The following example shows how to validate an MzTab object using the REST API for the <a class="reference external" href="https://apps.lifs.isas.de/mztabvalidator/swagger-ui.html">jmzTab-M webapplication REST service</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this example, the MzTab object will not validate! Please check <a class="reference external" href="https://github.com/lifs-tools/pymzTab-m/blob/master/tests/swagger_client/test_validate_api.py">the test API test</a> for a more realistic example.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">swagger_client</span>
+<span class="kn">from</span> <span class="nn">swagger_client.rest</span> <span class="kn">import</span> <span class="n">ApiException</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="c1"># create an instance of the API class</span>
+<span class="n">api_instance</span> <span class="o">=</span> <span class="n">swagger_client</span><span class="o">.</span><span class="n">ValidateApi</span><span class="p">(</span><span class="n">swagger_client</span><span class="o">.</span><span class="n">ApiClient</span><span class="p">(</span><span class="n">configuration</span><span class="p">))</span>
+<span class="n">mztabfile</span> <span class="o">=</span> <span class="n">swagger_client</span><span class="o">.</span><span class="n">MzTab</span><span class="p">()</span> <span class="c1"># MzTab | mzTab file that should be validated. This still needs to be populated!!!</span>
+<span class="n">level</span> <span class="o">=</span> <span class="s1">&#39;info&#39;</span> <span class="c1"># str | The level of errors that should be reported, one of ERROR, WARN, INFO. (optional) (default to info)</span>
+<span class="n">max_errors</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># int | The maximum number of errors to return. (optional) (default to 100)</span>
+<span class="n">semantic_validation</span> <span class="o">=</span> <span class="n">false</span> <span class="c1"># bool | Whether a semantic validation against the default rule set should be performed. (optional) (default to false)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">api_response</span> <span class="o">=</span> <span class="n">api_instance</span><span class="o">.</span><span class="n">validate_mz_tab_file</span><span class="p">(</span><span class="n">mztabfile</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="n">max_errors</span><span class="o">=</span><span class="n">max_errors</span><span class="p">,</span> <span class="n">semantic_validation</span><span class="o">=</span><span class="n">semantic_validation</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">api_response</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">ApiException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Exception when calling ValidateApi-&gt;validate_mz_tab_file: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </div>
