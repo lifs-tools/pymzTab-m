@@ -1,0 +1,7 @@
+swagger\_client.api.validate\_api module
+========================================
+
+.. automodule:: swagger_client.api.validate_api
+   :members:
+   :undoc-members:
+   :show-inheritance:

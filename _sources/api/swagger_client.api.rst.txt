@@ -1,6 +1,14 @@
 swagger\_client.api package
 ===========================
 
+Submodules
+----------
+
+.. toctree::
+
+   swagger_client.api.validate_api
+   swagger_client.api.validate_plain_api
+
 Module contents
 ---------------
 
