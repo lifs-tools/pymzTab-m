@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -122,6 +122,7 @@ class SmallMoleculeFeature(object):
     def prefix(self):
         """Gets the prefix of this SmallMoleculeFeature.  # noqa: E501
 
+        The small molecule feature table row prefix. SMF MUST be used for rows of the small molecule feature table.  # noqa: E501
 
         :return: The prefix of this SmallMoleculeFeature.  # noqa: E501
         :rtype: str
@@ -132,6 +133,7 @@ class SmallMoleculeFeature(object):
     def prefix(self, prefix):
         """Sets the prefix of this SmallMoleculeFeature.
 
+        The small molecule feature table row prefix. SMF MUST be used for rows of the small molecule feature table.  # noqa: E501
 
         :param prefix: The prefix of this SmallMoleculeFeature.  # noqa: E501
         :type: str
@@ -149,6 +151,7 @@ class SmallMoleculeFeature(object):
     def header_prefix(self):
         """Gets the header_prefix of this SmallMoleculeFeature.  # noqa: E501
 
+        The small molecule feature table header prefix. SFH MUST be used for the small molecule feature table header line (the column labels).  # noqa: E501
 
         :return: The header_prefix of this SmallMoleculeFeature.  # noqa: E501
         :rtype: str
@@ -159,6 +162,7 @@ class SmallMoleculeFeature(object):
     def header_prefix(self, header_prefix):
         """Sets the header_prefix of this SmallMoleculeFeature.
 
+        The small molecule feature table header prefix. SFH MUST be used for the small molecule feature table header line (the column labels).  # noqa: E501
 
         :param header_prefix: The header_prefix of this SmallMoleculeFeature.  # noqa: E501
         :type: str
@@ -176,6 +180,7 @@ class SmallMoleculeFeature(object):
     def smf_id(self):
         """Gets the smf_id of this SmallMoleculeFeature.  # noqa: E501
 
+        A within file unique identifier for the small molecule feature.  # noqa: E501
 
         :return: The smf_id of this SmallMoleculeFeature.  # noqa: E501
         :rtype: int
@@ -186,6 +191,7 @@ class SmallMoleculeFeature(object):
     def smf_id(self, smf_id):
         """Sets the smf_id of this SmallMoleculeFeature.
 
+        A within file unique identifier for the small molecule feature.  # noqa: E501
 
         :param smf_id: The smf_id of this SmallMoleculeFeature.  # noqa: E501
         :type: int
@@ -199,6 +205,7 @@ class SmallMoleculeFeature(object):
     def sme_id_refs(self):
         """Gets the sme_id_refs of this SmallMoleculeFeature.  # noqa: E501
 
+        References to the identification evidence (SME elements) via referencing SME_ID values. Multiple values MAY be provided as a “|” separated list to indicate ambiguity in the identification or to indicate that different types of data supported the identifiction (see SME_ID_REF_ambiguity_code). For the case of a consensus approach where multiple adduct forms are used to infer the SML ID, different features should just reference the same SME_ID value(s).  # noqa: E501
 
         :return: The sme_id_refs of this SmallMoleculeFeature.  # noqa: E501
         :rtype: list[int]
@@ -209,6 +216,7 @@ class SmallMoleculeFeature(object):
     def sme_id_refs(self, sme_id_refs):
         """Sets the sme_id_refs of this SmallMoleculeFeature.
 
+        References to the identification evidence (SME elements) via referencing SME_ID values. Multiple values MAY be provided as a “|” separated list to indicate ambiguity in the identification or to indicate that different types of data supported the identifiction (see SME_ID_REF_ambiguity_code). For the case of a consensus approach where multiple adduct forms are used to infer the SML ID, different features should just reference the same SME_ID value(s).  # noqa: E501
 
         :param sme_id_refs: The sme_id_refs of this SmallMoleculeFeature.  # noqa: E501
         :type: list[int]
@@ -220,6 +228,7 @@ class SmallMoleculeFeature(object):
     def sme_id_ref_ambiguity_code(self):
         """Gets the sme_id_ref_ambiguity_code of this SmallMoleculeFeature.  # noqa: E501
 
+        If multiple values are given under SME_ID_REFS, one of the following codes MUST be provided. 1=Ambiguous identification; 2=Only different evidence streams for the same molecule with no ambiguity; 3=Both ambiguous identification and multiple evidence streams. If there are no or one value under SME_ID_REFs, this MUST be reported as null.  # noqa: E501
 
         :return: The sme_id_ref_ambiguity_code of this SmallMoleculeFeature.  # noqa: E501
         :rtype: int
@@ -230,6 +239,7 @@ class SmallMoleculeFeature(object):
     def sme_id_ref_ambiguity_code(self, sme_id_ref_ambiguity_code):
         """Sets the sme_id_ref_ambiguity_code of this SmallMoleculeFeature.
 
+        If multiple values are given under SME_ID_REFS, one of the following codes MUST be provided. 1=Ambiguous identification; 2=Only different evidence streams for the same molecule with no ambiguity; 3=Both ambiguous identification and multiple evidence streams. If there are no or one value under SME_ID_REFs, this MUST be reported as null.  # noqa: E501
 
         :param sme_id_ref_ambiguity_code: The sme_id_ref_ambiguity_code of this SmallMoleculeFeature.  # noqa: E501
         :type: int
@@ -241,6 +251,7 @@ class SmallMoleculeFeature(object):
     def adduct_ion(self):
         """Gets the adduct_ion of this SmallMoleculeFeature.  # noqa: E501
 
+        The assumed classification of this molecule’s adduct ion after detection, following the general style in the 2013 IUPAC recommendations on terms relating to MS e.g. [M+H]1+, [M+Na]1+, [M+NH4]1+, [M-H]1-, [M+Cl]1-, [M+H]1+.  # noqa: E501
 
         :return: The adduct_ion of this SmallMoleculeFeature.  # noqa: E501
         :rtype: str
@@ -251,13 +262,13 @@ class SmallMoleculeFeature(object):
     def adduct_ion(self, adduct_ion):
         """Sets the adduct_ion of this SmallMoleculeFeature.
 
+        The assumed classification of this molecule’s adduct ion after detection, following the general style in the 2013 IUPAC recommendations on terms relating to MS e.g. [M+H]1+, [M+Na]1+, [M+NH4]1+, [M-H]1-, [M+Cl]1-, [M+H]1+.  # noqa: E501
 
         :param adduct_ion: The adduct_ion of this SmallMoleculeFeature.  # noqa: E501
         :type: str
         """
-        if adduct_ion =='null': adduct_ion = None
-        if adduct_ion is not None and not re.search('^\\[\\d*M([+-][\\w]*)\\]\\d*[+-]$', adduct_ion):  # noqa: E501
-            raise ValueError("Invalid value for `adduct_ion`, must be a follow pattern or equal to `/^\\[\\d*M([-][\\w]*)\\]\\d*[+-]$/`")  # noqa: E501
+        if adduct_ion is not None and not re.search(r'^\[\d*M([+-][\w]*)\]\d*[+-]$', adduct_ion):  # noqa: E501
+            raise ValueError(r"Invalid value for `adduct_ion`, must be a follow pattern or equal to `/^\\[\\d*M([+-][\\w]*)\\]\\d*[+-]$/`")  # noqa: E501
 
         self._adduct_ion = adduct_ion
 
@@ -265,6 +276,7 @@ class SmallMoleculeFeature(object):
     def isotopomer(self):
         """Gets the isotopomer of this SmallMoleculeFeature.  # noqa: E501
 
+        If de-isotoping has not been performed, then the isotopomer quantified MUST be reported here e.g. “+1”, “+2”, “13C peak” using CV terms, otherwise (i.e. for approaches where SMF rows are de-isotoped features) this MUST be null.  # noqa: E501
 
         :return: The isotopomer of this SmallMoleculeFeature.  # noqa: E501
         :rtype: Parameter
@@ -275,6 +287,7 @@ class SmallMoleculeFeature(object):
     def isotopomer(self, isotopomer):
         """Sets the isotopomer of this SmallMoleculeFeature.
 
+        If de-isotoping has not been performed, then the isotopomer quantified MUST be reported here e.g. “+1”, “+2”, “13C peak” using CV terms, otherwise (i.e. for approaches where SMF rows are de-isotoped features) this MUST be null.  # noqa: E501
 
         :param isotopomer: The isotopomer of this SmallMoleculeFeature.  # noqa: E501
         :type: Parameter
@@ -286,6 +299,7 @@ class SmallMoleculeFeature(object):
     def exp_mass_to_charge(self):
         """Gets the exp_mass_to_charge of this SmallMoleculeFeature.  # noqa: E501
 
+        The experimental mass/charge value for the feature, by default assumed to be the mean across assays or a representative value. For approaches that report isotopomers as SMF rows, then the m/z of the isotopomer MUST be reported here.  # noqa: E501
 
         :return: The exp_mass_to_charge of this SmallMoleculeFeature.  # noqa: E501
         :rtype: float
@@ -296,6 +310,7 @@ class SmallMoleculeFeature(object):
     def exp_mass_to_charge(self, exp_mass_to_charge):
         """Sets the exp_mass_to_charge of this SmallMoleculeFeature.
 
+        The experimental mass/charge value for the feature, by default assumed to be the mean across assays or a representative value. For approaches that report isotopomers as SMF rows, then the m/z of the isotopomer MUST be reported here.  # noqa: E501
 
         :param exp_mass_to_charge: The exp_mass_to_charge of this SmallMoleculeFeature.  # noqa: E501
         :type: float
@@ -309,6 +324,7 @@ class SmallMoleculeFeature(object):
     def charge(self):
         """Gets the charge of this SmallMoleculeFeature.  # noqa: E501
 
+        The feature’s charge value using positive integers both for positive and negative polarity modes.  # noqa: E501
 
         :return: The charge of this SmallMoleculeFeature.  # noqa: E501
         :rtype: int
@@ -319,6 +335,7 @@ class SmallMoleculeFeature(object):
     def charge(self, charge):
         """Sets the charge of this SmallMoleculeFeature.
 
+        The feature’s charge value using positive integers both for positive and negative polarity modes.  # noqa: E501
 
         :param charge: The charge of this SmallMoleculeFeature.  # noqa: E501
         :type: int
@@ -332,6 +349,7 @@ class SmallMoleculeFeature(object):
     def retention_time_in_seconds(self):
         """Gets the retention_time_in_seconds of this SmallMoleculeFeature.  # noqa: E501
 
+        The apex of the feature on the retention time axis, in a Master or aggregate MS run. Retention time MUST be reported in seconds. Retention time values for individual MS runs (i.e. before alignment) MAY be reported as optional columns. Retention time SHOULD only be null in the case of direct infusion MS or other techniques where a retention time value is absent or unknown. Relative retention time or retention time index values MAY be reported as optional columns, and could be considered for inclusion in future versions of mzTab as appropriate.  # noqa: E501
 
         :return: The retention_time_in_seconds of this SmallMoleculeFeature.  # noqa: E501
         :rtype: float
@@ -342,6 +360,7 @@ class SmallMoleculeFeature(object):
     def retention_time_in_seconds(self, retention_time_in_seconds):
         """Sets the retention_time_in_seconds of this SmallMoleculeFeature.
 
+        The apex of the feature on the retention time axis, in a Master or aggregate MS run. Retention time MUST be reported in seconds. Retention time values for individual MS runs (i.e. before alignment) MAY be reported as optional columns. Retention time SHOULD only be null in the case of direct infusion MS or other techniques where a retention time value is absent or unknown. Relative retention time or retention time index values MAY be reported as optional columns, and could be considered for inclusion in future versions of mzTab as appropriate.  # noqa: E501
 
         :param retention_time_in_seconds: The retention_time_in_seconds of this SmallMoleculeFeature.  # noqa: E501
         :type: float
@@ -353,6 +372,7 @@ class SmallMoleculeFeature(object):
     def retention_time_in_seconds_start(self):
         """Gets the retention_time_in_seconds_start of this SmallMoleculeFeature.  # noqa: E501
 
+        The start time of the feature on the retention time axis, in a Master or aggregate MS run. Retention time MUST be reported in seconds. Retention time start and end SHOULD only be null in the case of direct infusion MS or other techniques where a retention time value is absent or unknown and MAY be reported in optional columns.  # noqa: E501
 
         :return: The retention_time_in_seconds_start of this SmallMoleculeFeature.  # noqa: E501
         :rtype: float
@@ -363,6 +383,7 @@ class SmallMoleculeFeature(object):
     def retention_time_in_seconds_start(self, retention_time_in_seconds_start):
         """Sets the retention_time_in_seconds_start of this SmallMoleculeFeature.
 
+        The start time of the feature on the retention time axis, in a Master or aggregate MS run. Retention time MUST be reported in seconds. Retention time start and end SHOULD only be null in the case of direct infusion MS or other techniques where a retention time value is absent or unknown and MAY be reported in optional columns.  # noqa: E501
 
         :param retention_time_in_seconds_start: The retention_time_in_seconds_start of this SmallMoleculeFeature.  # noqa: E501
         :type: float
@@ -374,6 +395,7 @@ class SmallMoleculeFeature(object):
     def retention_time_in_seconds_end(self):
         """Gets the retention_time_in_seconds_end of this SmallMoleculeFeature.  # noqa: E501
 
+        The end time of the feature on the retention time axis, in a Master or aggregate MS run. Retention time MUST be reported in seconds. Retention time start and end SHOULD only be null in the case of direct infusion MS or other techniques where a retention time value is absent or unknown and MAY be reported in optional columns..  # noqa: E501
 
         :return: The retention_time_in_seconds_end of this SmallMoleculeFeature.  # noqa: E501
         :rtype: float
@@ -384,6 +406,7 @@ class SmallMoleculeFeature(object):
     def retention_time_in_seconds_end(self, retention_time_in_seconds_end):
         """Sets the retention_time_in_seconds_end of this SmallMoleculeFeature.
 
+        The end time of the feature on the retention time axis, in a Master or aggregate MS run. Retention time MUST be reported in seconds. Retention time start and end SHOULD only be null in the case of direct infusion MS or other techniques where a retention time value is absent or unknown and MAY be reported in optional columns..  # noqa: E501
 
         :param retention_time_in_seconds_end: The retention_time_in_seconds_end of this SmallMoleculeFeature.  # noqa: E501
         :type: float
@@ -395,6 +418,7 @@ class SmallMoleculeFeature(object):
     def abundance_assay(self):
         """Gets the abundance_assay of this SmallMoleculeFeature.  # noqa: E501
 
+        The feature’s abundance in every assay described in the metadata section MUST be reported. Null or zero values may be reported as appropriate.  # noqa: E501
 
         :return: The abundance_assay of this SmallMoleculeFeature.  # noqa: E501
         :rtype: list[float]
@@ -405,6 +429,7 @@ class SmallMoleculeFeature(object):
     def abundance_assay(self, abundance_assay):
         """Sets the abundance_assay of this SmallMoleculeFeature.
 
+        The feature’s abundance in every assay described in the metadata section MUST be reported. Null or zero values may be reported as appropriate.  # noqa: E501
 
         :param abundance_assay: The abundance_assay of this SmallMoleculeFeature.  # noqa: E501
         :type: list[float]
@@ -416,6 +441,7 @@ class SmallMoleculeFeature(object):
     def opt(self):
         """Gets the opt of this SmallMoleculeFeature.  # noqa: E501
 
+        Additional columns can be added to the end of the small molecule feature table. These column headers MUST start with the prefix “opt_” followed by the {identifier} of the object they reference: assay, study variable, MS run or “global” (if the value relates to all replicates). Column names MUST only contain the following characters: ‘A’-‘Z’, ‘a’-‘z’, ‘0’-‘9’, ‘’, ‘-’, ‘[’, ‘]’, and ‘:’. CV parameter accessions MAY be used for optional columns following the format: opt{identifier}_cv_{accession}_\\{parameter name}. Spaces within the parameter’s name MUST be replaced by ‘_’.   # noqa: E501
 
         :return: The opt of this SmallMoleculeFeature.  # noqa: E501
         :rtype: list[OptColumnMapping]
@@ -426,6 +452,7 @@ class SmallMoleculeFeature(object):
     def opt(self, opt):
         """Sets the opt of this SmallMoleculeFeature.
 
+        Additional columns can be added to the end of the small molecule feature table. These column headers MUST start with the prefix “opt_” followed by the {identifier} of the object they reference: assay, study variable, MS run or “global” (if the value relates to all replicates). Column names MUST only contain the following characters: ‘A’-‘Z’, ‘a’-‘z’, ‘0’-‘9’, ‘’, ‘-’, ‘[’, ‘]’, and ‘:’. CV parameter accessions MAY be used for optional columns following the format: opt{identifier}_cv_{accession}_\\{parameter name}. Spaces within the parameter’s name MUST be replaced by ‘_’.   # noqa: E501
 
         :param opt: The opt of this SmallMoleculeFeature.  # noqa: E501
         :type: list[OptColumnMapping]
@@ -475,6 +502,9 @@ class SmallMoleculeFeature(object):
                 ))
             else:
                 result[attr] = value
+        if issubclass(SmallMoleculeFeature, dict):
+            for key, value in self.items():
+                result[key] = value
 
         return result
 
@@ -496,102 +526,3 @@ class SmallMoleculeFeature(object):
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
         return not self == other
-    
-    def as_text(self, attr):
-        if getattr(self, attr) is None:
-            return '\tnull'
-        elif isinstance(getattr(self, attr), str):
-            return '\t{}'.format(getattr(self, attr))
-        elif isinstance(getattr(self, attr), (int,float)):
-            return '\t{}'.format(str(getattr(self, attr)))
-    
-    
-    def header_as_line(self):
-        # these are all added even if they are null
-
-        text = ''
-        text += 'smf_id'
-        text += '\tsme_id_refs'
-        text += '\tsme_id_ref_ambiguity_code'
-        text += '\tadduct_ion'
-        text += '\tisotopomer'
-        text += '\texp_mass_to_charge'
-        text += '\tcharge'
-        text += '\tretention_time_in_seconds'
-        text += '\tretention_time_in_seconds_start'
-        text += '\tretention_time_in_seconds_end'
-        
-        for idx,_ in enumerate(self.abundance_assay,1):
-            text +='\tabundance_assay[{}]'.format(idx)
-        
-        for e in self.opt:
-            text += '\topt_{}'.format(e.identifier)
-        
-        if self.comment is not None: raise Exception('not implemented')
-        
-        return text
-    
-    def entry_as_line(self):
-        text = ''
-        text += '{}'.format(str(self.smf_id))
-        if self.sme_id_refs : text += '\t{}'.format('|'.join(map(str,self.sme_id_refs)))
-        text += self.as_text('sme_id_ref_ambiguity_code')
-        text += self.as_text('adduct_ion')
-        text += self.as_text('isotopomer')
-        text += self.as_text('exp_mass_to_charge')
-        text += self.as_text('charge')
-        text += self.as_text('retention_time_in_seconds')
-        text += self.as_text('retention_time_in_seconds_start')
-        text += self.as_text('retention_time_in_seconds_end')
-        
-        for e in self.abundance_assay:
-            text += '\t{}'.format(e)
-        
-        for e in self.opt:
-            text += '\t{}'.format(e.value)
-        
-        if self.comment is not None: raise Exception('not implemented')
-        
-        return text
-        
-    def to_lines(self):
-        lines = []
-
-#         'prefix': 'str' done at the end
-        
-        lines += ['{}\t{}'.format(self.prefix, self.entry_as_line())]
-        
-        return lines
-
-    @staticmethod
-    def fromTuple(tup, headers):
-        import math
-        
-        opt_idxs = headers.loc[headers.str.startswith('opt',na=False)]
-        opts = []
-        for idx,v in opt_idxs.iteritems():
-            opts.append(OptColumnMapping(v.strip().replace('opt_',''), None, tup[idx]))
-        opts = None if not opts else opts 
-        
-        as_idx = headers.loc[headers.str.startswith('abundance_assay',na=False)]
-        abundance_assay=[float(tup[idx]) for idx,v in as_idx.iteritems()]
-        abundance_assay = None if not abundance_assay else abundance_assay
-        
-        kwargs = {
-        'prefix': 'SMF',#'str',
-        'header_prefix': 'SFH',#'str',
-        'smf_id': int(tup.SMF_ID),#'int',
-        'sme_id_refs': [int(r) for r in tup.SME_ID_REFS.split('|')],#'list[int]',
-        'sme_id_ref_ambiguity_code': None if math.isnan(tup.SME_ID_REF_ambiguity_code) else int(tup.SME_ID_REF_ambiguity_code),#'int',
-        'adduct_ion': tup.adduct_ion if isinstance(tup.adduct_ion,str) else None,#'str',
-        'isotopomer': Parameter.fromText(tup.isotopomer) if not math.isnan(tup.isotopomer) else None,#'Parameter',
-        'exp_mass_to_charge': float(tup.exp_mass_to_charge),#'float',
-        'charge': int(tup.charge),#'int',
-        'retention_time_in_seconds': float(tup.retention_time_in_seconds),#'float',
-        'retention_time_in_seconds_start': float(tup.retention_time_in_seconds_start),#'float',
-        'retention_time_in_seconds_end': float(tup.retention_time_in_seconds_end),#'float',
-        'abundance_assay': abundance_assay ,#'list[float]',
-        'opt': opts,#'list[OptColumnMapping]',
-        'comment': None #not implemebted 'list[Comment]'
-    }
-        return SmallMoleculeFeature(**kwargs)

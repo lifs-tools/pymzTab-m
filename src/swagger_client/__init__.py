@@ -3,9 +3,9 @@
 # flake8: noqa
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -16,6 +16,8 @@
 from __future__ import absolute_import
 
 # import apis into sdk package
+from swagger_client.api.validate_api import ValidateApi
+from swagger_client.api.validate_plain_api import ValidatePlainApi
 
 # import ApiClient
 from swagger_client.api_client import ApiClient

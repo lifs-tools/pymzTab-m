@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -56,6 +56,7 @@ class SpectraRef(object):
     def ms_run(self):
         """Gets the ms_run of this SpectraRef.  # noqa: E501
 
+        The ms run object reference by this spectral reference.   # noqa: E501
 
         :return: The ms_run of this SpectraRef.  # noqa: E501
         :rtype: MsRun
@@ -66,6 +67,7 @@ class SpectraRef(object):
     def ms_run(self, ms_run):
         """Sets the ms_run of this SpectraRef.
 
+        The ms run object reference by this spectral reference.   # noqa: E501
 
         :param ms_run: The ms_run of this SpectraRef.  # noqa: E501
         :type: MsRun
@@ -79,6 +81,7 @@ class SpectraRef(object):
     def reference(self):
         """Gets the reference of this SpectraRef.  # noqa: E501
 
+        The (vendor-dependendent) reference string to the actual mass spectrum.   # noqa: E501
 
         :return: The reference of this SpectraRef.  # noqa: E501
         :rtype: str
@@ -89,6 +92,7 @@ class SpectraRef(object):
     def reference(self, reference):
         """Sets the reference of this SpectraRef.
 
+        The (vendor-dependendent) reference string to the actual mass spectrum.   # noqa: E501
 
         :param reference: The reference of this SpectraRef.  # noqa: E501
         :type: str
@@ -119,6 +123,9 @@ class SpectraRef(object):
                 ))
             else:
                 result[attr] = value
+        if issubclass(SpectraRef, dict):
+            for key, value in self.items():
+                result[key] = value
 
         return result
 
@@ -140,6 +147,3 @@ class SpectraRef(object):
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
         return not self == other
-    
-    def as_line(self):
-        return 'ms_run[{}]:{}'.format(self.ms_run.name, self.reference)

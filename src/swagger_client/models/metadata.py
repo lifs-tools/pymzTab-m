@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -60,10 +60,10 @@ class Metadata(object):
         'external_study_uri': 'list[Uri]',
         'quantification_method': 'Parameter',
         'study_variable': 'list[StudyVariable]',
-        'assay': 'list[Assay]',
         'ms_run': 'list[MsRun]',
-        'custom': 'list[Parameter]',
+        'assay': 'list[Assay]',
         'sample': 'list[Sample]',
+        'custom': 'list[Parameter]',
         'cv': 'list[CV]',
         'database': 'list[Database]',
         'derivatization_agent': 'list[Parameter]',
@@ -91,10 +91,10 @@ class Metadata(object):
         'external_study_uri': 'external_study_uri',
         'quantification_method': 'quantification_method',
         'study_variable': 'study_variable',
-        'assay': 'assay',
         'ms_run': 'ms_run',
-        'custom': 'custom',
+        'assay': 'assay',
         'sample': 'sample',
+        'custom': 'custom',
         'cv': 'cv',
         'database': 'database',
         'derivatization_agent': 'derivatization_agent',
@@ -107,7 +107,7 @@ class Metadata(object):
         'colunit_small_molecule_evidence': 'colunit-small_molecule_evidence'
     }
 
-    def __init__(self, prefix='MTD', mz_tab_version=None, mz_tab_id=None, title=None, description=None, sample_processing=None, instrument=None, software=None, publication=None, contact=None, uri=None, external_study_uri=None, quantification_method=None, study_variable=None, assay=None, ms_run=None, custom=None, sample=None, cv=None, database=None, derivatization_agent=None, small_molecule_quantification_unit=None, small_molecule_feature_quantification_unit=None, small_molecule_identification_reliability=None, id_confidence_measure=None, colunit_small_molecule=None, colunit_small_molecule_feature=None, colunit_small_molecule_evidence=None):  # noqa: E501
+    def __init__(self, prefix='MTD', mz_tab_version=None, mz_tab_id=None, title=None, description=None, sample_processing=None, instrument=None, software=None, publication=None, contact=None, uri=None, external_study_uri=None, quantification_method=None, study_variable=None, ms_run=None, assay=None, sample=None, custom=None, cv=None, database=None, derivatization_agent=None, small_molecule_quantification_unit=None, small_molecule_feature_quantification_unit=None, small_molecule_identification_reliability=None, id_confidence_measure=None, colunit_small_molecule=None, colunit_small_molecule_feature=None, colunit_small_molecule_evidence=None):  # noqa: E501
         """Metadata - a model defined in Swagger"""  # noqa: E501
 
         self._prefix = None
@@ -124,10 +124,10 @@ class Metadata(object):
         self._external_study_uri = None
         self._quantification_method = None
         self._study_variable = None
-        self._assay = None
         self._ms_run = None
-        self._custom = None
+        self._assay = None
         self._sample = None
+        self._custom = None
         self._cv = None
         self._database = None
         self._derivatization_agent = None
@@ -162,12 +162,12 @@ class Metadata(object):
             self.external_study_uri = external_study_uri
         self.quantification_method = quantification_method
         self.study_variable = study_variable
-        self.assay = assay
         self.ms_run = ms_run
-        if custom is not None:
-            self.custom = custom
+        self.assay = assay
         if sample is not None:
             self.sample = sample
+        if custom is not None:
+            self.custom = custom
         self.cv = cv
         self.database = database
         if derivatization_agent is not None:
@@ -188,6 +188,7 @@ class Metadata(object):
     def prefix(self):
         """Gets the prefix of this Metadata.  # noqa: E501
 
+        The metadata section prefix. MUST always be MTD.   # noqa: E501
 
         :return: The prefix of this Metadata.  # noqa: E501
         :rtype: str
@@ -198,6 +199,7 @@ class Metadata(object):
     def prefix(self, prefix):
         """Sets the prefix of this Metadata.
 
+        The metadata section prefix. MUST always be MTD.   # noqa: E501
 
         :param prefix: The prefix of this Metadata.  # noqa: E501
         :type: str
@@ -217,6 +219,7 @@ class Metadata(object):
     def mz_tab_version(self):
         """Gets the mz_tab_version of this Metadata.  # noqa: E501
 
+        The version of the mzTab file. The suffix MUST be \"-M\" for mzTab for metabolomics (mzTab-M).   # noqa: E501
 
         :return: The mz_tab_version of this Metadata.  # noqa: E501
         :rtype: str
@@ -227,6 +230,7 @@ class Metadata(object):
     def mz_tab_version(self, mz_tab_version):
         """Sets the mz_tab_version of this Metadata.
 
+        The version of the mzTab file. The suffix MUST be \"-M\" for mzTab for metabolomics (mzTab-M).   # noqa: E501
 
         :param mz_tab_version: The mz_tab_version of this Metadata.  # noqa: E501
         :type: str
@@ -234,7 +238,7 @@ class Metadata(object):
         if mz_tab_version is None:
             raise ValueError("Invalid value for `mz_tab_version`, must not be `None`")  # noqa: E501
         if mz_tab_version is not None and not re.search(r'^\d{1}\.\d{1}\.\d{1}-[A-Z]{1}$', mz_tab_version):  # noqa: E501
-            raise ValueError("Invalid value for `mz_tab_version`, must be a follow pattern or equal to `/^\\\\d{1}\\.\\\\d{1}\\.\\\\d{1}-[A-Z]{1}$/`")  # noqa: E501
+            raise ValueError(r"Invalid value for `mz_tab_version`, must be a follow pattern or equal to `/^\\d{1}\\.\\d{1}\\.\\d{1}-[A-Z]{1}$/`")  # noqa: E501
 
         self._mz_tab_version = mz_tab_version
 
@@ -242,6 +246,7 @@ class Metadata(object):
     def mz_tab_id(self):
         """Gets the mz_tab_id of this Metadata.  # noqa: E501
 
+        The ID of the mzTab file, this could be supplied by the repository from which it is downloaded or a local identifier from the lab producing the file. It is not intended to be a globally unique ID but carry some locally useful meaning.   # noqa: E501
 
         :return: The mz_tab_id of this Metadata.  # noqa: E501
         :rtype: str
@@ -252,6 +257,7 @@ class Metadata(object):
     def mz_tab_id(self, mz_tab_id):
         """Sets the mz_tab_id of this Metadata.
 
+        The ID of the mzTab file, this could be supplied by the repository from which it is downloaded or a local identifier from the lab producing the file. It is not intended to be a globally unique ID but carry some locally useful meaning.   # noqa: E501
 
         :param mz_tab_id: The mz_tab_id of this Metadata.  # noqa: E501
         :type: str
@@ -265,6 +271,7 @@ class Metadata(object):
     def title(self):
         """Gets the title of this Metadata.  # noqa: E501
 
+        The file’s human readable title.   # noqa: E501
 
         :return: The title of this Metadata.  # noqa: E501
         :rtype: str
@@ -275,6 +282,7 @@ class Metadata(object):
     def title(self, title):
         """Sets the title of this Metadata.
 
+        The file’s human readable title.   # noqa: E501
 
         :param title: The title of this Metadata.  # noqa: E501
         :type: str
@@ -286,6 +294,7 @@ class Metadata(object):
     def description(self):
         """Gets the description of this Metadata.  # noqa: E501
 
+        The file’s human readable description.   # noqa: E501
 
         :return: The description of this Metadata.  # noqa: E501
         :rtype: str
@@ -296,6 +305,7 @@ class Metadata(object):
     def description(self, description):
         """Sets the description of this Metadata.
 
+        The file’s human readable description.   # noqa: E501
 
         :param description: The description of this Metadata.  # noqa: E501
         :type: str
@@ -307,6 +317,7 @@ class Metadata(object):
     def sample_processing(self):
         """Gets the sample_processing of this Metadata.  # noqa: E501
 
+        A list of parameters describing a sample processing, preparation or handling step similar to a biological or analytical methods report. The order of the sample_processing items should reflect the order these processing steps were performed in. If multiple parameters are given for a step these MUST be separated by a “|”. If derivatization was performed, it MUST be reported here as a general step, e.g. 'silylation' and the actual derivatization agens MUST be specified in the Section 6.2.54 part.   # noqa: E501
 
         :return: The sample_processing of this Metadata.  # noqa: E501
         :rtype: list[SampleProcessing]
@@ -317,6 +328,7 @@ class Metadata(object):
     def sample_processing(self, sample_processing):
         """Sets the sample_processing of this Metadata.
 
+        A list of parameters describing a sample processing, preparation or handling step similar to a biological or analytical methods report. The order of the sample_processing items should reflect the order these processing steps were performed in. If multiple parameters are given for a step these MUST be separated by a “|”. If derivatization was performed, it MUST be reported here as a general step, e.g. 'silylation' and the actual derivatization agens MUST be specified in the Section 6.2.54 part.   # noqa: E501
 
         :param sample_processing: The sample_processing of this Metadata.  # noqa: E501
         :type: list[SampleProcessing]
@@ -328,6 +340,7 @@ class Metadata(object):
     def instrument(self):
         """Gets the instrument of this Metadata.  # noqa: E501
 
+        The name, source, analyzer and detector of the instruments used in the experiment. Multiple instruments are numbered [1-n].  # noqa: E501
 
         :return: The instrument of this Metadata.  # noqa: E501
         :rtype: list[Instrument]
@@ -338,6 +351,7 @@ class Metadata(object):
     def instrument(self, instrument):
         """Sets the instrument of this Metadata.
 
+        The name, source, analyzer and detector of the instruments used in the experiment. Multiple instruments are numbered [1-n].  # noqa: E501
 
         :param instrument: The instrument of this Metadata.  # noqa: E501
         :type: list[Instrument]
@@ -349,6 +363,7 @@ class Metadata(object):
     def software(self):
         """Gets the software of this Metadata.  # noqa: E501
 
+        Software used to analyze the data and obtain the reported results. The parameter’s value SHOULD contain the software’s version. The order (numbering) should reflect the order in which the tools were used. A software setting used. This field MAY occur multiple times for a single software. The value of this field is deliberately set as a String, since there currently do not exist CV terms for every possible setting.  # noqa: E501
 
         :return: The software of this Metadata.  # noqa: E501
         :rtype: list[Software]
@@ -359,6 +374,7 @@ class Metadata(object):
     def software(self, software):
         """Sets the software of this Metadata.
 
+        Software used to analyze the data and obtain the reported results. The parameter’s value SHOULD contain the software’s version. The order (numbering) should reflect the order in which the tools were used. A software setting used. This field MAY occur multiple times for a single software. The value of this field is deliberately set as a String, since there currently do not exist CV terms for every possible setting.  # noqa: E501
 
         :param software: The software of this Metadata.  # noqa: E501
         :type: list[Software]
@@ -372,6 +388,7 @@ class Metadata(object):
     def publication(self):
         """Gets the publication of this Metadata.  # noqa: E501
 
+        A publication associated with this file. Several publications can be given by indicating the number in the square brackets after “publication”. PubMed ids must be prefixed by “pubmed:”, DOIs by “doi:”. Multiple identifiers MUST be separated by “|”.  # noqa: E501
 
         :return: The publication of this Metadata.  # noqa: E501
         :rtype: list[Publication]
@@ -382,6 +399,7 @@ class Metadata(object):
     def publication(self, publication):
         """Sets the publication of this Metadata.
 
+        A publication associated with this file. Several publications can be given by indicating the number in the square brackets after “publication”. PubMed ids must be prefixed by “pubmed:”, DOIs by “doi:”. Multiple identifiers MUST be separated by “|”.  # noqa: E501
 
         :param publication: The publication of this Metadata.  # noqa: E501
         :type: list[Publication]
@@ -393,6 +411,7 @@ class Metadata(object):
     def contact(self):
         """Gets the contact of this Metadata.  # noqa: E501
 
+        The contact’s name, affiliation and e-mail. Several contacts can be given by indicating the number in the square brackets after \"contact\". A contact has to be supplied in the format [first name] [initials] [last name].  # noqa: E501
 
         :return: The contact of this Metadata.  # noqa: E501
         :rtype: list[Contact]
@@ -403,6 +422,7 @@ class Metadata(object):
     def contact(self, contact):
         """Sets the contact of this Metadata.
 
+        The contact’s name, affiliation and e-mail. Several contacts can be given by indicating the number in the square brackets after \"contact\". A contact has to be supplied in the format [first name] [initials] [last name].  # noqa: E501
 
         :param contact: The contact of this Metadata.  # noqa: E501
         :type: list[Contact]
@@ -414,6 +434,7 @@ class Metadata(object):
     def uri(self):
         """Gets the uri of this Metadata.  # noqa: E501
 
+        A URI pointing to the file’s source data (e.g., a MetaboLights records).  # noqa: E501
 
         :return: The uri of this Metadata.  # noqa: E501
         :rtype: list[Uri]
@@ -424,6 +445,7 @@ class Metadata(object):
     def uri(self, uri):
         """Sets the uri of this Metadata.
 
+        A URI pointing to the file’s source data (e.g., a MetaboLights records).  # noqa: E501
 
         :param uri: The uri of this Metadata.  # noqa: E501
         :type: list[Uri]
@@ -435,6 +457,7 @@ class Metadata(object):
     def external_study_uri(self):
         """Gets the external_study_uri of this Metadata.  # noqa: E501
 
+        A URI pointing to an external file with more details about the study design (e.g., an ISA-TAB file).  # noqa: E501
 
         :return: The external_study_uri of this Metadata.  # noqa: E501
         :rtype: list[Uri]
@@ -445,6 +468,7 @@ class Metadata(object):
     def external_study_uri(self, external_study_uri):
         """Sets the external_study_uri of this Metadata.
 
+        A URI pointing to an external file with more details about the study design (e.g., an ISA-TAB file).  # noqa: E501
 
         :param external_study_uri: The external_study_uri of this Metadata.  # noqa: E501
         :type: list[Uri]
@@ -456,6 +480,7 @@ class Metadata(object):
     def quantification_method(self):
         """Gets the quantification_method of this Metadata.  # noqa: E501
 
+        The quantification method used in the experiment reported in the file.  # noqa: E501
 
         :return: The quantification_method of this Metadata.  # noqa: E501
         :rtype: Parameter
@@ -466,6 +491,7 @@ class Metadata(object):
     def quantification_method(self, quantification_method):
         """Sets the quantification_method of this Metadata.
 
+        The quantification method used in the experiment reported in the file.  # noqa: E501
 
         :param quantification_method: The quantification_method of this Metadata.  # noqa: E501
         :type: Parameter
@@ -479,6 +505,7 @@ class Metadata(object):
     def study_variable(self):
         """Gets the study_variable of this Metadata.  # noqa: E501
 
+        Specification of study_variable. (empty) name: A name for each study variable (experimental condition or factor), to serve as a list of the study variables that MUST be reported in the following tables. For software that does not capture study variables, a single study variable MUST be reported, linking to all assays. This single study variable MUST have the identifier “undefined“. assay_refs: Bar-separated references to the IDs of assays grouped in the study variable. average_function: The function used to calculate the study variable quantification value and the operation used is not arithmetic mean (default) e.g. “geometric mean”, “median”. The 1-n refers to different study variables. variation_function: The function used to calculate the study variable quantification variation value if it is reported and the operation used is not coefficient of variation (default) e.g. “standard error”. description: A textual description of the study variable. factors: Additional parameters or factors, separated by bars, that are known about study variables allowing the capture of more complex, such as nested designs.   # noqa: E501
 
         :return: The study_variable of this Metadata.  # noqa: E501
         :rtype: list[StudyVariable]
@@ -489,6 +516,7 @@ class Metadata(object):
     def study_variable(self, study_variable):
         """Sets the study_variable of this Metadata.
 
+        Specification of study_variable. (empty) name: A name for each study variable (experimental condition or factor), to serve as a list of the study variables that MUST be reported in the following tables. For software that does not capture study variables, a single study variable MUST be reported, linking to all assays. This single study variable MUST have the identifier “undefined“. assay_refs: Bar-separated references to the IDs of assays grouped in the study variable. average_function: The function used to calculate the study variable quantification value and the operation used is not arithmetic mean (default) e.g. “geometric mean”, “median”. The 1-n refers to different study variables. variation_function: The function used to calculate the study variable quantification variation value if it is reported and the operation used is not coefficient of variation (default) e.g. “standard error”. description: A textual description of the study variable. factors: Additional parameters or factors, separated by bars, that are known about study variables allowing the capture of more complex, such as nested designs.   # noqa: E501
 
         :param study_variable: The study_variable of this Metadata.  # noqa: E501
         :type: list[StudyVariable]
@@ -499,32 +527,10 @@ class Metadata(object):
         self._study_variable = study_variable
 
     @property
-    def assay(self):
-        """Gets the assay of this Metadata.  # noqa: E501
-
-
-        :return: The assay of this Metadata.  # noqa: E501
-        :rtype: list[Assay]
-        """
-        return self._assay
-
-    @assay.setter
-    def assay(self, assay):
-        """Sets the assay of this Metadata.
-
-
-        :param assay: The assay of this Metadata.  # noqa: E501
-        :type: list[Assay]
-        """
-        if assay is None:
-            raise ValueError("Invalid value for `assay`, must not be `None`")  # noqa: E501
-
-        self._assay = assay
-
-    @property
     def ms_run(self):
         """Gets the ms_run of this Metadata.  # noqa: E501
 
+        Specification of ms_run.  location: Location of the external data file e.g. raw files on which analysis has been performed. If the actual location of the MS run is unknown, a “null” MUST be used as a place holder value, since the [1-n] cardinality is referenced elsewhere. If pre-fractionation has been performed, then [1-n] ms_runs SHOULD be created per assay.  instrument_ref: If different instruments are used in different runs, instrument_ref can be used to link a specific instrument to a specific run.  format: Parameter specifying the data format of the external MS data file. If ms_run[1-n]-format is present, ms_run[1-n]-id_format SHOULD also be present, following the parameters specified in Table 1.  id_format: Parameter specifying the id format used in the external data file. If ms_run[1-n]-id_format is present, ms_run[1-n]-format SHOULD also be present. fragmentation_method: The type(s) of fragmentation used in a given ms run. scan_polarity: The polarity mode of a given run. Usually only one value SHOULD be given here except for the case of mixed polarity runs. hash: Hash value of the corresponding external MS data file defined in ms_run[1-n]-location. If ms_run[1-n]-hash is present, ms_run[1-n]-hash_method SHOULD also be present. hash_method: A parameter specifying the hash methods used to generate the String in ms_run[1-n]-hash. Specifics of the hash method used MAY follow the definitions of the mzML format. If ms_run[1-n]-hash is present, ms_run[1-n]-hash_method SHOULD also be present.   # noqa: E501
 
         :return: The ms_run of this Metadata.  # noqa: E501
         :rtype: list[MsRun]
@@ -535,6 +541,7 @@ class Metadata(object):
     def ms_run(self, ms_run):
         """Sets the ms_run of this Metadata.
 
+        Specification of ms_run.  location: Location of the external data file e.g. raw files on which analysis has been performed. If the actual location of the MS run is unknown, a “null” MUST be used as a place holder value, since the [1-n] cardinality is referenced elsewhere. If pre-fractionation has been performed, then [1-n] ms_runs SHOULD be created per assay.  instrument_ref: If different instruments are used in different runs, instrument_ref can be used to link a specific instrument to a specific run.  format: Parameter specifying the data format of the external MS data file. If ms_run[1-n]-format is present, ms_run[1-n]-id_format SHOULD also be present, following the parameters specified in Table 1.  id_format: Parameter specifying the id format used in the external data file. If ms_run[1-n]-id_format is present, ms_run[1-n]-format SHOULD also be present. fragmentation_method: The type(s) of fragmentation used in a given ms run. scan_polarity: The polarity mode of a given run. Usually only one value SHOULD be given here except for the case of mixed polarity runs. hash: Hash value of the corresponding external MS data file defined in ms_run[1-n]-location. If ms_run[1-n]-hash is present, ms_run[1-n]-hash_method SHOULD also be present. hash_method: A parameter specifying the hash methods used to generate the String in ms_run[1-n]-hash. Specifics of the hash method used MAY follow the definitions of the mzML format. If ms_run[1-n]-hash is present, ms_run[1-n]-hash_method SHOULD also be present.   # noqa: E501
 
         :param ms_run: The ms_run of this Metadata.  # noqa: E501
         :type: list[MsRun]
@@ -545,30 +552,35 @@ class Metadata(object):
         self._ms_run = ms_run
 
     @property
-    def custom(self):
-        """Gets the custom of this Metadata.  # noqa: E501
+    def assay(self):
+        """Gets the assay of this Metadata.  # noqa: E501
 
+        Specification of assay. (empty) name: A name for each assay, to serve as a list of the assays that MUST be reported in the following tables.  custom: Additional custom parameters or values for a given assay.  external_uri: An external reference uri to further information about the assay, for example via a reference to an object within an ISA-TAB file.  sample_ref: An association from a given assay to the sample analysed.  ms_run_ref: An association from a given assay to the source MS run. All assays MUST reference exactly one ms_run unless a workflow with pre-fractionation is being encoded, in which case each assay MUST reference n ms_runs where n fractions have been collected. Multiple assays SHOULD reference the same ms_run to capture multiplexed experimental designs.   # noqa: E501
 
-        :return: The custom of this Metadata.  # noqa: E501
-        :rtype: list[Parameter]
+        :return: The assay of this Metadata.  # noqa: E501
+        :rtype: list[Assay]
         """
-        return self._custom
+        return self._assay
 
-    @custom.setter
-    def custom(self, custom):
-        """Sets the custom of this Metadata.
+    @assay.setter
+    def assay(self, assay):
+        """Sets the assay of this Metadata.
 
+        Specification of assay. (empty) name: A name for each assay, to serve as a list of the assays that MUST be reported in the following tables.  custom: Additional custom parameters or values for a given assay.  external_uri: An external reference uri to further information about the assay, for example via a reference to an object within an ISA-TAB file.  sample_ref: An association from a given assay to the sample analysed.  ms_run_ref: An association from a given assay to the source MS run. All assays MUST reference exactly one ms_run unless a workflow with pre-fractionation is being encoded, in which case each assay MUST reference n ms_runs where n fractions have been collected. Multiple assays SHOULD reference the same ms_run to capture multiplexed experimental designs.   # noqa: E501
 
-        :param custom: The custom of this Metadata.  # noqa: E501
-        :type: list[Parameter]
+        :param assay: The assay of this Metadata.  # noqa: E501
+        :type: list[Assay]
         """
+        if assay is None:
+            raise ValueError("Invalid value for `assay`, must not be `None`")  # noqa: E501
 
-        self._custom = custom
+        self._assay = assay
 
     @property
     def sample(self):
         """Gets the sample of this Metadata.  # noqa: E501
 
+        Specification of sample. (empty) name: A name for each sample to serve as a list of the samples that MUST be reported in the following tables. Samples MUST be reported if a statistical design is being captured (i.e. bio or tech replicates). If the type of replicates are not known, samples SHOULD NOT be reported.  species: The respective species of the samples analysed. For more complex cases, such as metagenomics, optional columns and userParams should be used.  tissue: The respective tissue(s) of the sample.  cell_type: The respective cell type(s) of the sample.  disease: The respective disease(s) of the sample.  description: A human readable description of the sample.  custom: Custom parameters describing the sample’s additional properties. Dates MUST be provided in ISO-8601 format.   # noqa: E501
 
         :return: The sample of this Metadata.  # noqa: E501
         :rtype: list[Sample]
@@ -579,6 +591,7 @@ class Metadata(object):
     def sample(self, sample):
         """Sets the sample of this Metadata.
 
+        Specification of sample. (empty) name: A name for each sample to serve as a list of the samples that MUST be reported in the following tables. Samples MUST be reported if a statistical design is being captured (i.e. bio or tech replicates). If the type of replicates are not known, samples SHOULD NOT be reported.  species: The respective species of the samples analysed. For more complex cases, such as metagenomics, optional columns and userParams should be used.  tissue: The respective tissue(s) of the sample.  cell_type: The respective cell type(s) of the sample.  disease: The respective disease(s) of the sample.  description: A human readable description of the sample.  custom: Custom parameters describing the sample’s additional properties. Dates MUST be provided in ISO-8601 format.   # noqa: E501
 
         :param sample: The sample of this Metadata.  # noqa: E501
         :type: list[Sample]
@@ -587,9 +600,33 @@ class Metadata(object):
         self._sample = sample
 
     @property
+    def custom(self):
+        """Gets the custom of this Metadata.  # noqa: E501
+
+        Any additional parameters describing the analysis reported.  # noqa: E501
+
+        :return: The custom of this Metadata.  # noqa: E501
+        :rtype: list[Parameter]
+        """
+        return self._custom
+
+    @custom.setter
+    def custom(self, custom):
+        """Sets the custom of this Metadata.
+
+        Any additional parameters describing the analysis reported.  # noqa: E501
+
+        :param custom: The custom of this Metadata.  # noqa: E501
+        :type: list[Parameter]
+        """
+
+        self._custom = custom
+
+    @property
     def cv(self):
         """Gets the cv of this Metadata.  # noqa: E501
 
+        Specification of controlled vocabularies. label: A string describing the labels of the controlled vocabularies/ontologies used in the mzTab file as a short-hand e.g. \"MS\" for PSI-MS. full_name: A string describing the full names of the controlled vocabularies/ontologies used in the mzTab file. version: A string describing the version of the controlled vocabularies/ontologies used in the mzTab file. uri: A string containing the URIs of the controlled vocabularies/ontologies used in the mzTab file.   # noqa: E501
 
         :return: The cv of this Metadata.  # noqa: E501
         :rtype: list[CV]
@@ -600,6 +637,7 @@ class Metadata(object):
     def cv(self, cv):
         """Sets the cv of this Metadata.
 
+        Specification of controlled vocabularies. label: A string describing the labels of the controlled vocabularies/ontologies used in the mzTab file as a short-hand e.g. \"MS\" for PSI-MS. full_name: A string describing the full names of the controlled vocabularies/ontologies used in the mzTab file. version: A string describing the version of the controlled vocabularies/ontologies used in the mzTab file. uri: A string containing the URIs of the controlled vocabularies/ontologies used in the mzTab file.   # noqa: E501
 
         :param cv: The cv of this Metadata.  # noqa: E501
         :type: list[CV]
@@ -613,6 +651,7 @@ class Metadata(object):
     def database(self):
         """Gets the database of this Metadata.  # noqa: E501
 
+        Specification of databases. (empty): The description of databases used. For cases, where a known database has not been used for identification, a userParam SHOULD be inserted to describe any identification performed e.g. de novo. If no identification has been performed at all then \"no database\" should be inserted followed by null. prefix: The prefix used in the “identifier” column of data tables. For the “no database” case \"null\" must be used. version: The database version is mandatory where identification has been performed. This may be a formal version number e.g. “1.4.1”, a date of access “2016-10-27” (ISO-8601 format) or “Unknown” if there is no suitable version that can be annotated. uri: The URI to the database. For the “no database” case, \"null\" must be reported.   # noqa: E501
 
         :return: The database of this Metadata.  # noqa: E501
         :rtype: list[Database]
@@ -623,6 +662,7 @@ class Metadata(object):
     def database(self, database):
         """Sets the database of this Metadata.
 
+        Specification of databases. (empty): The description of databases used. For cases, where a known database has not been used for identification, a userParam SHOULD be inserted to describe any identification performed e.g. de novo. If no identification has been performed at all then \"no database\" should be inserted followed by null. prefix: The prefix used in the “identifier” column of data tables. For the “no database” case \"null\" must be used. version: The database version is mandatory where identification has been performed. This may be a formal version number e.g. “1.4.1”, a date of access “2016-10-27” (ISO-8601 format) or “Unknown” if there is no suitable version that can be annotated. uri: The URI to the database. For the “no database” case, \"null\" must be reported.   # noqa: E501
 
         :param database: The database of this Metadata.  # noqa: E501
         :type: list[Database]
@@ -636,6 +676,7 @@ class Metadata(object):
     def derivatization_agent(self):
         """Gets the derivatization_agent of this Metadata.  # noqa: E501
 
+        A description of derivatization agents applied to small molecules, using userParams or CV terms where possible.  # noqa: E501
 
         :return: The derivatization_agent of this Metadata.  # noqa: E501
         :rtype: list[Parameter]
@@ -646,6 +687,7 @@ class Metadata(object):
     def derivatization_agent(self, derivatization_agent):
         """Sets the derivatization_agent of this Metadata.
 
+        A description of derivatization agents applied to small molecules, using userParams or CV terms where possible.  # noqa: E501
 
         :param derivatization_agent: The derivatization_agent of this Metadata.  # noqa: E501
         :type: list[Parameter]
@@ -657,6 +699,7 @@ class Metadata(object):
     def small_molecule_quantification_unit(self):
         """Gets the small_molecule_quantification_unit of this Metadata.  # noqa: E501
 
+        Defines what type of units are reported in the small molecule summary quantification / abundance fields.  # noqa: E501
 
         :return: The small_molecule_quantification_unit of this Metadata.  # noqa: E501
         :rtype: Parameter
@@ -667,6 +710,7 @@ class Metadata(object):
     def small_molecule_quantification_unit(self, small_molecule_quantification_unit):
         """Sets the small_molecule_quantification_unit of this Metadata.
 
+        Defines what type of units are reported in the small molecule summary quantification / abundance fields.  # noqa: E501
 
         :param small_molecule_quantification_unit: The small_molecule_quantification_unit of this Metadata.  # noqa: E501
         :type: Parameter
@@ -680,6 +724,7 @@ class Metadata(object):
     def small_molecule_feature_quantification_unit(self):
         """Gets the small_molecule_feature_quantification_unit of this Metadata.  # noqa: E501
 
+        Defines what type of units are reported in the small molecule feature quantification / abundance fields.  # noqa: E501
 
         :return: The small_molecule_feature_quantification_unit of this Metadata.  # noqa: E501
         :rtype: Parameter
@@ -690,6 +735,7 @@ class Metadata(object):
     def small_molecule_feature_quantification_unit(self, small_molecule_feature_quantification_unit):
         """Sets the small_molecule_feature_quantification_unit of this Metadata.
 
+        Defines what type of units are reported in the small molecule feature quantification / abundance fields.  # noqa: E501
 
         :param small_molecule_feature_quantification_unit: The small_molecule_feature_quantification_unit of this Metadata.  # noqa: E501
         :type: Parameter
@@ -703,6 +749,7 @@ class Metadata(object):
     def small_molecule_identification_reliability(self):
         """Gets the small_molecule_identification_reliability of this Metadata.  # noqa: E501
 
+        The system used for giving reliability / confidence codes to small molecule identifications MUST be specified if not using the default codes.  # noqa: E501
 
         :return: The small_molecule_identification_reliability of this Metadata.  # noqa: E501
         :rtype: Parameter
@@ -713,6 +760,7 @@ class Metadata(object):
     def small_molecule_identification_reliability(self, small_molecule_identification_reliability):
         """Sets the small_molecule_identification_reliability of this Metadata.
 
+        The system used for giving reliability / confidence codes to small molecule identifications MUST be specified if not using the default codes.  # noqa: E501
 
         :param small_molecule_identification_reliability: The small_molecule_identification_reliability of this Metadata.  # noqa: E501
         :type: Parameter
@@ -724,6 +772,7 @@ class Metadata(object):
     def id_confidence_measure(self):
         """Gets the id_confidence_measure of this Metadata.  # noqa: E501
 
+        The type of small molecule confidence measures or scores MUST be reported as a CV parameter [1-n]. The CV parameter definition should formally state whether the ordering is high to low or vice versa. The order of the scores SHOULD reflect their importance for the identification and be used to determine the identification’s rank.  # noqa: E501
 
         :return: The id_confidence_measure of this Metadata.  # noqa: E501
         :rtype: list[Parameter]
@@ -734,6 +783,7 @@ class Metadata(object):
     def id_confidence_measure(self, id_confidence_measure):
         """Sets the id_confidence_measure of this Metadata.
 
+        The type of small molecule confidence measures or scores MUST be reported as a CV parameter [1-n]. The CV parameter definition should formally state whether the ordering is high to low or vice versa. The order of the scores SHOULD reflect their importance for the identification and be used to determine the identification’s rank.  # noqa: E501
 
         :param id_confidence_measure: The id_confidence_measure of this Metadata.  # noqa: E501
         :type: list[Parameter]
@@ -747,6 +797,7 @@ class Metadata(object):
     def colunit_small_molecule(self):
         """Gets the colunit_small_molecule of this Metadata.  # noqa: E501
 
+        Defines the used unit for a column in the small molecule section. The format of the value has to be \\{column name}=\\{Parameter defining the unit}. This field MUST NOT be used to define a unit for quantification columns. The unit used for small molecule quantification values MUST be set in small_molecule-quantification_unit.  # noqa: E501
 
         :return: The colunit_small_molecule of this Metadata.  # noqa: E501
         :rtype: list[ColumnParameterMapping]
@@ -757,6 +808,7 @@ class Metadata(object):
     def colunit_small_molecule(self, colunit_small_molecule):
         """Sets the colunit_small_molecule of this Metadata.
 
+        Defines the used unit for a column in the small molecule section. The format of the value has to be \\{column name}=\\{Parameter defining the unit}. This field MUST NOT be used to define a unit for quantification columns. The unit used for small molecule quantification values MUST be set in small_molecule-quantification_unit.  # noqa: E501
 
         :param colunit_small_molecule: The colunit_small_molecule of this Metadata.  # noqa: E501
         :type: list[ColumnParameterMapping]
@@ -768,6 +820,7 @@ class Metadata(object):
     def colunit_small_molecule_feature(self):
         """Gets the colunit_small_molecule_feature of this Metadata.  # noqa: E501
 
+        Defines the used unit for a column in the small molecule feature section. The format of the value has to be \\{column name}=\\{Parameter defining the unit}. This field MUST NOT be used to define a unit for quantification columns. The unit used for small molecule quantification values MUST be set in small_molecule_feature-quantification_unit.  # noqa: E501
 
         :return: The colunit_small_molecule_feature of this Metadata.  # noqa: E501
         :rtype: list[ColumnParameterMapping]
@@ -778,6 +831,7 @@ class Metadata(object):
     def colunit_small_molecule_feature(self, colunit_small_molecule_feature):
         """Sets the colunit_small_molecule_feature of this Metadata.
 
+        Defines the used unit for a column in the small molecule feature section. The format of the value has to be \\{column name}=\\{Parameter defining the unit}. This field MUST NOT be used to define a unit for quantification columns. The unit used for small molecule quantification values MUST be set in small_molecule_feature-quantification_unit.  # noqa: E501
 
         :param colunit_small_molecule_feature: The colunit_small_molecule_feature of this Metadata.  # noqa: E501
         :type: list[ColumnParameterMapping]
@@ -789,6 +843,7 @@ class Metadata(object):
     def colunit_small_molecule_evidence(self):
         """Gets the colunit_small_molecule_evidence of this Metadata.  # noqa: E501
 
+        Defines the used unit for a column in the small molecule evidence section. The format of the value has to be \\{column name}=\\{Parameter defining the unit}.  # noqa: E501
 
         :return: The colunit_small_molecule_evidence of this Metadata.  # noqa: E501
         :rtype: list[ColumnParameterMapping]
@@ -799,6 +854,7 @@ class Metadata(object):
     def colunit_small_molecule_evidence(self, colunit_small_molecule_evidence):
         """Sets the colunit_small_molecule_evidence of this Metadata.
 
+        Defines the used unit for a column in the small molecule evidence section. The format of the value has to be \\{column name}=\\{Parameter defining the unit}.  # noqa: E501
 
         :param colunit_small_molecule_evidence: The colunit_small_molecule_evidence of this Metadata.  # noqa: E501
         :type: list[ColumnParameterMapping]
@@ -827,6 +883,9 @@ class Metadata(object):
                 ))
             else:
                 result[attr] = value
+        if issubclass(Metadata, dict):
+            for key, value in self.items():
+                result[key] = value
 
         return result
 
@@ -848,63 +907,3 @@ class Metadata(object):
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
         return not self == other
-    
-    def as_line(self, attr):
-        if getattr(self, attr) is None:
-            return []
-        elif isinstance(getattr(self, attr), str):
-            return ['{}\t{}'.format(self.attribute_map[attr], getattr(self, attr))]
-        elif isinstance(getattr(self, attr), (Parameter,)):
-            return ['{}\t{}'.format(self.attribute_map[attr], getattr(self, attr).as_line())]
-        elif isinstance(getattr(self, attr),list):
-            lines = []
-            is_list_of_parameters = isinstance(getattr(self, attr)[0],Parameter)
-            is_ColumnParameterMapping = isinstance(getattr(self, attr)[0],ColumnParameterMapping)
-            for idx, e in enumerate(getattr(self, attr),1):
-                if is_list_of_parameters:
-                    l = [e.as_line() for e in getattr(self, attr)]
-                    line = '\t' + '|'.join(l)
-                    lines =['{}[{}]{}'.format(self.attribute_map[attr], idx, line)]
-                elif is_ColumnParameterMapping:
-                    l = [e.as_line() for e in getattr(self, attr)]
-                    line = '|'.join(l)
-                    lines =  ['{}\t{}'.format(self.attribute_map[attr], line)]
-                else:
-                    for line in e.to_lines():
-                        lines += ['{}[{}]{}'.format(self.attribute_map[attr], idx, line)]
-            return lines
-    
-    def to_lines(self):
-        lines = []
-        
-#         'prefix': 'str' done at the end
-        lines += self.as_line('mz_tab_version')
-        lines += self.as_line('mz_tab_id')
-        lines += self.as_line('title')
-        lines += self.as_line('description')
-        lines += self.as_line('sample_processing')
-        lines += self.as_line('instrument')
-        lines += self.as_line('software')
-        lines += self.as_line('publication')
-        lines += self.as_line('contact')
-        lines += self.as_line('external_study_uri')
-        lines += self.as_line('quantification_method')
-        lines += self.as_line('study_variable')
-        lines += self.as_line('assay')
-        lines += self.as_line('ms_run')
-        lines += self.as_line('custom')
-        lines += self.as_line('sample')
-        lines += self.as_line('cv')
-        lines += self.as_line('database')        
-        lines += self.as_line('derivatization_agent')
-        lines += self.as_line('small_molecule_quantification_unit')
-        lines += self.as_line('small_molecule_feature_quantification_unit')
-        lines += self.as_line('small_molecule_identification_reliability')
-        lines += self.as_line('id_confidence_measure')       
-        lines += self.as_line('colunit_small_molecule')       
-        lines += self.as_line('colunit_small_molecule_feature')       
-        lines += self.as_line('colunit_small_molecule_evidence')       
-               
-        return ['{}\t{}'.format(self.prefix, l) for l in lines]
-    
-

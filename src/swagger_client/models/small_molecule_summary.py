@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -149,6 +149,7 @@ class SmallMoleculeSummary(object):
     def prefix(self):
         """Gets the prefix of this SmallMoleculeSummary.  # noqa: E501
 
+        The small molecule table row prefix. SML MUST be used for rows of the small molecule table.  # noqa: E501
 
         :return: The prefix of this SmallMoleculeSummary.  # noqa: E501
         :rtype: str
@@ -159,6 +160,7 @@ class SmallMoleculeSummary(object):
     def prefix(self, prefix):
         """Sets the prefix of this SmallMoleculeSummary.
 
+        The small molecule table row prefix. SML MUST be used for rows of the small molecule table.  # noqa: E501
 
         :param prefix: The prefix of this SmallMoleculeSummary.  # noqa: E501
         :type: str
@@ -176,6 +178,7 @@ class SmallMoleculeSummary(object):
     def header_prefix(self):
         """Gets the header_prefix of this SmallMoleculeSummary.  # noqa: E501
 
+        The small molecule table header prefix. SMH MUST be used for the small molecule table header line (the column labels).  # noqa: E501
 
         :return: The header_prefix of this SmallMoleculeSummary.  # noqa: E501
         :rtype: str
@@ -186,6 +189,7 @@ class SmallMoleculeSummary(object):
     def header_prefix(self, header_prefix):
         """Sets the header_prefix of this SmallMoleculeSummary.
 
+        The small molecule table header prefix. SMH MUST be used for the small molecule table header line (the column labels).  # noqa: E501
 
         :param header_prefix: The header_prefix of this SmallMoleculeSummary.  # noqa: E501
         :type: str
@@ -203,6 +207,7 @@ class SmallMoleculeSummary(object):
     def sml_id(self):
         """Gets the sml_id of this SmallMoleculeSummary.  # noqa: E501
 
+        A within file unique identifier for the small molecule.  # noqa: E501
 
         :return: The sml_id of this SmallMoleculeSummary.  # noqa: E501
         :rtype: int
@@ -213,6 +218,7 @@ class SmallMoleculeSummary(object):
     def sml_id(self, sml_id):
         """Sets the sml_id of this SmallMoleculeSummary.
 
+        A within file unique identifier for the small molecule.  # noqa: E501
 
         :param sml_id: The sml_id of this SmallMoleculeSummary.  # noqa: E501
         :type: int
@@ -226,6 +232,7 @@ class SmallMoleculeSummary(object):
     def smf_id_refs(self):
         """Gets the smf_id_refs of this SmallMoleculeSummary.  # noqa: E501
 
+        References to all the features on which quantitation has been based (SMF elements) via referencing SMF_ID values. Multiple values SHOULD be provided as a “|” separated list. This MAY be null only if this is a Summary file.  # noqa: E501
 
         :return: The smf_id_refs of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[int]
@@ -236,6 +243,7 @@ class SmallMoleculeSummary(object):
     def smf_id_refs(self, smf_id_refs):
         """Sets the smf_id_refs of this SmallMoleculeSummary.
 
+        References to all the features on which quantitation has been based (SMF elements) via referencing SMF_ID values. Multiple values SHOULD be provided as a “|” separated list. This MAY be null only if this is a Summary file.  # noqa: E501
 
         :param smf_id_refs: The smf_id_refs of this SmallMoleculeSummary.  # noqa: E501
         :type: list[int]
@@ -247,6 +255,7 @@ class SmallMoleculeSummary(object):
     def database_identifier(self):
         """Gets the database_identifier of this SmallMoleculeSummary.  # noqa: E501
 
+        A list of “|” separated possible identifiers for the small molecule; multiple values MUST only be provided to indicate ambiguity in the identification of the molecule and not to demonstrate different identifier types for the same molecule. Alternative identifiers for the same molecule MAY be provided as optional columns.  The database identifier must be preceded by the resource description (prefix) followed by a colon, as specified in the metadata section.      A null value MAY be provided if the identification is sufficiently ambiguous as to be meaningless for reporting or the small molecule has not been identified.   # noqa: E501
 
         :return: The database_identifier of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[str]
@@ -257,6 +266,7 @@ class SmallMoleculeSummary(object):
     def database_identifier(self, database_identifier):
         """Sets the database_identifier of this SmallMoleculeSummary.
 
+        A list of “|” separated possible identifiers for the small molecule; multiple values MUST only be provided to indicate ambiguity in the identification of the molecule and not to demonstrate different identifier types for the same molecule. Alternative identifiers for the same molecule MAY be provided as optional columns.  The database identifier must be preceded by the resource description (prefix) followed by a colon, as specified in the metadata section.      A null value MAY be provided if the identification is sufficiently ambiguous as to be meaningless for reporting or the small molecule has not been identified.   # noqa: E501
 
         :param database_identifier: The database_identifier of this SmallMoleculeSummary.  # noqa: E501
         :type: list[str]
@@ -268,6 +278,7 @@ class SmallMoleculeSummary(object):
     def chemical_formula(self):
         """Gets the chemical_formula of this SmallMoleculeSummary.  # noqa: E501
 
+        A list of “|” separated potential chemical formulae of the reported compound. The number of values provided MUST match the number of entities reported under “database_identifier”, even if this leads to redundant reporting of information (i.e. if ambiguity can be resolved in the chemical formula), and the validation software will throw an error if the number of “|” symbols does not match. “null” values between bars are allowed.  This should be specified in Hill notation (EA Hill 1900), i.e. elements in the order C, H and then alphabetically all other elements. Counts of one may be omitted. Elements should be capitalized properly to avoid confusion (e.g., “CO” vs. “Co”). The chemical formula reported should refer to the neutral form.  Example: N-acetylglucosamine would be encoded by the string “C8H15NO6”.   # noqa: E501
 
         :return: The chemical_formula of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[str]
@@ -278,6 +289,7 @@ class SmallMoleculeSummary(object):
     def chemical_formula(self, chemical_formula):
         """Sets the chemical_formula of this SmallMoleculeSummary.
 
+        A list of “|” separated potential chemical formulae of the reported compound. The number of values provided MUST match the number of entities reported under “database_identifier”, even if this leads to redundant reporting of information (i.e. if ambiguity can be resolved in the chemical formula), and the validation software will throw an error if the number of “|” symbols does not match. “null” values between bars are allowed.  This should be specified in Hill notation (EA Hill 1900), i.e. elements in the order C, H and then alphabetically all other elements. Counts of one may be omitted. Elements should be capitalized properly to avoid confusion (e.g., “CO” vs. “Co”). The chemical formula reported should refer to the neutral form.  Example: N-acetylglucosamine would be encoded by the string “C8H15NO6”.   # noqa: E501
 
         :param chemical_formula: The chemical_formula of this SmallMoleculeSummary.  # noqa: E501
         :type: list[str]
@@ -289,6 +301,7 @@ class SmallMoleculeSummary(object):
     def smiles(self):
         """Gets the smiles of this SmallMoleculeSummary.  # noqa: E501
 
+        A list of “|” separated potential molecule structures in the simplified molecular-input line-entry system (SMILES) for the small molecule. The number of values provided MUST match the number of entities reported under “database_identifier”, and the validation software will throw an error if the number of “|” symbols does not match. “null” values between bars are allowed.  # noqa: E501
 
         :return: The smiles of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[str]
@@ -299,6 +312,7 @@ class SmallMoleculeSummary(object):
     def smiles(self, smiles):
         """Sets the smiles of this SmallMoleculeSummary.
 
+        A list of “|” separated potential molecule structures in the simplified molecular-input line-entry system (SMILES) for the small molecule. The number of values provided MUST match the number of entities reported under “database_identifier”, and the validation software will throw an error if the number of “|” symbols does not match. “null” values between bars are allowed.  # noqa: E501
 
         :param smiles: The smiles of this SmallMoleculeSummary.  # noqa: E501
         :type: list[str]
@@ -310,6 +324,7 @@ class SmallMoleculeSummary(object):
     def inchi(self):
         """Gets the inchi of this SmallMoleculeSummary.  # noqa: E501
 
+        A list of “|” separated potential standard IUPAC International Chemical Identifier (InChI) of the given substance.  The number of values provided MUST match the number of entities reported under “database_identifier”, even if this leads to redundant information being reported (i.e. if ambiguity can be resolved in the InChi), and the validation software will throw an error if the number of “|” symbols does not match. “null” values between bars are allowed.   # noqa: E501
 
         :return: The inchi of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[str]
@@ -320,6 +335,7 @@ class SmallMoleculeSummary(object):
     def inchi(self, inchi):
         """Sets the inchi of this SmallMoleculeSummary.
 
+        A list of “|” separated potential standard IUPAC International Chemical Identifier (InChI) of the given substance.  The number of values provided MUST match the number of entities reported under “database_identifier”, even if this leads to redundant information being reported (i.e. if ambiguity can be resolved in the InChi), and the validation software will throw an error if the number of “|” symbols does not match. “null” values between bars are allowed.   # noqa: E501
 
         :param inchi: The inchi of this SmallMoleculeSummary.  # noqa: E501
         :type: list[str]
@@ -331,6 +347,7 @@ class SmallMoleculeSummary(object):
     def chemical_name(self):
         """Gets the chemical_name of this SmallMoleculeSummary.  # noqa: E501
 
+        A list of “|” separated possible chemical/common names for the small molecule, or general description if a chemical name is unavailable. Multiple names are only to demonstrate ambiguity in the identification. The number of values provided MUST match the number of entities reported under “database_identifier”, and the validation software will throw an error if the number of “|” symbols does not match. “null” values between bars are allowed.   # noqa: E501
 
         :return: The chemical_name of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[str]
@@ -341,6 +358,7 @@ class SmallMoleculeSummary(object):
     def chemical_name(self, chemical_name):
         """Sets the chemical_name of this SmallMoleculeSummary.
 
+        A list of “|” separated possible chemical/common names for the small molecule, or general description if a chemical name is unavailable. Multiple names are only to demonstrate ambiguity in the identification. The number of values provided MUST match the number of entities reported under “database_identifier”, and the validation software will throw an error if the number of “|” symbols does not match. “null” values between bars are allowed.   # noqa: E501
 
         :param chemical_name: The chemical_name of this SmallMoleculeSummary.  # noqa: E501
         :type: list[str]
@@ -352,6 +370,7 @@ class SmallMoleculeSummary(object):
     def uri(self):
         """Gets the uri of this SmallMoleculeSummary.  # noqa: E501
 
+        A URI pointing to the small molecule’s entry in a reference database (e.g., the small molecule’s HMDB or KEGG entry). The number of values provided MUST match the number of entities reported under “database_identifier”, and the validation software will throw an error if the number of “|” symbols does not match. “null” values between bars are allowed.  # noqa: E501
 
         :return: The uri of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[str]
@@ -362,6 +381,7 @@ class SmallMoleculeSummary(object):
     def uri(self, uri):
         """Sets the uri of this SmallMoleculeSummary.
 
+        A URI pointing to the small molecule’s entry in a reference database (e.g., the small molecule’s HMDB or KEGG entry). The number of values provided MUST match the number of entities reported under “database_identifier”, and the validation software will throw an error if the number of “|” symbols does not match. “null” values between bars are allowed.  # noqa: E501
 
         :param uri: The uri of this SmallMoleculeSummary.  # noqa: E501
         :type: list[str]
@@ -373,6 +393,7 @@ class SmallMoleculeSummary(object):
     def theoretical_neutral_mass(self):
         """Gets the theoretical_neutral_mass of this SmallMoleculeSummary.  # noqa: E501
 
+        The small molecule’s precursor’s theoretical neutral mass.  The number of values provided MUST match the number of entities reported under “database_identifier”, and the validation software will throw an error if the number of “|” symbols does not match. “null” values (in general and between bars) are allowed for molecules that have not been identified only, or for molecules where the neutral mass cannot be calculated. In these cases, the SML entry SHOULD reference features in which exp_mass_to_charge values are captured.   # noqa: E501
 
         :return: The theoretical_neutral_mass of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[float]
@@ -383,6 +404,7 @@ class SmallMoleculeSummary(object):
     def theoretical_neutral_mass(self, theoretical_neutral_mass):
         """Sets the theoretical_neutral_mass of this SmallMoleculeSummary.
 
+        The small molecule’s precursor’s theoretical neutral mass.  The number of values provided MUST match the number of entities reported under “database_identifier”, and the validation software will throw an error if the number of “|” symbols does not match. “null” values (in general and between bars) are allowed for molecules that have not been identified only, or for molecules where the neutral mass cannot be calculated. In these cases, the SML entry SHOULD reference features in which exp_mass_to_charge values are captured.   # noqa: E501
 
         :param theoretical_neutral_mass: The theoretical_neutral_mass of this SmallMoleculeSummary.  # noqa: E501
         :type: list[float]
@@ -394,6 +416,7 @@ class SmallMoleculeSummary(object):
     def adduct_ions(self):
         """Gets the adduct_ions of this SmallMoleculeSummary.  # noqa: E501
 
+        A “|” separated list of detected adducts for this this molecule, following the general style in the 2013 IUPAC recommendations on terms relating to MS e.g. [M+H]1+, [M+Na]1+, [M+NH4]1+, [M-H]1-, [M+Cl]1-, [M+H]1+. If the adduct classification is ambiguous with regards to identification evidence it MAY be null.   # noqa: E501
 
         :return: The adduct_ions of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[str]
@@ -404,6 +427,7 @@ class SmallMoleculeSummary(object):
     def adduct_ions(self, adduct_ions):
         """Sets the adduct_ions of this SmallMoleculeSummary.
 
+        A “|” separated list of detected adducts for this this molecule, following the general style in the 2013 IUPAC recommendations on terms relating to MS e.g. [M+H]1+, [M+Na]1+, [M+NH4]1+, [M-H]1-, [M+Cl]1-, [M+H]1+. If the adduct classification is ambiguous with regards to identification evidence it MAY be null.   # noqa: E501
 
         :param adduct_ions: The adduct_ions of this SmallMoleculeSummary.  # noqa: E501
         :type: list[str]
@@ -415,6 +439,7 @@ class SmallMoleculeSummary(object):
     def reliability(self):
         """Gets the reliability of this SmallMoleculeSummary.  # noqa: E501
 
+        The reliability of the given small molecule identification. This must be supplied by the resource and MUST be reported as an integer between 1-4:      identified metabolite (1)      putatively annotated compound (2)      putatively characterized compound class (3)      unknown compound (4)  These MAY be replaced using a suitable CV term in the metadata section e.g. to use MSI recommendation levels (see Section 6.2.57 for details).  The following CV terms are already available within the PSI MS CV. Future schemes may be implemented by extending the PSI MS CV with new terms and associated levels.  The MSI has recently discussed an extension of the original four level scheme into a five level scheme MS:1002896 (compound identification confidence level) with levels      isolated, pure compound, full stereochemistry (0)      reference standard match or full 2D structure (1)      unambiguous diagnostic evidence (literature, database) (2)      most likely structure, including isomers, substance class or substructure match (3)      unknown compound (4)  For high-resolution MS, the following term and its levels may be used: MS:1002955 (hr-ms compound identification confidence level) with levels      confirmed structure (1)      probable structure (2)          unambiguous ms library match (2a)          diagnostic evidence (2b)      tentative candidates (3)      unequivocal molecular formula (4)      exact mass (5)  A String data type is set to allow for different systems to be specified in the metadata section.   # noqa: E501
 
         :return: The reliability of this SmallMoleculeSummary.  # noqa: E501
         :rtype: str
@@ -425,6 +450,7 @@ class SmallMoleculeSummary(object):
     def reliability(self, reliability):
         """Sets the reliability of this SmallMoleculeSummary.
 
+        The reliability of the given small molecule identification. This must be supplied by the resource and MUST be reported as an integer between 1-4:      identified metabolite (1)      putatively annotated compound (2)      putatively characterized compound class (3)      unknown compound (4)  These MAY be replaced using a suitable CV term in the metadata section e.g. to use MSI recommendation levels (see Section 6.2.57 for details).  The following CV terms are already available within the PSI MS CV. Future schemes may be implemented by extending the PSI MS CV with new terms and associated levels.  The MSI has recently discussed an extension of the original four level scheme into a five level scheme MS:1002896 (compound identification confidence level) with levels      isolated, pure compound, full stereochemistry (0)      reference standard match or full 2D structure (1)      unambiguous diagnostic evidence (literature, database) (2)      most likely structure, including isomers, substance class or substructure match (3)      unknown compound (4)  For high-resolution MS, the following term and its levels may be used: MS:1002955 (hr-ms compound identification confidence level) with levels      confirmed structure (1)      probable structure (2)          unambiguous ms library match (2a)          diagnostic evidence (2b)      tentative candidates (3)      unequivocal molecular formula (4)      exact mass (5)  A String data type is set to allow for different systems to be specified in the metadata section.   # noqa: E501
 
         :param reliability: The reliability of this SmallMoleculeSummary.  # noqa: E501
         :type: str
@@ -436,6 +462,7 @@ class SmallMoleculeSummary(object):
     def best_id_confidence_measure(self):
         """Gets the best_id_confidence_measure of this SmallMoleculeSummary.  # noqa: E501
 
+        The approach or database search that identified this small molecule with highest confidence.  # noqa: E501
 
         :return: The best_id_confidence_measure of this SmallMoleculeSummary.  # noqa: E501
         :rtype: Parameter
@@ -446,6 +473,7 @@ class SmallMoleculeSummary(object):
     def best_id_confidence_measure(self, best_id_confidence_measure):
         """Sets the best_id_confidence_measure of this SmallMoleculeSummary.
 
+        The approach or database search that identified this small molecule with highest confidence.  # noqa: E501
 
         :param best_id_confidence_measure: The best_id_confidence_measure of this SmallMoleculeSummary.  # noqa: E501
         :type: Parameter
@@ -457,6 +485,7 @@ class SmallMoleculeSummary(object):
     def best_id_confidence_value(self):
         """Gets the best_id_confidence_value of this SmallMoleculeSummary.  # noqa: E501
 
+        The best confidence measure in identification (for this type of score) for the given small molecule across all assays. The type of score MUST be defined in the metadata section. If the small molecule was not identified by the specified search engine, “null” MUST be reported. If the confidence measure does not report a numerical confidence value, “null” SHOULD be reported.  # noqa: E501
 
         :return: The best_id_confidence_value of this SmallMoleculeSummary.  # noqa: E501
         :rtype: float
@@ -467,6 +496,7 @@ class SmallMoleculeSummary(object):
     def best_id_confidence_value(self, best_id_confidence_value):
         """Sets the best_id_confidence_value of this SmallMoleculeSummary.
 
+        The best confidence measure in identification (for this type of score) for the given small molecule across all assays. The type of score MUST be defined in the metadata section. If the small molecule was not identified by the specified search engine, “null” MUST be reported. If the confidence measure does not report a numerical confidence value, “null” SHOULD be reported.  # noqa: E501
 
         :param best_id_confidence_value: The best_id_confidence_value of this SmallMoleculeSummary.  # noqa: E501
         :type: float
@@ -478,6 +508,7 @@ class SmallMoleculeSummary(object):
     def abundance_assay(self):
         """Gets the abundance_assay of this SmallMoleculeSummary.  # noqa: E501
 
+        The small molecule’s abundance in every assay described in the metadata section MUST be reported. Null or zero values may be reported as appropriate. \"null\" SHOULD be used to report missing quantities, while zero SHOULD be used to indicate a present but not reliably quantifiable value (e.g. below a minimum noise threshold).  # noqa: E501
 
         :return: The abundance_assay of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[float]
@@ -488,6 +519,7 @@ class SmallMoleculeSummary(object):
     def abundance_assay(self, abundance_assay):
         """Sets the abundance_assay of this SmallMoleculeSummary.
 
+        The small molecule’s abundance in every assay described in the metadata section MUST be reported. Null or zero values may be reported as appropriate. \"null\" SHOULD be used to report missing quantities, while zero SHOULD be used to indicate a present but not reliably quantifiable value (e.g. below a minimum noise threshold).  # noqa: E501
 
         :param abundance_assay: The abundance_assay of this SmallMoleculeSummary.  # noqa: E501
         :type: list[float]
@@ -499,6 +531,7 @@ class SmallMoleculeSummary(object):
     def abundance_study_variable(self):
         """Gets the abundance_study_variable of this SmallMoleculeSummary.  # noqa: E501
 
+        The small molecule’s abundance in all the study variables described in the metadata section (study_variable[1-n]_average_function), calculated using the method as described in the Metadata section (default = arithmetic mean across assays). Null or zero values may be reported as appropriate. \"null\" SHOULD be used to report missing quantities, while zero SHOULD be used to indicate a present but not reliably quantifiable value (e.g. below a minimum noise threshold).  # noqa: E501
 
         :return: The abundance_study_variable of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[float]
@@ -509,6 +542,7 @@ class SmallMoleculeSummary(object):
     def abundance_study_variable(self, abundance_study_variable):
         """Sets the abundance_study_variable of this SmallMoleculeSummary.
 
+        The small molecule’s abundance in all the study variables described in the metadata section (study_variable[1-n]_average_function), calculated using the method as described in the Metadata section (default = arithmetic mean across assays). Null or zero values may be reported as appropriate. \"null\" SHOULD be used to report missing quantities, while zero SHOULD be used to indicate a present but not reliably quantifiable value (e.g. below a minimum noise threshold).  # noqa: E501
 
         :param abundance_study_variable: The abundance_study_variable of this SmallMoleculeSummary.  # noqa: E501
         :type: list[float]
@@ -520,6 +554,7 @@ class SmallMoleculeSummary(object):
     def abundance_variation_study_variable(self):
         """Gets the abundance_variation_study_variable of this SmallMoleculeSummary.  # noqa: E501
 
+        A measure of the variability of the study variable abundance measurement, calculated using the method as described in the metadata section (study_variable[1-n]_average_function), with a default = arithmethic co-efficient of variation of the small molecule’s abundance in the given study variable.  # noqa: E501
 
         :return: The abundance_variation_study_variable of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[float]
@@ -530,6 +565,7 @@ class SmallMoleculeSummary(object):
     def abundance_variation_study_variable(self, abundance_variation_study_variable):
         """Sets the abundance_variation_study_variable of this SmallMoleculeSummary.
 
+        A measure of the variability of the study variable abundance measurement, calculated using the method as described in the metadata section (study_variable[1-n]_average_function), with a default = arithmethic co-efficient of variation of the small molecule’s abundance in the given study variable.  # noqa: E501
 
         :param abundance_variation_study_variable: The abundance_variation_study_variable of this SmallMoleculeSummary.  # noqa: E501
         :type: list[float]
@@ -541,6 +577,7 @@ class SmallMoleculeSummary(object):
     def opt(self):
         """Gets the opt of this SmallMoleculeSummary.  # noqa: E501
 
+        Additional columns can be added to the end of the small molecule table. These column headers MUST start with the prefix “opt_” followed by the {identifier} of the object they reference: assay, study variable, MS run or “global” (if the value relates to all replicates). Column names MUST only contain the following characters: ‘A’-‘Z’, ‘a’-‘z’, ‘0’-‘9’, ‘’, ‘-’, ‘[’, ‘]’, and ‘:’. CV parameter accessions MAY be used for optional columns following the format: opt{identifier}_cv_{accession}_\\{parameter name}. Spaces within the parameter’s name MUST be replaced by ‘_’.   # noqa: E501
 
         :return: The opt of this SmallMoleculeSummary.  # noqa: E501
         :rtype: list[OptColumnMapping]
@@ -551,6 +588,7 @@ class SmallMoleculeSummary(object):
     def opt(self, opt):
         """Sets the opt of this SmallMoleculeSummary.
 
+        Additional columns can be added to the end of the small molecule table. These column headers MUST start with the prefix “opt_” followed by the {identifier} of the object they reference: assay, study variable, MS run or “global” (if the value relates to all replicates). Column names MUST only contain the following characters: ‘A’-‘Z’, ‘a’-‘z’, ‘0’-‘9’, ‘’, ‘-’, ‘[’, ‘]’, and ‘:’. CV parameter accessions MAY be used for optional columns following the format: opt{identifier}_cv_{accession}_\\{parameter name}. Spaces within the parameter’s name MUST be replaced by ‘_’.   # noqa: E501
 
         :param opt: The opt of this SmallMoleculeSummary.  # noqa: E501
         :type: list[OptColumnMapping]
@@ -600,6 +638,9 @@ class SmallMoleculeSummary(object):
                 ))
             else:
                 result[attr] = value
+        if issubclass(SmallMoleculeSummary, dict):
+            for key, value in self.items():
+                result[key] = value
 
         return result
 
@@ -621,121 +662,3 @@ class SmallMoleculeSummary(object):
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
         return not self == other
-    
-    def header_as_line(self):
-        # hardcoded because they appear even if null in object
-        text = ''
-                                     
-        text+='sml_id'
-        text+='\tsmf_id_refs'
-        text+='\tchemical_name'
-        text+='\tdatabase_identifier'
-        text+='\tchemical_formula'
-        text+='\tsmiles'
-        text+='\tinchi'
-        text+='\turi'
-        text+='\ttheoretical_neutral_mass'
-        text+='\tadduct_ions'
-        text+='\treliability'
-        text+='\tbest_id_confidence_measure'
-        text+='\tbest_id_confidence_value'
-                                     
-        
-        for idx,_ in enumerate(self.abundance_assay,1):
-            text+='\tabundance_assay[{}]'.format(idx)
-        for idx,_ in enumerate(self.abundance_study_variable,1):
-            text+='\tabundance_study_variable[{}]'.format(idx)
-        for idx,_ in enumerate(self.abundance_variation_study_variable,1):
-            text+='\tabundance_variation_study_variable[{}]'.format(idx)
-        
-        
-        for e in self.opt:
-            text+='\topt_{}'.format(e.identifier)
-        
-        if self.comment is not None: raise Exception('not implemented')
-        
-        return text
-
-    def entry_as_line(self,idx): # copy method from metadata as_line()
-        text = ''
-        text += '{}'.format(str(self.sml_id))
-        text += '\t{}'.format('|'.join(map(str,self.smf_id_refs)))
-        text += '\t{}'.format(self.chemical_name[idx])
-        text += '\t{}'.format(self.database_identifier[idx])
-        text += '\t{}'.format(self.chemical_formula[idx])
-        text += '\t{}'.format(self.smiles[idx])
-        text += '\t{}'.format(self.inchi[idx])
-        text += '\t{}'.format(self.uri[idx])
-        text += '\t{}'.format(self.theoretical_neutral_mass[idx])
-        text += '\t{}'.format(self.adduct_ions[idx])
-        text += '\t{}'.format(self.reliability[idx])
-        text += '\t{}'.format(self.best_id_confidence_measure.as_line())
-        text += '\t{}'.format(str(self.best_id_confidence_value))
-        
-        for e in self.abundance_assay:
-            text += '\t{}'.format(e)
-        for e in self.abundance_study_variable:
-            text += '\t{}'.format(e)
-        for e in self.abundance_variation_study_variable:
-            text += '\t{}'.format(e)
-        
-        for e in self.opt:
-            text += '\t{}'.format(e.value)
-        
-        if self.comment is not None: raise Exception('not implemented')
-        
-        return text
-
-    
-    def to_lines(self):
-        lines = []
-
-#         'prefix': 'str' done at the end
-        
-        for idx,_ in enumerate(self.database_identifier):
-            lines += ['{}\t{}'.format(self.prefix, self.entry_as_line(idx))]
-        
-        return lines
-    
-
-    
-    @staticmethod
-    def fromTuple(tup, headers):
-        
-        def assays_list(prefix):
-            idxs = headers.loc[headers.str.startswith(prefix,na=False)]
-            
-            res = []
-            for idx, val in idxs.iteritems():
-                res.append(float(tup[idx]))
-            
-            return res if len(res) > 0 else None
-         
-        opt_idxs = headers.loc[headers.str.startswith('opt',na=False)]
-        opts = []
-        for idx,v in opt_idxs.iteritems():
-            opts.append(OptColumnMapping(v.strip().replace('opt_',''), None, tup[idx]))
-        
-        kwargs = {
-        'prefix': 'SML',#'str',
-        'header_prefix': 'SMH',#'str',
-        'sml_id': int(tup.SML_ID),#'int',
-        'smf_id_refs': [int(r) for r in tup.SMF_ID_REFS.split('|')],#'list[int]',
-        'database_identifier': tup.database_identifier.split('|'),#'list[str]',
-        'chemical_formula': tup.chemical_formula.split('|'),#'list[str]',
-        'smiles': tup.smiles.split('|'),#'list[str]',
-        'inchi': tup.inchi.split('|'),#'list[str]',
-        'chemical_name': tup.chemical_name.split('|'),#'list[str]',
-        'uri': tup.uri.split('|'),#'list[str]',
-        'theoretical_neutral_mass': [float(r) for r in tup.theoretical_neutral_mass.split('|')],#'list[float]',
-        'adduct_ions': tup.adduct_ions.split('|'),#'list[str]',
-        'reliability': tup.reliability,#'str',
-        'best_id_confidence_measure': Parameter.fromText(tup.best_id_confidence_measure),#'Parameter',
-        'best_id_confidence_value': float(tup.best_id_confidence_value),#'float',
-        'abundance_assay': assays_list('abundance_assay'),#'list[float]',
-        'abundance_study_variable': assays_list('abundance_study_variable'), #'list[float]',
-        'abundance_variation_study_variable': assays_list('abundance_variation_study_variable'), #'list[float]',
-        'opt': opts,#'list[OptColumnMapping]',
-        'comment': None # not implemented
-    }
-        return SmallMoleculeSummary(**kwargs)

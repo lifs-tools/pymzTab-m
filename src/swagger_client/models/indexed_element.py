@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -61,7 +61,7 @@ class IndexedElement(object):
 
         self._id = None
         self._element_type = None
-        self.discriminator = 'elementType'
+        self.discriminator = 'element_type'
 
         self.id = id
         self.element_type = element_type
@@ -84,8 +84,8 @@ class IndexedElement(object):
         :param id: The id of this IndexedElement.  # noqa: E501
         :type: int
         """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501
+        #if id is None:
+        #    raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501
         if id is not None and id < 1:  # noqa: E501
             raise ValueError("Invalid value for `id`, must be a value greater than or equal to `1`")  # noqa: E501
 
@@ -140,7 +140,11 @@ class IndexedElement(object):
                 ))
             else:
                 result[attr] = value
+        if issubclass(IndexedElement, dict):
+            for key, value in self.items():
+                result[key] = value
 
+        #print("IndexedElement.toDict(): ", result)
         return result
 
     def to_str(self):

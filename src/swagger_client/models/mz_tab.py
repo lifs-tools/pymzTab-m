@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -96,6 +96,7 @@ class MzTab(object):
     def small_molecule_summary(self):
         """Gets the small_molecule_summary of this MzTab.  # noqa: E501
 
+        The small molecule section is table-based. The small molecule section MUST always come after the metadata section. All table columns MUST be Tab separated. There MUST NOT be any empty cells; missing values MUST be reported using “null” for columns where Is Nullable = “True”.  Each row of the small molecule section is intended to report one final result to be communicated in terms of a molecule that has been quantified. In many cases, this may be the molecule of biological interest, although in some cases, the final result could be a derivatized form as appropriate – although it is desirable for the database identifier(s) to reference to the biological (non-derivatized) form. In general, different adduct forms would generally be reported in the Small Molecule Feature section.  The order of columns MUST follow the order specified below.  All columns are MANDATORY except for “opt_” columns.   # noqa: E501
 
         :return: The small_molecule_summary of this MzTab.  # noqa: E501
         :rtype: list[SmallMoleculeSummary]
@@ -106,6 +107,7 @@ class MzTab(object):
     def small_molecule_summary(self, small_molecule_summary):
         """Sets the small_molecule_summary of this MzTab.
 
+        The small molecule section is table-based. The small molecule section MUST always come after the metadata section. All table columns MUST be Tab separated. There MUST NOT be any empty cells; missing values MUST be reported using “null” for columns where Is Nullable = “True”.  Each row of the small molecule section is intended to report one final result to be communicated in terms of a molecule that has been quantified. In many cases, this may be the molecule of biological interest, although in some cases, the final result could be a derivatized form as appropriate – although it is desirable for the database identifier(s) to reference to the biological (non-derivatized) form. In general, different adduct forms would generally be reported in the Small Molecule Feature section.  The order of columns MUST follow the order specified below.  All columns are MANDATORY except for “opt_” columns.   # noqa: E501
 
         :param small_molecule_summary: The small_molecule_summary of this MzTab.  # noqa: E501
         :type: list[SmallMoleculeSummary]
@@ -119,6 +121,7 @@ class MzTab(object):
     def small_molecule_feature(self):
         """Gets the small_molecule_feature of this MzTab.  # noqa: E501
 
+        The small molecule feature section is table-based, representing individual MS regions (generally considered to be the elution profile for all isotopomers formed from a single charge state of a molecule), that have been measured/quantified. However, for approaches that quantify individual isotopomers e.g. stable isotope labelling/flux studies, then each SMF row SHOULD represent a single isotopomer.  Different adducts or derivatives and different charge states of individual molecules should be reported as separate SMF rows.  The small molecule feature section MUST always come after the Small Molecule Table. All table columns MUST be Tab separated. There MUST NOT be any empty cells. Missing values MUST be reported using “null”.  The order of columns MUST follow the order specified below.  All columns are MANDATORY except for “opt_” columns.   # noqa: E501
 
         :return: The small_molecule_feature of this MzTab.  # noqa: E501
         :rtype: list[SmallMoleculeFeature]
@@ -129,6 +132,7 @@ class MzTab(object):
     def small_molecule_feature(self, small_molecule_feature):
         """Sets the small_molecule_feature of this MzTab.
 
+        The small molecule feature section is table-based, representing individual MS regions (generally considered to be the elution profile for all isotopomers formed from a single charge state of a molecule), that have been measured/quantified. However, for approaches that quantify individual isotopomers e.g. stable isotope labelling/flux studies, then each SMF row SHOULD represent a single isotopomer.  Different adducts or derivatives and different charge states of individual molecules should be reported as separate SMF rows.  The small molecule feature section MUST always come after the Small Molecule Table. All table columns MUST be Tab separated. There MUST NOT be any empty cells. Missing values MUST be reported using “null”.  The order of columns MUST follow the order specified below.  All columns are MANDATORY except for “opt_” columns.   # noqa: E501
 
         :param small_molecule_feature: The small_molecule_feature of this MzTab.  # noqa: E501
         :type: list[SmallMoleculeFeature]
@@ -142,6 +146,7 @@ class MzTab(object):
     def small_molecule_evidence(self):
         """Gets the small_molecule_evidence of this MzTab.  # noqa: E501
 
+        The small molecule evidence section is table-based, representing evidence for identifications of small molecules/features, from database search or any other process used to give putative identifications to molecules. In a typical case, each row represents one result from a single search or intepretation of a piece of evidence e.g. a database search with a fragmentation spectrum. Multiple results from a given input data item (e.g. one fragment spectrum) SHOULD share the same value under evidence_input_id.  The small molecule evidence section MUST always come after the Small Molecule Feature Table. All table columns MUST be Tab separated. There MUST NOT be any empty cells. Missing values MUST be reported using “null”.  The order of columns MUST follow the order specified below.  All columns are MANDATORY except for “opt_” columns.   # noqa: E501
 
         :return: The small_molecule_evidence of this MzTab.  # noqa: E501
         :rtype: list[SmallMoleculeEvidence]
@@ -152,6 +157,7 @@ class MzTab(object):
     def small_molecule_evidence(self, small_molecule_evidence):
         """Sets the small_molecule_evidence of this MzTab.
 
+        The small molecule evidence section is table-based, representing evidence for identifications of small molecules/features, from database search or any other process used to give putative identifications to molecules. In a typical case, each row represents one result from a single search or intepretation of a piece of evidence e.g. a database search with a fragmentation spectrum. Multiple results from a given input data item (e.g. one fragment spectrum) SHOULD share the same value under evidence_input_id.  The small molecule evidence section MUST always come after the Small Molecule Feature Table. All table columns MUST be Tab separated. There MUST NOT be any empty cells. Missing values MUST be reported using “null”.  The order of columns MUST follow the order specified below.  All columns are MANDATORY except for “opt_” columns.   # noqa: E501
 
         :param small_molecule_evidence: The small_molecule_evidence of this MzTab.  # noqa: E501
         :type: list[SmallMoleculeEvidence]
@@ -165,6 +171,7 @@ class MzTab(object):
     def comment(self):
         """Gets the comment of this MzTab.  # noqa: E501
 
+        Comment lines can be placed anywhere in an mzTab file. These lines must start with the three-letter code COM and are ignored by most parsers. Empty lines can also occur anywhere in an mzTab file and are ignored.   # noqa: E501
 
         :return: The comment of this MzTab.  # noqa: E501
         :rtype: list[Comment]
@@ -175,6 +182,7 @@ class MzTab(object):
     def comment(self, comment):
         """Sets the comment of this MzTab.
 
+        Comment lines can be placed anywhere in an mzTab file. These lines must start with the three-letter code COM and are ignored by most parsers. Empty lines can also occur anywhere in an mzTab file and are ignored.   # noqa: E501
 
         :param comment: The comment of this MzTab.  # noqa: E501
         :type: list[Comment]
@@ -203,10 +211,12 @@ class MzTab(object):
                 ))
             else:
                 result[attr] = value
+        if issubclass(MzTab, dict):
+            for key, value in self.items():
+                result[key] = value
 
         return result
-    
-    
+
     def to_str(self):
         """Returns the string representation of the model"""
         return pprint.pformat(self.to_dict())
@@ -225,32 +235,3 @@ class MzTab(object):
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
         return not self == other
-    
-    def to_lines(self):
-        lines = []
-        lines += self.metadata.to_lines()
-        
-        if self.small_molecule_summary[0]:
-            first = self.small_molecule_summary[0]
-            lines += ['{}\t{}'.format(first.header_prefix, first.header_as_line())]
-        for e in self.small_molecule_summary:
-            lines += e.to_lines()
-        
-        if self.small_molecule_feature[0]:
-            first = self.small_molecule_feature[0]
-            lines += ['{}\t{}'.format(first.header_prefix, first.header_as_line())]
-        for e in self.small_molecule_feature:
-            lines += e.to_lines()
-
-        if self._small_molecule_evidence[0]:
-            first = self._small_molecule_evidence[0]
-            lines += ['{}\t{}'.format(first.header_prefix, first.header_as_line())]
-        for e in self._small_molecule_evidence:
-            lines += e.to_lines()
-        
-        for e in self.comment:
-            line_number = e.line_number
-            lines.insert(line_number-1, e.as_line())
-
-        return lines
-    

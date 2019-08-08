@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -54,6 +54,7 @@ class PublicationItem(object):
     def type(self):
         """Gets the type of this PublicationItem.  # noqa: E501
 
+        The type qualifier of this publication item.  # noqa: E501
 
         :return: The type of this PublicationItem.  # noqa: E501
         :rtype: str
@@ -64,6 +65,7 @@ class PublicationItem(object):
     def type(self, type):
         """Sets the type of this PublicationItem.
 
+        The type qualifier of this publication item.  # noqa: E501
 
         :param type: The type of this PublicationItem.  # noqa: E501
         :type: str
@@ -83,6 +85,7 @@ class PublicationItem(object):
     def accession(self):
         """Gets the accession of this PublicationItem.  # noqa: E501
 
+        The native accession id for this publication item.  # noqa: E501
 
         :return: The accession of this PublicationItem.  # noqa: E501
         :rtype: str
@@ -93,6 +96,7 @@ class PublicationItem(object):
     def accession(self, accession):
         """Sets the accession of this PublicationItem.
 
+        The native accession id for this publication item.  # noqa: E501
 
         :param accession: The accession of this PublicationItem.  # noqa: E501
         :type: str
@@ -123,6 +127,9 @@ class PublicationItem(object):
                 ))
             else:
                 result[attr] = value
+        if issubclass(PublicationItem, dict):
+            for key, value in self.items():
+                result[key] = value
 
         return result
 
@@ -144,12 +151,3 @@ class PublicationItem(object):
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
         return not self == other
-
-    def as_line(self):
-#         'type': 'str',
-#         'accession': 'str'
-        return '{}:{}'.format(self.type,self.accession)
-    
-    @staticmethod
-    def fromText(text):
-        return PublicationItem(*text.split(':'))

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -48,7 +48,7 @@ class Comment(object):
         self._prefix = None
         self._msg = None
         self._line_number = None
-        self.discriminator = None
+        self.discriminator = 'element_type'
 
         self.prefix = prefix
         self.msg = msg
@@ -149,6 +149,9 @@ class Comment(object):
                 ))
             else:
                 result[attr] = value
+        if issubclass(Comment, dict):
+            for key, value in self.items():
+                result[key] = value
 
         return result
 
@@ -170,10 +173,3 @@ class Comment(object):
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
         return not self == other
-    
-    def as_line(self):
-        return '{}\t{}'.format(self.prefix, self.msg)
-
-    def to_lines(self):
-                
-        return [self.as_line()]

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -56,6 +56,7 @@ class ColumnParameterMapping(object):
     def column_name(self):
         """Gets the column_name of this ColumnParameterMapping.  # noqa: E501
 
+        The fully qualified target column name.  # noqa: E501
 
         :return: The column_name of this ColumnParameterMapping.  # noqa: E501
         :rtype: str
@@ -66,6 +67,7 @@ class ColumnParameterMapping(object):
     def column_name(self, column_name):
         """Sets the column_name of this ColumnParameterMapping.
 
+        The fully qualified target column name.  # noqa: E501
 
         :param column_name: The column_name of this ColumnParameterMapping.  # noqa: E501
         :type: str
@@ -79,6 +81,7 @@ class ColumnParameterMapping(object):
     def param(self):
         """Gets the param of this ColumnParameterMapping.  # noqa: E501
 
+        The parameter specifying the unit.  # noqa: E501
 
         :return: The param of this ColumnParameterMapping.  # noqa: E501
         :rtype: Parameter
@@ -89,6 +92,7 @@ class ColumnParameterMapping(object):
     def param(self, param):
         """Sets the param of this ColumnParameterMapping.
 
+        The parameter specifying the unit.  # noqa: E501
 
         :param param: The param of this ColumnParameterMapping.  # noqa: E501
         :type: Parameter
@@ -119,6 +123,9 @@ class ColumnParameterMapping(object):
                 ))
             else:
                 result[attr] = value
+        if issubclass(ColumnParameterMapping, dict):
+            for key, value in self.items():
+                result[key] = value
 
         return result
 
@@ -140,7 +147,3 @@ class ColumnParameterMapping(object):
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
         return not self == other
-    
-    def as_line(self):
-        return '{}={}'.format(self.column_name, self.param.as_line())
-    

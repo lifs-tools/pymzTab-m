@@ -1,9 +1,9 @@
 # coding: utf-8
 
 """
-    mzTab validation API.
+    mzTab-M reference implementation and validation API.
 
-    This is an mzTab validation service.  # noqa: E501
+    This is the mzTab-M reference implementation and validation API service.  # noqa: E501
 
     OpenAPI spec version: 2.0.0
     Contact: nils.hoffmann@isas.de
@@ -62,6 +62,7 @@ class OptColumnMapping(object):
     def identifier(self):
         """Gets the identifier of this OptColumnMapping.  # noqa: E501
 
+        The fully qualified column name.  # noqa: E501
 
         :return: The identifier of this OptColumnMapping.  # noqa: E501
         :rtype: str
@@ -72,6 +73,7 @@ class OptColumnMapping(object):
     def identifier(self, identifier):
         """Sets the identifier of this OptColumnMapping.
 
+        The fully qualified column name.  # noqa: E501
 
         :param identifier: The identifier of this OptColumnMapping.  # noqa: E501
         :type: str
@@ -85,6 +87,7 @@ class OptColumnMapping(object):
     def param(self):
         """Gets the param of this OptColumnMapping.  # noqa: E501
 
+        The (optional) parameter for this column.  # noqa: E501
 
         :return: The param of this OptColumnMapping.  # noqa: E501
         :rtype: Parameter
@@ -95,6 +98,7 @@ class OptColumnMapping(object):
     def param(self, param):
         """Sets the param of this OptColumnMapping.
 
+        The (optional) parameter for this column.  # noqa: E501
 
         :param param: The param of this OptColumnMapping.  # noqa: E501
         :type: Parameter
@@ -106,6 +110,7 @@ class OptColumnMapping(object):
     def value(self):
         """Gets the value of this OptColumnMapping.  # noqa: E501
 
+        The value for this column in a particular row.  # noqa: E501
 
         :return: The value of this OptColumnMapping.  # noqa: E501
         :rtype: str
@@ -116,6 +121,7 @@ class OptColumnMapping(object):
     def value(self, value):
         """Sets the value of this OptColumnMapping.
 
+        The value for this column in a particular row.  # noqa: E501
 
         :param value: The value of this OptColumnMapping.  # noqa: E501
         :type: str
@@ -144,6 +150,9 @@ class OptColumnMapping(object):
                 ))
             else:
                 result[attr] = value
+        if issubclass(OptColumnMapping, dict):
+            for key, value in self.items():
+                result[key] = value
 
         return result
 
