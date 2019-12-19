@@ -32,19 +32,19 @@ Getting Started
 
 The following example shows how to validate an MzTab object using the REST API for the `jmzTab-M webapplication REST service <https://apps.lifs.isas.de/mztabvalidator/swagger-ui.html>`_
 
-.. note:: In this example, the MzTab object will not validate! Please check `the test API test <https://github.com/lifs-tools/pymzTab-m/blob/master/tests/swagger_client/test_validate_api.py>`_ for a more realistic example.
+.. note:: In this example, the MzTab object will not validate! Please check `the test API test <https://github.com/lifs-tools/pymzTab-m/blob/master/tests/mztab_m_swagger_client/test_validate_api.py>`_ for a more realistic example.
 
 .. code-block:: python
 
 	from __future__ import print_function
 	import time
-	import swagger_client
-	from swagger_client.rest import ApiException
+	import mztab_m_swagger_client
+	from mztab_m_swagger_client.rest import ApiException
 	from pprint import pprint
 
 	# create an instance of the API class
-	api_instance = swagger_client.ValidateApi(swagger_client.ApiClient(configuration))
-	mztabfile = swagger_client.MzTab() # MzTab | mzTab file that should be validated. This still needs to be populated!!!
+	api_instance = mztab_m_swagger_client.ValidateApi(mztab_m_swagger_client.ApiClient(configuration))
+	mztabfile = mztab_m_swagger_client.MzTab() # MzTab | mzTab file that should be validated. This still needs to be populated!!!
 	level = 'info' # str | The level of errors that should be reported, one of ERROR, WARN, INFO. (optional) (default to info)
 	max_errors = 100 # int | The maximum number of errors to return. (optional) (default to 100)
 	semantic_validation = false # bool | Whether a semantic validation against the default rule set should be performed. (optional) (default to false)
@@ -63,7 +63,7 @@ The following example shows how to validate an MzTab object using the REST API f
 Modules
 =======
 
-* `Swagger Client <api/swagger_client.html>`_
+* `Swagger Client <api/mztab_m_swagger_client.html>`_
 * `mzTab Parser <api/mztab_parse.html>`_
 
 Indices and tables

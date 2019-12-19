@@ -5,8 +5,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pymztab-m-IaaIaaSPDR",
-    version="0.0.1",
+    name="pymztab_m_IaaIaaSPDR",
+    version="0.0.2",
     author="Nils Hoffmann",
     author_email="nils.hoffmann@isas.de",
     description="The Python3 language bindings for mzTab-M",
@@ -20,6 +20,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     setup_requires=["pytest-runner"],
-    tests_require=["pytest"]
+    tests_require=["pytest"],
+    python_requires='>=3.5'
 )
 

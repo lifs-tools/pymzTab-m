@@ -15,7 +15,7 @@ import sys
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../../src/'))
 print(sys.path)
-#sys.path.insert(0, os.path.abspath('../../src/swagger_client'))
+#sys.path.insert(0, os.path.abspath('../../src/mztab_m_swagger_client'))
 
 # -- Project information -----------------------------------------------------
 
