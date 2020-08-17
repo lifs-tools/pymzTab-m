@@ -18,41 +18,41 @@ from __future__ import absolute_import
 __version__ = "1.0.0"
 
 # import apis into sdk package
-from openapi_client.api.validate_api import ValidateApi
-from openapi_client.api.validate_plain_api import ValidatePlainApi
+from mztab_m_swagger_client.api.validate_api import ValidateApi
+from mztab_m_swagger_client.api.validate_plain_api import ValidatePlainApi
 
 # import ApiClient
-from openapi_client.api_client import ApiClient
-from openapi_client.configuration import Configuration
-from openapi_client.exceptions import OpenApiException
-from openapi_client.exceptions import ApiTypeError
-from openapi_client.exceptions import ApiValueError
-from openapi_client.exceptions import ApiKeyError
-from openapi_client.exceptions import ApiException
+from mztab_m_swagger_client.api_client import ApiClient
+from mztab_m_swagger_client.configuration import Configuration
+from mztab_m_swagger_client.exceptions import OpenApiException
+from mztab_m_swagger_client.exceptions import ApiTypeError
+from mztab_m_swagger_client.exceptions import ApiValueError
+from mztab_m_swagger_client.exceptions import ApiKeyError
+from mztab_m_swagger_client.exceptions import ApiException
 # import models into sdk package
-from openapi_client.models.assay import Assay
-from openapi_client.models.cv import CV
-from openapi_client.models.column_parameter_mapping import ColumnParameterMapping
-from openapi_client.models.comment import Comment
-from openapi_client.models.contact import Contact
-from openapi_client.models.database import Database
-from openapi_client.models.error import Error
-from openapi_client.models.instrument import Instrument
-from openapi_client.models.metadata import Metadata
-from openapi_client.models.ms_run import MsRun
-from openapi_client.models.mz_tab import MzTab
-from openapi_client.models.opt_column_mapping import OptColumnMapping
-from openapi_client.models.parameter import Parameter
-from openapi_client.models.publication import Publication
-from openapi_client.models.publication_item import PublicationItem
-from openapi_client.models.sample import Sample
-from openapi_client.models.sample_processing import SampleProcessing
-from openapi_client.models.small_molecule_evidence import SmallMoleculeEvidence
-from openapi_client.models.small_molecule_feature import SmallMoleculeFeature
-from openapi_client.models.small_molecule_summary import SmallMoleculeSummary
-from openapi_client.models.software import Software
-from openapi_client.models.spectra_ref import SpectraRef
-from openapi_client.models.study_variable import StudyVariable
-from openapi_client.models.uri import Uri
-from openapi_client.models.validation_message import ValidationMessage
+from mztab_m_swagger_client.models.assay import Assay
+from mztab_m_swagger_client.models.cv import CV
+from mztab_m_swagger_client.models.column_parameter_mapping import ColumnParameterMapping
+from mztab_m_swagger_client.models.comment import Comment
+from mztab_m_swagger_client.models.contact import Contact
+from mztab_m_swagger_client.models.database import Database
+from mztab_m_swagger_client.models.error import Error
+from mztab_m_swagger_client.models.instrument import Instrument
+from mztab_m_swagger_client.models.metadata import Metadata
+from mztab_m_swagger_client.models.ms_run import MsRun
+from mztab_m_swagger_client.models.mz_tab import MzTab
+from mztab_m_swagger_client.models.opt_column_mapping import OptColumnMapping
+from mztab_m_swagger_client.models.parameter import Parameter
+from mztab_m_swagger_client.models.publication import Publication
+from mztab_m_swagger_client.models.publication_item import PublicationItem
+from mztab_m_swagger_client.models.sample import Sample
+from mztab_m_swagger_client.models.sample_processing import SampleProcessing
+from mztab_m_swagger_client.models.small_molecule_evidence import SmallMoleculeEvidence
+from mztab_m_swagger_client.models.small_molecule_feature import SmallMoleculeFeature
+from mztab_m_swagger_client.models.small_molecule_summary import SmallMoleculeSummary
+from mztab_m_swagger_client.models.software import Software
+from mztab_m_swagger_client.models.spectra_ref import SpectraRef
+from mztab_m_swagger_client.models.study_variable import StudyVariable
+from mztab_m_swagger_client.models.uri import Uri
+from mztab_m_swagger_client.models.validation_message import ValidationMessage
 
