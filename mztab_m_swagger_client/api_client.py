@@ -66,6 +66,8 @@ class ApiClient(object):
     }
     _pool = None
 
+    objs_in_serialization = set()
+
     def __init__(self, configuration=None, header_name=None, header_value=None,
                  cookie=None, pool_threads=1):
         if configuration is None:
@@ -226,6 +228,12 @@ class ApiClient(object):
                          for sub_obj in obj)
         elif isinstance(obj, (datetime.datetime, datetime.date)):
             return obj.isoformat()
+        
+        if hasattr(obj,'instances_by_id'): 
+            if id(obj) in ApiClient.objs_in_serialization:
+                return obj.id
+            else:
+                ApiClient.objs_in_serialization.add(id(obj))
 
         if isinstance(obj, dict):
             obj_dict = obj
