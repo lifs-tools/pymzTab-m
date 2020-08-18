@@ -645,4 +645,10 @@ class ApiClient(object):
             klass_name = instance.get_real_child_model(data)
             if klass_name:
                 instance = self.__deserialize(data, klass_name)
+        
+        if (hasattr(klass,'instances_by_id') and 
+                isinstance(data, int) and 
+                data in klass.instances_by_id.keys()):
+            instance  = klass.instances_by_id[data]
+
         return instance

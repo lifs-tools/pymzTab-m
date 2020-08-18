@@ -59,6 +59,8 @@ class MsRun(object):
         'hash_method': 'hash_method'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, name=None, location=None, instrument_ref=None, format=None, id_format=None, fragmentation_method=None, scan_polarity=None, hash=None, hash_method=None, local_vars_configuration=None):  # noqa: E501
         """MsRun - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -94,6 +96,9 @@ class MsRun(object):
             self.hash = hash
         if hash_method is not None:
             self.hash_method = hash_method
+        
+        if id is not None:
+            MsRun.instances_by_id[id] = self
 
     @property
     def id(self):
