@@ -16,7 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from openapi_client.configuration import Configuration
+from mztab_m_swagger_client.configuration import Configuration
 
 
 class Parameter(object):
@@ -49,6 +49,8 @@ class Parameter(object):
         'value': 'value'
     }
 
+    # instances_by_id = {} disabled as per NH
+
     def __init__(self, id=None, cv_label='', cv_accession='', name=None, value='', local_vars_configuration=None):  # noqa: E501
         """Parameter - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -70,6 +72,9 @@ class Parameter(object):
             self.cv_accession = cv_accession
         self.name = name
         self.value = value
+
+        # if id is not None: disabled as per NH
+        #     self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):

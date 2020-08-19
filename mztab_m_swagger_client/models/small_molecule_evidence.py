@@ -16,7 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from openapi_client.configuration import Configuration
+from mztab_m_swagger_client.configuration import Configuration
 
 
 class SmallMoleculeEvidence(object):

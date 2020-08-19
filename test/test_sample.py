@@ -16,9 +16,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.sample import Sample  # noqa: E501
-from openapi_client.rest import ApiException
+import mztab_m_swagger_client
+from mztab_m_swagger_client.models.sample import Sample  # noqa: E501
+from mztab_m_swagger_client.rest import ApiException
 
 class TestSample(unittest.TestCase):
     """Sample unit test stubs"""
@@ -34,13 +34,13 @@ class TestSample(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = openapi_client.models.sample.Sample()  # noqa: E501
+        # model = mztab_m_swagger_client.models.sample.Sample()  # noqa: E501
         if include_optional :
             return Sample(
                 id = 1, 
                 name = '0', 
                 custom = [
-                    openapi_client.models.parameter.Parameter(
+                    mztab_m_swagger_client.models.parameter.Parameter(
                         id = 1, 
                         cv_label = '0', 
                         cv_accession = '0', 
@@ -48,7 +48,7 @@ class TestSample(unittest.TestCase):
                         value = '0', )
                     ], 
                 species = [
-                    openapi_client.models.parameter.Parameter(
+                    mztab_m_swagger_client.models.parameter.Parameter(
                         id = 1, 
                         cv_label = '0', 
                         cv_accession = '0', 
@@ -56,7 +56,7 @@ class TestSample(unittest.TestCase):
                         value = '0', )
                     ], 
                 tissue = [
-                    openapi_client.models.parameter.Parameter(
+                    mztab_m_swagger_client.models.parameter.Parameter(
                         id = 1, 
                         cv_label = '0', 
                         cv_accession = '0', 
@@ -64,7 +64,7 @@ class TestSample(unittest.TestCase):
                         value = '0', )
                     ], 
                 cell_type = [
-                    openapi_client.models.parameter.Parameter(
+                    mztab_m_swagger_client.models.parameter.Parameter(
                         id = 1, 
                         cv_label = '0', 
                         cv_accession = '0', 
@@ -72,7 +72,7 @@ class TestSample(unittest.TestCase):
                         value = '0', )
                     ], 
                 disease = [
-                    openapi_client.models.parameter.Parameter(
+                    mztab_m_swagger_client.models.parameter.Parameter(
                         id = 1, 
                         cv_label = '0', 
                         cv_accession = '0', 

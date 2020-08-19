@@ -16,7 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from openapi_client.configuration import Configuration
+from mztab_m_swagger_client.configuration import Configuration
 
 
 class StudyVariable(object):
@@ -53,6 +53,8 @@ class StudyVariable(object):
         'factors': 'factors'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, name=None, assay_refs=None, average_function=None, variation_function=None, description=None, factors=None, local_vars_configuration=None):  # noqa: E501
         """StudyVariable - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -80,6 +82,9 @@ class StudyVariable(object):
             self.description = description
         if factors is not None:
             self.factors = factors
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):

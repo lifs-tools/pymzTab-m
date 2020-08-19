@@ -16,7 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from openapi_client.configuration import Configuration
+from mztab_m_swagger_client.configuration import Configuration
 
 
 class Instrument(object):
@@ -49,6 +49,8 @@ class Instrument(object):
         'detector': 'detector'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, name=None, source=None, analyzer=None, detector=None, local_vars_configuration=None):  # noqa: E501
         """Instrument - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -72,6 +74,9 @@ class Instrument(object):
             self.analyzer = analyzer
         if detector is not None:
             self.detector = detector
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):

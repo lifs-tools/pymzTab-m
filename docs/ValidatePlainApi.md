@@ -1,4 +1,4 @@
-# openapi_client.ValidatePlainApi
+# mztab_m_swagger_client.ValidatePlainApi
 
 All URIs are relative to *https://apps.lifs.isas.de/mztabvalidator/rest/v2*
 
@@ -19,14 +19,14 @@ Validates an mzTab file in plain text representation / tab-separated format and 
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import mztab_m_swagger_client
+from mztab_m_swagger_client.rest import ApiException
 from pprint import pprint
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with mztab_m_swagger_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.ValidatePlainApi(api_client)
+    api_instance = mztab_m_swagger_client.ValidatePlainApi(api_client)
     mztabfile = 'mztabfile_example' # str | mzTab file that should be validated.
 level = 'info' # str | The level of errors that should be reported, one of ERROR, WARN, INFO. (optional) (default to 'info')
 max_errors = 100 # int | The maximum number of errors to return. (optional) (default to 100)

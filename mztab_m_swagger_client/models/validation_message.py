@@ -16,7 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from openapi_client.configuration import Configuration
+from mztab_m_swagger_client.configuration import Configuration
 
 
 class ValidationMessage(object):
@@ -48,6 +48,8 @@ class ValidationMessage(object):
         'message': 'message',
         'line_number': 'line_number'
     }
+    
+    instances_by_id = {}
 
     def __init__(self, code=None, category='format', message_type='info', message=None, line_number=None, local_vars_configuration=None):  # noqa: E501
         """ValidationMessage - a model defined in OpenAPI"""  # noqa: E501
@@ -69,6 +71,9 @@ class ValidationMessage(object):
         self.message = message
         if line_number is not None:
             self.line_number = line_number
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def code(self):

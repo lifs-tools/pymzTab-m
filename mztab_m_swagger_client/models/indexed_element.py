@@ -56,6 +56,8 @@ class IndexedElement(object):
         'Software': 'Software'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, element_type='element_type'):  # noqa: E501
         """IndexedElement - a model defined in Swagger"""  # noqa: E501
 
@@ -65,6 +67,9 @@ class IndexedElement(object):
 
         self.id = id
         self.element_type = element_type
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):

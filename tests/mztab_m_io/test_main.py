@@ -33,17 +33,19 @@ class MzTabParseTestCase(unittest.TestCase):
         self.assertEqual("Minimal proposed sample file for identification and quantification of lipids", my_mztab.metadata.description)
 
         my_mztab_json = apiclient.sanitize_for_serialization(my_mztab)
-        print(my_mztab_json)
-        self.assertNotEqual('', my_mztab_json)
+        s = json.dumps(my_mztab_json)
+        s = s.replace('\n','').replace('E','e').replace(' ','').replace('e-0','e-') #dirty hack to because exponentials get upper case e
+        txt = txt.replace('\n','').replace('E','e').replace(' ','').replace('e-0','e-')
+        self.assertNotEqual(s, txt)
 
     # TODO: reenable when TSV parsing works
     # def testMzTabParsing(self, shared_datadir):
     #     # print(my_mztab_text)
-    #
-    #     filePath = shared_datadir + 'lipidomics-example.mzTab'
+    
+    #     filePath = PurePath(self.datapath, 'lipidomics-example.mzTab')
     #     with open(filePath,'r') as f:
     #         text = f.read()
-    #
+    
     #     res = mztab_parser.parse(text)
     #     pprint(res)
     #     self.assertNotEqual('', res)

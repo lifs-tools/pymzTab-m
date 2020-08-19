@@ -16,9 +16,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.uri import Uri  # noqa: E501
-from openapi_client.rest import ApiException
+import mztab_m_swagger_client
+from mztab_m_swagger_client.models.uri import Uri  # noqa: E501
+from mztab_m_swagger_client.rest import ApiException
 
 class TestUri(unittest.TestCase):
     """Uri unit test stubs"""
@@ -34,7 +34,7 @@ class TestUri(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = openapi_client.models.uri.Uri()  # noqa: E501
+        # model = mztab_m_swagger_client.models.uri.Uri()  # noqa: E501
         if include_optional :
             return Uri(
                 id = 1, 

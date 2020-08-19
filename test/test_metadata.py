@@ -16,9 +16,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.metadata import Metadata  # noqa: E501
-from openapi_client.rest import ApiException
+import mztab_m_swagger_client
+from mztab_m_swagger_client.models.metadata import Metadata  # noqa: E501
+from mztab_m_swagger_client.rest import ApiException
 
 class TestMetadata(unittest.TestCase):
     """Metadata unit test stubs"""
@@ -34,7 +34,7 @@ class TestMetadata(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = openapi_client.models.metadata.Metadata()  # noqa: E501
+        # model = mztab_m_swagger_client.models.metadata.Metadata()  # noqa: E501
         if include_optional :
             return Metadata(
                 prefix = 'MTD', 
@@ -43,73 +43,73 @@ class TestMetadata(unittest.TestCase):
                 title = 'MTD title My first test experiment', 
                 description = 'MTD description An experiment investigating the effects of Il-6.', 
                 contact = [
-                    openapi_client.models.contact.Contact(
+                    mztab_m_swagger_client.models.contact.Contact(
                         id = 1, 
                         name = '0', 
                         affiliation = '0', 
                         email = 'a', )
                     ], 
                 publication = [
-                    openapi_client.models.publication.Publication(
+                    mztab_m_swagger_client.models.publication.Publication(
                         id = 1, 
                         publication_items = [
-                            openapi_client.models.publication_item.PublicationItem(
+                            mztab_m_swagger_client.models.publication_item.PublicationItem(
                                 type = 'doi', 
                                 accession = '0', )
                             ], )
                     ], 
                 uri = [
-                    openapi_client.models.uri.Uri(
+                    mztab_m_swagger_client.models.uri.Uri(
                         id = 1, 
                         value = '0', )
                     ], 
                 external_study_uri = [
-                    openapi_client.models.uri.Uri(
+                    mztab_m_swagger_client.models.uri.Uri(
                         id = 1, 
                         value = '0', )
                     ], 
                 instrument = [
-                    openapi_client.models.instrument.Instrument(
+                    mztab_m_swagger_client.models.instrument.Instrument(
                         id = 1, 
-                        name = openapi_client.models.parameter.Parameter(
+                        name = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
                             name = '0', 
                             value = '0', ), 
-                        source = openapi_client.models.parameter.Parameter(
+                        source = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
                             name = '0', 
                             value = '0', ), 
                         analyzer = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
                                 name = '0', 
                                 value = '0', )
                             ], 
-                        detector = openapi_client.models.parameter.Parameter(
+                        detector = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
                             name = '0', 
                             value = '0', ), )
                     ], 
-                quantification_method = openapi_client.models.parameter.Parameter(
+                quantification_method = mztab_m_swagger_client.models.parameter.Parameter(
                     id = 1, 
                     cv_label = '0', 
                     cv_accession = '0', 
                     name = '0', 
                     value = '0', ), 
                 sample = [
-                    openapi_client.models.sample.Sample(
+                    mztab_m_swagger_client.models.sample.Sample(
                         id = 1, 
                         name = '0', 
                         custom = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -117,7 +117,7 @@ class TestMetadata(unittest.TestCase):
                                 value = '0', )
                             ], 
                         species = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -125,7 +125,7 @@ class TestMetadata(unittest.TestCase):
                                 value = '0', )
                             ], 
                         tissue = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -133,7 +133,7 @@ class TestMetadata(unittest.TestCase):
                                 value = '0', )
                             ], 
                         cell_type = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -141,7 +141,7 @@ class TestMetadata(unittest.TestCase):
                                 value = '0', )
                             ], 
                         disease = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -151,10 +151,10 @@ class TestMetadata(unittest.TestCase):
                         description = '0', )
                     ], 
                 sample_processing = [
-                    openapi_client.models.sample_processing.SampleProcessing(
+                    mztab_m_swagger_client.models.sample_processing.SampleProcessing(
                         id = 1, 
                         sample_processing = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -163,9 +163,9 @@ class TestMetadata(unittest.TestCase):
                             ], )
                     ], 
                 software = [
-                    openapi_client.models.software.Software(
+                    mztab_m_swagger_client.models.software.Software(
                         id = 1, 
-                        parameter = openapi_client.models.parameter.Parameter(
+                        parameter = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -176,7 +176,7 @@ class TestMetadata(unittest.TestCase):
                             ], )
                     ], 
                 derivatization_agent = [
-                    openapi_client.models.parameter.Parameter(
+                    mztab_m_swagger_client.models.parameter.Parameter(
                         id = 1, 
                         cv_label = '0', 
                         cv_accession = '0', 
@@ -184,52 +184,52 @@ class TestMetadata(unittest.TestCase):
                         value = '0', )
                     ], 
                 ms_run = [
-                    openapi_client.models.ms_run.MsRun(
+                    mztab_m_swagger_client.models.ms_run.MsRun(
                         id = 1, 
                         name = '0', 
                         location = '0', 
-                        instrument_ref = openapi_client.models.instrument.Instrument(
+                        instrument_ref = mztab_m_swagger_client.models.instrument.Instrument(
                             id = 1, 
-                            name = openapi_client.models.parameter.Parameter(
+                            name = mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
                                 name = '0', 
                                 value = '0', ), 
-                            source = openapi_client.models.parameter.Parameter(
+                            source = mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
                                 name = '0', 
                                 value = '0', ), 
                             analyzer = [
-                                openapi_client.models.parameter.Parameter(
+                                mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
                                     name = '0', 
                                     value = '0', )
                                 ], 
-                            detector = openapi_client.models.parameter.Parameter(
+                            detector = mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
                                 name = '0', 
                                 value = '0', ), ), 
-                        format = openapi_client.models.parameter.Parameter(
+                        format = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
                             name = '0', 
                             value = '0', ), 
-                        id_format = openapi_client.models.parameter.Parameter(
+                        id_format = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
                             name = '0', 
                             value = '0', ), 
                         fragmentation_method = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -237,7 +237,7 @@ class TestMetadata(unittest.TestCase):
                                 value = '0', )
                             ], 
                         scan_polarity = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -245,7 +245,7 @@ class TestMetadata(unittest.TestCase):
                                 value = '0', )
                             ], 
                         hash = '0', 
-                        hash_method = openapi_client.models.parameter.Parameter(
+                        hash_method = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -253,11 +253,11 @@ class TestMetadata(unittest.TestCase):
                             value = '0', ), )
                     ], 
                 assay = [
-                    openapi_client.models.assay.Assay(
+                    mztab_m_swagger_client.models.assay.Assay(
                         id = 1, 
                         name = '0', 
                         custom = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -265,11 +265,11 @@ class TestMetadata(unittest.TestCase):
                                 value = '0', )
                             ], 
                         external_uri = '0', 
-                        sample_ref = openapi_client.models.sample.Sample(
+                        sample_ref = mztab_m_swagger_client.models.sample.Sample(
                             id = 1, 
                             name = '0', 
                             species = [
-                                openapi_client.models.parameter.Parameter(
+                                mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
@@ -277,7 +277,7 @@ class TestMetadata(unittest.TestCase):
                                     value = '0', )
                                 ], 
                             tissue = [
-                                openapi_client.models.parameter.Parameter(
+                                mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
@@ -285,7 +285,7 @@ class TestMetadata(unittest.TestCase):
                                     value = '0', )
                                 ], 
                             cell_type = [
-                                openapi_client.models.parameter.Parameter(
+                                mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
@@ -293,7 +293,7 @@ class TestMetadata(unittest.TestCase):
                                     value = '0', )
                                 ], 
                             disease = [
-                                openapi_client.models.parameter.Parameter(
+                                mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
@@ -302,52 +302,52 @@ class TestMetadata(unittest.TestCase):
                                 ], 
                             description = '0', ), 
                         ms_run_ref = [
-                            openapi_client.models.ms_run.MsRun(
+                            mztab_m_swagger_client.models.ms_run.MsRun(
                                 id = 1, 
                                 name = '0', 
                                 location = '0', 
-                                instrument_ref = openapi_client.models.instrument.Instrument(
+                                instrument_ref = mztab_m_swagger_client.models.instrument.Instrument(
                                     id = 1, 
-                                    name = openapi_client.models.parameter.Parameter(
+                                    name = mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
                                         name = '0', 
                                         value = '0', ), 
-                                    source = openapi_client.models.parameter.Parameter(
+                                    source = mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
                                         name = '0', 
                                         value = '0', ), 
                                     analyzer = [
-                                        openapi_client.models.parameter.Parameter(
+                                        mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
                                             name = '0', 
                                             value = '0', )
                                         ], 
-                                    detector = openapi_client.models.parameter.Parameter(
+                                    detector = mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
                                         name = '0', 
                                         value = '0', ), ), 
-                                format = openapi_client.models.parameter.Parameter(
+                                format = mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
                                     name = '0', 
                                     value = '0', ), 
-                                id_format = openapi_client.models.parameter.Parameter(
+                                id_format = mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
                                     name = '0', 
                                     value = '0', ), 
                                 fragmentation_method = [
-                                    openapi_client.models.parameter.Parameter(
+                                    mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
@@ -355,7 +355,7 @@ class TestMetadata(unittest.TestCase):
                                         value = '0', )
                                     ], 
                                 scan_polarity = [
-                                    openapi_client.models.parameter.Parameter(
+                                    mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
@@ -363,7 +363,7 @@ class TestMetadata(unittest.TestCase):
                                         value = '0', )
                                     ], 
                                 hash = '0', 
-                                hash_method = openapi_client.models.parameter.Parameter(
+                                hash_method = mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
@@ -372,15 +372,15 @@ class TestMetadata(unittest.TestCase):
                             ], )
                     ], 
                 study_variable = [
-                    openapi_client.models.study_variable.StudyVariable(
+                    mztab_m_swagger_client.models.study_variable.StudyVariable(
                         id = 1, 
                         name = '0', 
                         assay_refs = [
-                            openapi_client.models.assay.Assay(
+                            mztab_m_swagger_client.models.assay.Assay(
                                 id = 1, 
                                 name = '0', 
                                 custom = [
-                                    openapi_client.models.parameter.Parameter(
+                                    mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
@@ -388,11 +388,11 @@ class TestMetadata(unittest.TestCase):
                                         value = '0', )
                                     ], 
                                 external_uri = '0', 
-                                sample_ref = openapi_client.models.sample.Sample(
+                                sample_ref = mztab_m_swagger_client.models.sample.Sample(
                                     id = 1, 
                                     name = '0', 
                                     species = [
-                                        openapi_client.models.parameter.Parameter(
+                                        mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
@@ -400,7 +400,7 @@ class TestMetadata(unittest.TestCase):
                                             value = '0', )
                                         ], 
                                     tissue = [
-                                        openapi_client.models.parameter.Parameter(
+                                        mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
@@ -408,7 +408,7 @@ class TestMetadata(unittest.TestCase):
                                             value = '0', )
                                         ], 
                                     cell_type = [
-                                        openapi_client.models.parameter.Parameter(
+                                        mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
@@ -416,7 +416,7 @@ class TestMetadata(unittest.TestCase):
                                             value = '0', )
                                         ], 
                                     disease = [
-                                        openapi_client.models.parameter.Parameter(
+                                        mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
@@ -425,52 +425,52 @@ class TestMetadata(unittest.TestCase):
                                         ], 
                                     description = '0', ), 
                                 ms_run_ref = [
-                                    openapi_client.models.ms_run.MsRun(
+                                    mztab_m_swagger_client.models.ms_run.MsRun(
                                         id = 1, 
                                         name = '0', 
                                         location = '0', 
-                                        instrument_ref = openapi_client.models.instrument.Instrument(
+                                        instrument_ref = mztab_m_swagger_client.models.instrument.Instrument(
                                             id = 1, 
-                                            name = openapi_client.models.parameter.Parameter(
+                                            name = mztab_m_swagger_client.models.parameter.Parameter(
                                                 id = 1, 
                                                 cv_label = '0', 
                                                 cv_accession = '0', 
                                                 name = '0', 
                                                 value = '0', ), 
-                                            source = openapi_client.models.parameter.Parameter(
+                                            source = mztab_m_swagger_client.models.parameter.Parameter(
                                                 id = 1, 
                                                 cv_label = '0', 
                                                 cv_accession = '0', 
                                                 name = '0', 
                                                 value = '0', ), 
                                             analyzer = [
-                                                openapi_client.models.parameter.Parameter(
+                                                mztab_m_swagger_client.models.parameter.Parameter(
                                                     id = 1, 
                                                     cv_label = '0', 
                                                     cv_accession = '0', 
                                                     name = '0', 
                                                     value = '0', )
                                                 ], 
-                                            detector = openapi_client.models.parameter.Parameter(
+                                            detector = mztab_m_swagger_client.models.parameter.Parameter(
                                                 id = 1, 
                                                 cv_label = '0', 
                                                 cv_accession = '0', 
                                                 name = '0', 
                                                 value = '0', ), ), 
-                                        format = openapi_client.models.parameter.Parameter(
+                                        format = mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
                                             name = '0', 
                                             value = '0', ), 
-                                        id_format = openapi_client.models.parameter.Parameter(
+                                        id_format = mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
                                             name = '0', 
                                             value = '0', ), 
                                         fragmentation_method = [
-                                            openapi_client.models.parameter.Parameter(
+                                            mztab_m_swagger_client.models.parameter.Parameter(
                                                 id = 1, 
                                                 cv_label = '0', 
                                                 cv_accession = '0', 
@@ -478,7 +478,7 @@ class TestMetadata(unittest.TestCase):
                                                 value = '0', )
                                             ], 
                                         scan_polarity = [
-                                            openapi_client.models.parameter.Parameter(
+                                            mztab_m_swagger_client.models.parameter.Parameter(
                                                 id = 1, 
                                                 cv_label = '0', 
                                                 cv_accession = '0', 
@@ -486,7 +486,7 @@ class TestMetadata(unittest.TestCase):
                                                 value = '0', )
                                             ], 
                                         hash = '0', 
-                                        hash_method = openapi_client.models.parameter.Parameter(
+                                        hash_method = mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
@@ -494,13 +494,13 @@ class TestMetadata(unittest.TestCase):
                                             value = '0', ), )
                                     ], )
                             ], 
-                        average_function = openapi_client.models.parameter.Parameter(
+                        average_function = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
                             name = '0', 
                             value = '0', ), 
-                        variation_function = openapi_client.models.parameter.Parameter(
+                        variation_function = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -508,7 +508,7 @@ class TestMetadata(unittest.TestCase):
                             value = '0', ), 
                         description = '0', 
                         factors = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -517,7 +517,7 @@ class TestMetadata(unittest.TestCase):
                             ], )
                     ], 
                 custom = [
-                    openapi_client.models.parameter.Parameter(
+                    mztab_m_swagger_client.models.parameter.Parameter(
                         id = 1, 
                         cv_label = '0', 
                         cv_accession = '0', 
@@ -525,35 +525,35 @@ class TestMetadata(unittest.TestCase):
                         value = '0', )
                     ], 
                 cv = [
-                    openapi_client.models.cv.CV(
+                    mztab_m_swagger_client.models.cv.CV(
                         id = 1, 
                         label = '0', 
                         full_name = '0', 
                         version = '0', 
                         uri = '0', )
                     ], 
-                small_molecule_quantification_unit = openapi_client.models.parameter.Parameter(
+                small_molecule_quantification_unit = mztab_m_swagger_client.models.parameter.Parameter(
                     id = 1, 
                     cv_label = '0', 
                     cv_accession = '0', 
                     name = '0', 
                     value = '0', ), 
-                small_molecule_feature_quantification_unit = openapi_client.models.parameter.Parameter(
+                small_molecule_feature_quantification_unit = mztab_m_swagger_client.models.parameter.Parameter(
                     id = 1, 
                     cv_label = '0', 
                     cv_accession = '0', 
                     name = '0', 
                     value = '0', ), 
-                small_molecule_identification_reliability = openapi_client.models.parameter.Parameter(
+                small_molecule_identification_reliability = mztab_m_swagger_client.models.parameter.Parameter(
                     id = 1, 
                     cv_label = '0', 
                     cv_accession = '0', 
                     name = '0', 
                     value = '0', ), 
                 database = [
-                    openapi_client.models.database.Database(
+                    mztab_m_swagger_client.models.database.Database(
                         id = 1, 
-                        param = openapi_client.models.parameter.Parameter(
+                        param = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -564,7 +564,7 @@ class TestMetadata(unittest.TestCase):
                         uri = '0', )
                     ], 
                 id_confidence_measure = [
-                    openapi_client.models.parameter.Parameter(
+                    mztab_m_swagger_client.models.parameter.Parameter(
                         id = 1, 
                         cv_label = '0', 
                         cv_accession = '0', 
@@ -572,9 +572,9 @@ class TestMetadata(unittest.TestCase):
                         value = '0', )
                     ], 
                 colunit_small_molecule = [
-                    openapi_client.models.column_parameter_mapping.ColumnParameterMapping(
+                    mztab_m_swagger_client.models.column_parameter_mapping.ColumnParameterMapping(
                         column_name = '0', 
-                        param = openapi_client.models.parameter.Parameter(
+                        param = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -582,9 +582,9 @@ class TestMetadata(unittest.TestCase):
                             value = '0', ), )
                     ], 
                 colunit_small_molecule_feature = [
-                    openapi_client.models.column_parameter_mapping.ColumnParameterMapping(
+                    mztab_m_swagger_client.models.column_parameter_mapping.ColumnParameterMapping(
                         column_name = '0', 
-                        param = openapi_client.models.parameter.Parameter(
+                        param = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -592,9 +592,9 @@ class TestMetadata(unittest.TestCase):
                             value = '0', ), )
                     ], 
                 colunit_small_molecule_evidence = [
-                    openapi_client.models.column_parameter_mapping.ColumnParameterMapping(
+                    mztab_m_swagger_client.models.column_parameter_mapping.ColumnParameterMapping(
                         column_name = '0', 
-                        param = openapi_client.models.parameter.Parameter(
+                        param = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -607,16 +607,16 @@ class TestMetadata(unittest.TestCase):
                 prefix = 'MTD',
                 mz_tab_version = 'a',
                 mz_tab_id = 'MTD mzTab-ID MTBLS214',
-                quantification_method = openapi_client.models.parameter.Parameter(
+                quantification_method = mztab_m_swagger_client.models.parameter.Parameter(
                     id = 1, 
                     cv_label = '0', 
                     cv_accession = '0', 
                     name = '0', 
                     value = '0', ),
                 software = [
-                    openapi_client.models.software.Software(
+                    mztab_m_swagger_client.models.software.Software(
                         id = 1, 
-                        parameter = openapi_client.models.parameter.Parameter(
+                        parameter = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -627,52 +627,52 @@ class TestMetadata(unittest.TestCase):
                             ], )
                     ],
                 ms_run = [
-                    openapi_client.models.ms_run.MsRun(
+                    mztab_m_swagger_client.models.ms_run.MsRun(
                         id = 1, 
                         name = '0', 
                         location = '0', 
-                        instrument_ref = openapi_client.models.instrument.Instrument(
+                        instrument_ref = mztab_m_swagger_client.models.instrument.Instrument(
                             id = 1, 
-                            name = openapi_client.models.parameter.Parameter(
+                            name = mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
                                 name = '0', 
                                 value = '0', ), 
-                            source = openapi_client.models.parameter.Parameter(
+                            source = mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
                                 name = '0', 
                                 value = '0', ), 
                             analyzer = [
-                                openapi_client.models.parameter.Parameter(
+                                mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
                                     name = '0', 
                                     value = '0', )
                                 ], 
-                            detector = openapi_client.models.parameter.Parameter(
+                            detector = mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
                                 name = '0', 
                                 value = '0', ), ), 
-                        format = openapi_client.models.parameter.Parameter(
+                        format = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
                             name = '0', 
                             value = '0', ), 
-                        id_format = openapi_client.models.parameter.Parameter(
+                        id_format = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
                             name = '0', 
                             value = '0', ), 
                         fragmentation_method = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -680,7 +680,7 @@ class TestMetadata(unittest.TestCase):
                                 value = '0', )
                             ], 
                         scan_polarity = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -688,7 +688,7 @@ class TestMetadata(unittest.TestCase):
                                 value = '0', )
                             ], 
                         hash = '0', 
-                        hash_method = openapi_client.models.parameter.Parameter(
+                        hash_method = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -696,11 +696,11 @@ class TestMetadata(unittest.TestCase):
                             value = '0', ), )
                     ],
                 assay = [
-                    openapi_client.models.assay.Assay(
+                    mztab_m_swagger_client.models.assay.Assay(
                         id = 1, 
                         name = '0', 
                         custom = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -708,11 +708,11 @@ class TestMetadata(unittest.TestCase):
                                 value = '0', )
                             ], 
                         external_uri = '0', 
-                        sample_ref = openapi_client.models.sample.Sample(
+                        sample_ref = mztab_m_swagger_client.models.sample.Sample(
                             id = 1, 
                             name = '0', 
                             species = [
-                                openapi_client.models.parameter.Parameter(
+                                mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
@@ -720,7 +720,7 @@ class TestMetadata(unittest.TestCase):
                                     value = '0', )
                                 ], 
                             tissue = [
-                                openapi_client.models.parameter.Parameter(
+                                mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
@@ -728,7 +728,7 @@ class TestMetadata(unittest.TestCase):
                                     value = '0', )
                                 ], 
                             cell_type = [
-                                openapi_client.models.parameter.Parameter(
+                                mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
@@ -736,7 +736,7 @@ class TestMetadata(unittest.TestCase):
                                     value = '0', )
                                 ], 
                             disease = [
-                                openapi_client.models.parameter.Parameter(
+                                mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
@@ -745,52 +745,52 @@ class TestMetadata(unittest.TestCase):
                                 ], 
                             description = '0', ), 
                         ms_run_ref = [
-                            openapi_client.models.ms_run.MsRun(
+                            mztab_m_swagger_client.models.ms_run.MsRun(
                                 id = 1, 
                                 name = '0', 
                                 location = '0', 
-                                instrument_ref = openapi_client.models.instrument.Instrument(
+                                instrument_ref = mztab_m_swagger_client.models.instrument.Instrument(
                                     id = 1, 
-                                    name = openapi_client.models.parameter.Parameter(
+                                    name = mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
                                         name = '0', 
                                         value = '0', ), 
-                                    source = openapi_client.models.parameter.Parameter(
+                                    source = mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
                                         name = '0', 
                                         value = '0', ), 
                                     analyzer = [
-                                        openapi_client.models.parameter.Parameter(
+                                        mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
                                             name = '0', 
                                             value = '0', )
                                         ], 
-                                    detector = openapi_client.models.parameter.Parameter(
+                                    detector = mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
                                         name = '0', 
                                         value = '0', ), ), 
-                                format = openapi_client.models.parameter.Parameter(
+                                format = mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
                                     name = '0', 
                                     value = '0', ), 
-                                id_format = openapi_client.models.parameter.Parameter(
+                                id_format = mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
                                     name = '0', 
                                     value = '0', ), 
                                 fragmentation_method = [
-                                    openapi_client.models.parameter.Parameter(
+                                    mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
@@ -798,7 +798,7 @@ class TestMetadata(unittest.TestCase):
                                         value = '0', )
                                     ], 
                                 scan_polarity = [
-                                    openapi_client.models.parameter.Parameter(
+                                    mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
@@ -806,7 +806,7 @@ class TestMetadata(unittest.TestCase):
                                         value = '0', )
                                     ], 
                                 hash = '0', 
-                                hash_method = openapi_client.models.parameter.Parameter(
+                                hash_method = mztab_m_swagger_client.models.parameter.Parameter(
                                     id = 1, 
                                     cv_label = '0', 
                                     cv_accession = '0', 
@@ -815,15 +815,15 @@ class TestMetadata(unittest.TestCase):
                             ], )
                     ],
                 study_variable = [
-                    openapi_client.models.study_variable.StudyVariable(
+                    mztab_m_swagger_client.models.study_variable.StudyVariable(
                         id = 1, 
                         name = '0', 
                         assay_refs = [
-                            openapi_client.models.assay.Assay(
+                            mztab_m_swagger_client.models.assay.Assay(
                                 id = 1, 
                                 name = '0', 
                                 custom = [
-                                    openapi_client.models.parameter.Parameter(
+                                    mztab_m_swagger_client.models.parameter.Parameter(
                                         id = 1, 
                                         cv_label = '0', 
                                         cv_accession = '0', 
@@ -831,11 +831,11 @@ class TestMetadata(unittest.TestCase):
                                         value = '0', )
                                     ], 
                                 external_uri = '0', 
-                                sample_ref = openapi_client.models.sample.Sample(
+                                sample_ref = mztab_m_swagger_client.models.sample.Sample(
                                     id = 1, 
                                     name = '0', 
                                     species = [
-                                        openapi_client.models.parameter.Parameter(
+                                        mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
@@ -843,7 +843,7 @@ class TestMetadata(unittest.TestCase):
                                             value = '0', )
                                         ], 
                                     tissue = [
-                                        openapi_client.models.parameter.Parameter(
+                                        mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
@@ -851,7 +851,7 @@ class TestMetadata(unittest.TestCase):
                                             value = '0', )
                                         ], 
                                     cell_type = [
-                                        openapi_client.models.parameter.Parameter(
+                                        mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
@@ -859,7 +859,7 @@ class TestMetadata(unittest.TestCase):
                                             value = '0', )
                                         ], 
                                     disease = [
-                                        openapi_client.models.parameter.Parameter(
+                                        mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
@@ -868,52 +868,52 @@ class TestMetadata(unittest.TestCase):
                                         ], 
                                     description = '0', ), 
                                 ms_run_ref = [
-                                    openapi_client.models.ms_run.MsRun(
+                                    mztab_m_swagger_client.models.ms_run.MsRun(
                                         id = 1, 
                                         name = '0', 
                                         location = '0', 
-                                        instrument_ref = openapi_client.models.instrument.Instrument(
+                                        instrument_ref = mztab_m_swagger_client.models.instrument.Instrument(
                                             id = 1, 
-                                            name = openapi_client.models.parameter.Parameter(
+                                            name = mztab_m_swagger_client.models.parameter.Parameter(
                                                 id = 1, 
                                                 cv_label = '0', 
                                                 cv_accession = '0', 
                                                 name = '0', 
                                                 value = '0', ), 
-                                            source = openapi_client.models.parameter.Parameter(
+                                            source = mztab_m_swagger_client.models.parameter.Parameter(
                                                 id = 1, 
                                                 cv_label = '0', 
                                                 cv_accession = '0', 
                                                 name = '0', 
                                                 value = '0', ), 
                                             analyzer = [
-                                                openapi_client.models.parameter.Parameter(
+                                                mztab_m_swagger_client.models.parameter.Parameter(
                                                     id = 1, 
                                                     cv_label = '0', 
                                                     cv_accession = '0', 
                                                     name = '0', 
                                                     value = '0', )
                                                 ], 
-                                            detector = openapi_client.models.parameter.Parameter(
+                                            detector = mztab_m_swagger_client.models.parameter.Parameter(
                                                 id = 1, 
                                                 cv_label = '0', 
                                                 cv_accession = '0', 
                                                 name = '0', 
                                                 value = '0', ), ), 
-                                        format = openapi_client.models.parameter.Parameter(
+                                        format = mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
                                             name = '0', 
                                             value = '0', ), 
-                                        id_format = openapi_client.models.parameter.Parameter(
+                                        id_format = mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
                                             name = '0', 
                                             value = '0', ), 
                                         fragmentation_method = [
-                                            openapi_client.models.parameter.Parameter(
+                                            mztab_m_swagger_client.models.parameter.Parameter(
                                                 id = 1, 
                                                 cv_label = '0', 
                                                 cv_accession = '0', 
@@ -921,7 +921,7 @@ class TestMetadata(unittest.TestCase):
                                                 value = '0', )
                                             ], 
                                         scan_polarity = [
-                                            openapi_client.models.parameter.Parameter(
+                                            mztab_m_swagger_client.models.parameter.Parameter(
                                                 id = 1, 
                                                 cv_label = '0', 
                                                 cv_accession = '0', 
@@ -929,7 +929,7 @@ class TestMetadata(unittest.TestCase):
                                                 value = '0', )
                                             ], 
                                         hash = '0', 
-                                        hash_method = openapi_client.models.parameter.Parameter(
+                                        hash_method = mztab_m_swagger_client.models.parameter.Parameter(
                                             id = 1, 
                                             cv_label = '0', 
                                             cv_accession = '0', 
@@ -937,13 +937,13 @@ class TestMetadata(unittest.TestCase):
                                             value = '0', ), )
                                     ], )
                             ], 
-                        average_function = openapi_client.models.parameter.Parameter(
+                        average_function = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
                             name = '0', 
                             value = '0', ), 
-                        variation_function = openapi_client.models.parameter.Parameter(
+                        variation_function = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -951,7 +951,7 @@ class TestMetadata(unittest.TestCase):
                             value = '0', ), 
                         description = '0', 
                         factors = [
-                            openapi_client.models.parameter.Parameter(
+                            mztab_m_swagger_client.models.parameter.Parameter(
                                 id = 1, 
                                 cv_label = '0', 
                                 cv_accession = '0', 
@@ -960,29 +960,29 @@ class TestMetadata(unittest.TestCase):
                             ], )
                     ],
                 cv = [
-                    openapi_client.models.cv.CV(
+                    mztab_m_swagger_client.models.cv.CV(
                         id = 1, 
                         label = '0', 
                         full_name = '0', 
                         version = '0', 
                         uri = '0', )
                     ],
-                small_molecule_quantification_unit = openapi_client.models.parameter.Parameter(
+                small_molecule_quantification_unit = mztab_m_swagger_client.models.parameter.Parameter(
                     id = 1, 
                     cv_label = '0', 
                     cv_accession = '0', 
                     name = '0', 
                     value = '0', ),
-                small_molecule_feature_quantification_unit = openapi_client.models.parameter.Parameter(
+                small_molecule_feature_quantification_unit = mztab_m_swagger_client.models.parameter.Parameter(
                     id = 1, 
                     cv_label = '0', 
                     cv_accession = '0', 
                     name = '0', 
                     value = '0', ),
                 database = [
-                    openapi_client.models.database.Database(
+                    mztab_m_swagger_client.models.database.Database(
                         id = 1, 
-                        param = openapi_client.models.parameter.Parameter(
+                        param = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -993,7 +993,7 @@ class TestMetadata(unittest.TestCase):
                         uri = '0', )
                     ],
                 id_confidence_measure = [
-                    openapi_client.models.parameter.Parameter(
+                    mztab_m_swagger_client.models.parameter.Parameter(
                         id = 1, 
                         cv_label = '0', 
                         cv_accession = '0', 

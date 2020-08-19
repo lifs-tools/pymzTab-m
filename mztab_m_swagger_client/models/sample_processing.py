@@ -16,7 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from openapi_client.configuration import Configuration
+from mztab_m_swagger_client.configuration import Configuration
 
 
 class SampleProcessing(object):
@@ -43,6 +43,8 @@ class SampleProcessing(object):
         'sample_processing': 'sampleProcessing'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, sample_processing=None, local_vars_configuration=None):  # noqa: E501
         """SampleProcessing - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -57,6 +59,9 @@ class SampleProcessing(object):
             self.id = id
         if sample_processing is not None:
             self.sample_processing = sample_processing
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):

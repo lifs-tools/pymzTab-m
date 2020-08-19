@@ -16,7 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from openapi_client.configuration import Configuration
+from mztab_m_swagger_client.configuration import Configuration
 
 
 class Sample(object):
@@ -55,6 +55,8 @@ class Sample(object):
         'description': 'description'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, name=None, custom=None, species=None, tissue=None, cell_type=None, disease=None, description=None, local_vars_configuration=None):  # noqa: E501
         """Sample - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -87,6 +89,9 @@ class Sample(object):
             self.disease = disease
         if description is not None:
             self.description = description
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):

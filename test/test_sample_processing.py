@@ -16,9 +16,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.sample_processing import SampleProcessing  # noqa: E501
-from openapi_client.rest import ApiException
+import mztab_m_swagger_client
+from mztab_m_swagger_client.models.sample_processing import SampleProcessing  # noqa: E501
+from mztab_m_swagger_client.rest import ApiException
 
 class TestSampleProcessing(unittest.TestCase):
     """SampleProcessing unit test stubs"""
@@ -34,12 +34,12 @@ class TestSampleProcessing(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = openapi_client.models.sample_processing.SampleProcessing()  # noqa: E501
+        # model = mztab_m_swagger_client.models.sample_processing.SampleProcessing()  # noqa: E501
         if include_optional :
             return SampleProcessing(
                 id = 1, 
                 sample_processing = [
-                    openapi_client.models.parameter.Parameter(
+                    mztab_m_swagger_client.models.parameter.Parameter(
                         id = 1, 
                         cv_label = '0', 
                         cv_accession = '0', 

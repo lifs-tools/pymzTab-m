@@ -25,10 +25,10 @@ import tempfile
 import six
 from six.moves.urllib.parse import quote
 
-from openapi_client.configuration import Configuration
-import openapi_client.models
-from openapi_client import rest
-from openapi_client.exceptions import ApiValueError
+from mztab_m_swagger_client.configuration import Configuration
+import mztab_m_swagger_client.models
+from mztab_m_swagger_client import rest
+from mztab_m_swagger_client.exceptions import ApiValueError
 
 
 class ApiClient(object):
@@ -65,6 +65,8 @@ class ApiClient(object):
         'object': object,
     }
     _pool = None
+
+    objs_in_serialization = set()
 
     def __init__(self, configuration=None, header_name=None, header_value=None,
                  cookie=None, pool_threads=1):
@@ -209,6 +211,7 @@ class ApiClient(object):
             convert to string in iso8601 format.
         If obj is list, sanitize each element in the list.
         If obj is dict, return the dict.
+        if obj is already output, return obj id instead
         If obj is OpenAPI model, return the properties dict.
 
         :param obj: The data to serialize.
@@ -226,6 +229,12 @@ class ApiClient(object):
                          for sub_obj in obj)
         elif isinstance(obj, (datetime.datetime, datetime.date)):
             return obj.isoformat()
+        
+        if hasattr(obj,'instances_by_id'): 
+            if id(obj) in ApiClient.objs_in_serialization:
+                return obj.id
+            else:
+                ApiClient.objs_in_serialization.add(id(obj))
 
         if isinstance(obj, dict):
             obj_dict = obj
@@ -236,8 +245,8 @@ class ApiClient(object):
             # Convert attribute name to json key in
             # model definition for request.
             obj_dict = {obj.attribute_map[attr]: getattr(obj, attr)
-                        for attr, _ in six.iteritems(obj.openapi_types)
-                        if getattr(obj, attr) is not None}
+                        for attr, _ in six.iteritems(obj.openapi_types)}
+                        # if getattr(obj, attr) is not None}
 
         return {key: self.sanitize_for_serialization(val)
                 for key, val in six.iteritems(obj_dict)}
@@ -290,7 +299,7 @@ class ApiClient(object):
             if klass in self.NATIVE_TYPES_MAPPING:
                 klass = self.NATIVE_TYPES_MAPPING[klass]
             else:
-                klass = getattr(openapi_client.models, klass)
+                klass = getattr(mztab_m_swagger_client.models, klass)
 
         if klass in self.PRIMITIVE_TYPES:
             return self.__deserialize_primitive(data, klass)
@@ -645,4 +654,10 @@ class ApiClient(object):
             klass_name = instance.get_real_child_model(data)
             if klass_name:
                 instance = self.__deserialize(data, klass_name)
+        
+        if (hasattr(klass,'instances_by_id') and 
+                isinstance(data, int) and 
+                data in klass.instances_by_id.keys()):
+            instance  = klass.instances_by_id[data]
+
         return instance

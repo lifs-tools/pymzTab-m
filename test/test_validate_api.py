@@ -15,16 +15,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.api.validate_api import ValidateApi  # noqa: E501
-from openapi_client.rest import ApiException
+import mztab_m_swagger_client
+from mztab_m_swagger_client.api.validate_api import ValidateApi  # noqa: E501
+from mztab_m_swagger_client.rest import ApiException
 
 
 class TestValidateApi(unittest.TestCase):
     """ValidateApi unit test stubs"""
 
     def setUp(self):
-        self.api = openapi_client.api.validate_api.ValidateApi()  # noqa: E501
+        self.api = mztab_m_swagger_client.api.validate_api.ValidateApi()  # noqa: E501
 
     def tearDown(self):
         pass

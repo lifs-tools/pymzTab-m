@@ -5,3 +5,6 @@ dist/
 docs/build/
 .idea/
 venv/
+*.pyc
+.*
+

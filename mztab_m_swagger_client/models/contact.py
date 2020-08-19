@@ -16,7 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from openapi_client.configuration import Configuration
+from mztab_m_swagger_client.configuration import Configuration
 
 
 class Contact(object):
@@ -47,6 +47,8 @@ class Contact(object):
         'email': 'email'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, name=None, affiliation=None, email=None, local_vars_configuration=None):  # noqa: E501
         """Contact - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -67,6 +69,9 @@ class Contact(object):
             self.affiliation = affiliation
         if email is not None:
             self.email = email
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):

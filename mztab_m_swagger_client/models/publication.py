@@ -16,7 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from openapi_client.configuration import Configuration
+from mztab_m_swagger_client.configuration import Configuration
 
 
 class Publication(object):
@@ -43,6 +43,8 @@ class Publication(object):
         'publication_items': 'publicationItems'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, publication_items=None, local_vars_configuration=None):  # noqa: E501
         """Publication - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -56,6 +58,9 @@ class Publication(object):
         if id is not None:
             self.id = id
         self.publication_items = publication_items
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):

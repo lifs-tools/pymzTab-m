@@ -92,7 +92,7 @@ class Configuration(object):
         self.logger = {}
         """Logging Settings
         """
-        self.logger["package_logger"] = logging.getLogger("openapi_client")
+        self.logger["package_logger"] = logging.getLogger("mztab_m_swagger_client")
         self.logger["urllib3_logger"] = logging.getLogger("urllib3")
         self.logger_format = '%(asctime)s %(levelname)s %(message)s'
         """Log format
@@ -149,7 +149,7 @@ class Configuration(object):
         """Adding retries to override urllib3 default value 3
         """
         # Disable client side validation
-        self.client_side_validation = True
+        self.client_side_validation = False
 
     def __deepcopy__(self, memo):
         cls = self.__class__

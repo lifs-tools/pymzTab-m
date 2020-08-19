@@ -16,9 +16,9 @@ from __future__ import absolute_import
 import unittest
 import datetime
 
-import openapi_client
-from openapi_client.models.small_molecule_summary import SmallMoleculeSummary  # noqa: E501
-from openapi_client.rest import ApiException
+import mztab_m_swagger_client
+from mztab_m_swagger_client.models.small_molecule_summary import SmallMoleculeSummary  # noqa: E501
+from mztab_m_swagger_client.rest import ApiException
 
 class TestSmallMoleculeSummary(unittest.TestCase):
     """SmallMoleculeSummary unit test stubs"""
@@ -34,7 +34,7 @@ class TestSmallMoleculeSummary(unittest.TestCase):
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # model = openapi_client.models.small_molecule_summary.SmallMoleculeSummary()  # noqa: E501
+        # model = mztab_m_swagger_client.models.small_molecule_summary.SmallMoleculeSummary()  # noqa: E501
         if include_optional :
             return SmallMoleculeSummary(
                 prefix = 'SML', 
@@ -68,7 +68,7 @@ class TestSmallMoleculeSummary(unittest.TestCase):
                     '0'
                     ], 
                 reliability = '0', 
-                best_id_confidence_measure = openapi_client.models.parameter.Parameter(
+                best_id_confidence_measure = mztab_m_swagger_client.models.parameter.Parameter(
                     id = 1, 
                     cv_label = '0', 
                     cv_accession = '0', 
@@ -85,9 +85,9 @@ class TestSmallMoleculeSummary(unittest.TestCase):
                     1.337
                     ], 
                 opt = [
-                    openapi_client.models.opt_column_mapping.OptColumnMapping(
+                    mztab_m_swagger_client.models.opt_column_mapping.OptColumnMapping(
                         identifier = '0', 
-                        param = openapi_client.models.parameter.Parameter(
+                        param = mztab_m_swagger_client.models.parameter.Parameter(
                             id = 1, 
                             cv_label = '0', 
                             cv_accession = '0', 
@@ -96,7 +96,7 @@ class TestSmallMoleculeSummary(unittest.TestCase):
                         value = '0', )
                     ], 
                 comment = [
-                    openapi_client.models.comment.Comment(
+                    mztab_m_swagger_client.models.comment.Comment(
                         prefix = 'COM', 
                         msg = '0', 
                         line_number = 56, )

@@ -1,4 +1,4 @@
-# openapi_client.ValidateApi
+# mztab_m_swagger_client.ValidateApi
 
 All URIs are relative to *https://apps.lifs.isas.de/mztabvalidator/rest/v2*
 
@@ -19,15 +19,15 @@ Validates an mzTab file in XML or JSON representation and reports syntactic, str
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import mztab_m_swagger_client
+from mztab_m_swagger_client.rest import ApiException
 from pprint import pprint
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with mztab_m_swagger_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.ValidateApi(api_client)
-    mztabfile = openapi_client.MzTab() # MzTab | mzTab file that should be validated.
+    api_instance = mztab_m_swagger_client.ValidateApi(api_client)
+    mztabfile = mztab_m_swagger_client.MzTab() # MzTab | mzTab file that should be validated.
 level = 'info' # str | The level of errors that should be reported, one of ERROR, WARN, INFO. (optional) (default to 'info')
 max_errors = 100 # int | The maximum number of errors to return. (optional) (default to 100)
 semantic_validation = False # bool | Whether a semantic validation against the default rule set should be performed. (optional) (default to False)
