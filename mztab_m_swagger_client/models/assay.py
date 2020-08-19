@@ -51,6 +51,8 @@ class Assay(object):
         'ms_run_ref': 'ms_run_ref'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, name=None, custom=None, external_uri=None, sample_ref=None, ms_run_ref=None, local_vars_configuration=None):  # noqa: E501
         """Assay - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -75,6 +77,9 @@ class Assay(object):
         if sample_ref is not None:
             self.sample_ref = sample_ref
         self.ms_run_ref = ms_run_ref
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):

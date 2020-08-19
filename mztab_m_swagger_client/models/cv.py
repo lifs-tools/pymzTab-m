@@ -49,6 +49,8 @@ class CV(object):
         'uri': 'uri'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, label=None, full_name=None, version=None, uri=None, local_vars_configuration=None):  # noqa: E501
         """CV - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -68,6 +70,9 @@ class CV(object):
         self.full_name = full_name
         self.version = version
         self.uri = uri
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):

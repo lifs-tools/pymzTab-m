@@ -100,7 +100,7 @@ class MsRun(object):
             self.hash_method = hash_method
         
         if id is not None:
-            self.__class__.instances_by_id[id] = self
+            self.__class__.instances_by_id[id] =  self
 
     @property
     def id(self):

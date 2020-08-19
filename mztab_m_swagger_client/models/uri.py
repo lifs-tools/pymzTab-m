@@ -43,6 +43,8 @@ class Uri(object):
         'value': 'value'
     }
 
+    instances_by_id = {}
+
     def __init__(self, id=None, value=None, local_vars_configuration=None):  # noqa: E501
         """Uri - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -57,6 +59,9 @@ class Uri(object):
             self.id = id
         if value is not None:
             self.value = value
+
+        if id is not None:
+            self.__class__.instances_by_id[id] = self
 
     @property
     def id(self):
