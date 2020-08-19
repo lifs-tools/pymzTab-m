@@ -55,7 +55,7 @@ class Configuration(object):
 
     _default = None
 
-    def __init__(self, host="https://apps.lifs.isas.de/mztabvalidator/rest/v2",
+    def __init__(self, host="https://apps.lifs.isas.de/mztabvalidator-dev/rest/v2",
                  api_key=None, api_key_prefix=None,
                  username=None, password=None,
                  discard_unknown_keys=False,
@@ -333,7 +333,7 @@ class Configuration(object):
         """
         return [
             {
-                'url': "https://apps.lifs.isas.de/mztabvalidator/rest/v2/",
+                'url': "https://apps.lifs.isas.de/mztabvalidator-dev/rest/v2/",
                 'description': "No description provided",
             }
         ]
