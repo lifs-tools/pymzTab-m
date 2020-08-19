@@ -211,6 +211,7 @@ class ApiClient(object):
             convert to string in iso8601 format.
         If obj is list, sanitize each element in the list.
         If obj is dict, return the dict.
+        if obj is already output, return obj id instead
         If obj is OpenAPI model, return the properties dict.
 
         :param obj: The data to serialize.
@@ -244,8 +245,8 @@ class ApiClient(object):
             # Convert attribute name to json key in
             # model definition for request.
             obj_dict = {obj.attribute_map[attr]: getattr(obj, attr)
-                        for attr, _ in six.iteritems(obj.openapi_types)
-                        if getattr(obj, attr) is not None}
+                        for attr, _ in six.iteritems(obj.openapi_types)}
+                        # if getattr(obj, attr) is not None}
 
         return {key: self.sanitize_for_serialization(val)
                 for key, val in six.iteritems(obj_dict)}
