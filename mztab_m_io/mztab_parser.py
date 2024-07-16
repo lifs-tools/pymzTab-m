@@ -49,9 +49,13 @@ def get_parameter(k,lines):
         if m:
             res = m.groups()[0]
             res = res.strip()
-            res = Parameter.fromText(res)
+            res = parameter_from_text(res)
             break
     return res
+
+def parameter_from_text(text):
+    parts = text.split(',')
+    return Parameter(id=None, cv_label=parts[0], cv_accession=parts[1], name=parts[2], value=parts[3])
 
 def get_list_of(klass,k,lines):
     res = []
@@ -83,7 +87,7 @@ def parseMetadata(text):
     
     kwargs={}
     
-    for k,v in Metadata.swagger_types.items():
+    for k,v in Metadata.openapi_types.items():
         attr = Metadata.attribute_map[k]
         if v=='str':
             kwargs[k]= get_str(attr,lines)
@@ -97,22 +101,24 @@ def parseMetadata(text):
             kwargs[k]=None
     return kwargs
 
-def parseMetadata_as_pandas(text):
+def parseMetadata_as_pandas(text, start_row, end_row):
     import sys
     if sys.version_info[0] < 3: 
         from StringIO import StringIO
     else:
         from io import StringIO
     
-    df = pd.read_csv(StringIO(text), sep='\t', header=None)
+    df = pd.read_csv(StringIO(text), sep='\t', header=None, skiprows=start_row, nrows=end_row-start_row)
     
     mtd_df = df[df[0] =='MTD']
     mtd_df.columns = list("Key","Value")
     return mtd_df
 
-def parseSmall_molecule_summary(text):
+def parseSmall_molecule_summary(text, start_row, end_row):
+
+    offsets = find_section_offsets(text)
     
-    sml_df, headers = parseSmall_molecule_summary_as_pandas(text)
+    sml_df, headers = parseSmall_molecule_summary_as_pandas(text, start_row, end_row)
     
     items = []
     
@@ -121,14 +127,16 @@ def parseSmall_molecule_summary(text):
     
     return items
 
-def parseSmall_molecule_summary_as_pandas(text):
+def parseSmall_molecule_summary_as_pandas(text, start_row, end_row):
     import sys
     if sys.version_info[0] < 3: 
         from StringIO import StringIO
     else:
         from io import StringIO
+
+    # scan for the header lines
     
-    df = pd.read_csv(StringIO(text), sep='\t', header=None)
+    df = pd.read_csv(StringIO(text), sep='\t', header=None, skiprows=start_row, nrows=end_row-start_row)
     
     headers =  df[df[0] =='SMH'].squeeze()
     headers.index = headers.index +1 # got the index column
@@ -136,7 +144,7 @@ def parseSmall_molecule_summary_as_pandas(text):
     sml_df.columns = headers.tolist()
     return sml_df, headers
 
-def parseSmall_molecule_feature(text):
+def parseSmall_molecule_feature(text, start_row, end_row):
 
     smf_df, headers = parseSmall_molecule_feature_as_pandas(text)
     
@@ -147,14 +155,14 @@ def parseSmall_molecule_feature(text):
     
     return items
 
-def parseSmall_molecule_feature_as_pandas(text):
+def parseSmall_molecule_feature_as_pandas(text, start_row, end_row):
     import sys
     if sys.version_info[0] < 3: 
         from StringIO import StringIO
     else:
         from io import StringIO
     
-    df = pd.read_csv(StringIO(text), sep='\t', header=None)
+    df = pd.read_csv(StringIO(text), sep='\t', header=None, skiprows=start_row, nrows=end_row-start_row)
     
     headers =  df[df[0] =='SFH'].squeeze()
     headers.index = headers.index +1 # got the index column
@@ -162,9 +170,9 @@ def parseSmall_molecule_feature_as_pandas(text):
     smf_df.columns = headers.tolist()
     return smf_df, headers
 
-def parseSmall_molecule_evidence(text):
+def parseSmall_molecule_evidence(text, start_row, end_row):
     
-    sme_df, headers = parseSmall_molecule_evidence_as_pandas(text)
+    sme_df, headers = parseSmall_molecule_evidence_as_pandas(text, start_row, end_row)
     
     items = []
     
@@ -173,14 +181,14 @@ def parseSmall_molecule_evidence(text):
     
     return items
 
-def parseSmall_molecule_evidence_as_pandas(text):
+def parseSmall_molecule_evidence_as_pandas(text, start_row, end_row):
     import sys
     if sys.version_info[0] < 3: 
         from StringIO import StringIO
     else:
         from io import StringIO
     
-    df = pd.read_csv(StringIO(text), sep='\t', header=None)
+    df = pd.read_csv(StringIO(text), sep='\t', header=None, skiprows=start_row, nrows=end_row-start_row)
     
     headers =  df[df[0] =='SEH'].squeeze()
     headers.index = headers.index +1 # got the index column
@@ -188,11 +196,20 @@ def parseSmall_molecule_evidence_as_pandas(text):
     sme_df.columns = headers.tolist()
     return sme_df, headers
 
+def parse_as_pandas_from_file(file):
+    offsets = find_section_offsets_in_file(file)
+    mtd_df = parseMetadata_as_pandas(file, offsets['MTD'], offsets['SML'])
+    sml_df = parseSmall_molecule_summary_as_pandas(file, offsets['SML'], offsets['SMF'])
+    smf_df = parseSmall_molecule_feature_as_pandas(file, offsets['SMF'], offsets['SME'])
+    sme_df = parseSmall_molecule_evidence_as_pandas(file, offsets['SME'], file.nlines())
+    return { "MTD": mtd_df, "SML": sml_df, "SMF": smf_df, "SME": sme_df}
+
 def parse_as_pandas(text):
-    mtd_df = parseMetadata_as_pandas(text)
-    sml_df = parseSmall_molecule_summary_as_pandas(text)
-    smf_df = parseSmall_molecule_feature_as_pandas(text)
-    sme_df = parseSmall_molecule_evidence_as_pandas(text)
+    offsets = find_section_offsets(text)
+    mtd_df = parseMetadata_as_pandas(text, offsets['MTD'], offsets['SML'])
+    sml_df = parseSmall_molecule_summary_as_pandas(text, offsets['SML'], offsets['SMF'])
+    smf_df = parseSmall_molecule_feature_as_pandas(text, offsets['SMF'], offsets['SME'])
+    sme_df = parseSmall_molecule_evidence_as_pandas(text, offsets['SME'], len(text.splitlines()))
     return { "MTD": mtd_df, "SML": sml_df, "SMF": smf_df, "SME": sme_df}
 
 def parse(text):
@@ -206,4 +223,36 @@ def parse(text):
     }
     
     return MzTab(**kwargs)
-    
+
+def find_section_offsets_in_file(file):
+    offsets = {}
+    with open(file, encoding="UTF8") as f:
+        for idx, line in enumerate(f):
+            if line.startswith('MTD'):
+                offsets['MTD'] = idx
+            elif line.startswith('SML'):
+                offsets['SML'] = idx
+            elif line.startswith('SMF'):
+                offsets['SMF'] = idx
+            elif line.startswith('SME'):
+                offsets['SME'] = idx
+    return offsets 
+
+# def read_file_section(file, start, end):
+#     with open(file) as f:
+#         lines = f.readlines()
+#         return ''.join(lines[start:end])
+
+def find_section_offsets(text):
+    offsets = {}
+    lines = text.splitlines()
+    for idx, line in enumerate(lines):
+        if line.startswith('MTD'):
+            offsets['MTD'] = idx
+        elif line.startswith('SML'):
+            offsets['SML'] = idx
+        elif line.startswith('SMF'):
+            offsets['SMF'] = idx
+        elif line.startswith('SME'):
+            offsets['SME'] = idx
+    return offsets

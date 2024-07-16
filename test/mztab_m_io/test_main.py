@@ -4,7 +4,6 @@ Created on 11.12.2018
 @author: mirandaa
 '''
 import unittest
-import pytest
 from mztab_m_swagger_client.api_client import ApiClient
 import json
 from collections import namedtuple
@@ -19,8 +18,8 @@ class MzTabParseTestCase(unittest.TestCase):
         self.datapath = PurePath(Path(__file__).parents[1].absolute(), Path('data'))
 
     def testJsonToModelToJson(self):
-        filePath = PurePath(self.datapath, 'lipidomics-example.mzTab.json')
-        with open(filePath, 'r') as jsonfile:
+        file_path = PurePath(self.datapath, 'lipidomics-example.mzTab.json')
+        with open(file_path, 'r', encoding="UTF8") as jsonfile:
             txt = jsonfile.read().replace('\n', '')
         Response = namedtuple('Response', 'data')
         response = Response(txt)
@@ -38,17 +37,11 @@ class MzTabParseTestCase(unittest.TestCase):
         txt = txt.replace('\n','').replace('E','e').replace(' ','').replace('e-0','e-')
         self.assertNotEqual(s, txt)
 
-    # TODO: reenable when TSV parsing works
-    # def testMzTabParsing(self, shared_datadir):
-    #     # print(my_mztab_text)
-    
-    #     filePath = PurePath(self.datapath, 'lipidomics-example.mzTab')
-    #     with open(filePath,'r') as f:
-    #         text = f.read()
-    
-    #     res = mztab_parser.parse(text)
-    #     pprint(res)
-    #     self.assertNotEqual('', res)
+    def testMzTabParsingFromText(self):
+        file_path = PurePath(self.datapath, 'lipidomics-example.mzTab')
+        with open(file_path, 'r', encoding="UTF8") as f:
+            text = f.read()
 
-
-
+        res = mztab_parser.parse(text)
+        pprint(res)
+        self.assertNotEqual('', res)
