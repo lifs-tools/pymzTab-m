@@ -4,12 +4,13 @@ Created on 11.12.2018
 @author: mirandaa
 '''
 import unittest
-from mztab_m_swagger_client.api_client import ApiClient
 import json
 from collections import namedtuple
 from pprint import pprint
-from mztab_m_io import mztab_parser
+from mztabm_io import mztab_parser
 from pathlib import Path, PurePath
+
+from mztabm_client.api_client import ApiClient
 
 
 class MzTabParseTestCase(unittest.TestCase):
@@ -25,7 +26,7 @@ class MzTabParseTestCase(unittest.TestCase):
         response = Response(txt)
 
         apiclient = ApiClient()
-        my_mztab =  apiclient.deserialize(response, 'MzTab')
+        my_mztab =  apiclient.deserialize(response_text=response, response_type='MzTab', content_type='application/json')
         self.assertEqual("2.0.0-M", my_mztab.metadata.mz_tab_version)
         self.assertEqual("ISAS-2018-1234", my_mztab.metadata.mz_tab_id)
         self.assertIsNone(my_mztab.metadata.title)

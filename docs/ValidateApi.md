@@ -1,6 +1,6 @@
-# mztab_m_swagger_client.ValidateApi
+# openapi_client.ValidateApi
 
-All URIs are relative to *https://apps.lifs.isas.de/mztabvalidator/rest/v2*
+All URIs are relative to *https://apps.lifs-tools.org/mztabvalidator/rest/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **validate_mz_tab_file**
-> list[ValidationMessage] validate_mz_tab_file(mztabfile, level=level, max_errors=max_errors, semantic_validation=semantic_validation)
+> List[ValidationMessage] validate_mz_tab_file(mz_tab, level=level, max_errors=max_errors, semantic_validation=semantic_validation)
 
 
 
@@ -16,41 +16,53 @@ Validates an mzTab file in XML or JSON representation and reports syntactic, str
 
 ### Example
 
+
 ```python
-from __future__ import print_function
-import time
-import mztab_m_swagger_client
-from mztab_m_swagger_client.rest import ApiException
+import openapi_client
+from openapi_client.models.mz_tab import MzTab
+from openapi_client.models.validation_message import ValidationMessage
+from openapi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://apps.lifs-tools.org/mztabvalidator/rest/v2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = openapi_client.Configuration(
+    host = "https://apps.lifs-tools.org/mztabvalidator/rest/v2"
+)
+
+
 # Enter a context with an instance of the API client
-with mztab_m_swagger_client.ApiClient() as api_client:
+with openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = mztab_m_swagger_client.ValidateApi(api_client)
-    mztabfile = mztab_m_swagger_client.MzTab() # MzTab | mzTab file that should be validated.
-level = 'info' # str | The level of errors that should be reported, one of ERROR, WARN, INFO. (optional) (default to 'info')
-max_errors = 100 # int | The maximum number of errors to return. (optional) (default to 100)
-semantic_validation = False # bool | Whether a semantic validation against the default rule set should be performed. (optional) (default to False)
+    api_instance = openapi_client.ValidateApi(api_client)
+    mz_tab = openapi_client.MzTab() # MzTab | mzTab file that should be validated.
+    level = info # str | The level of errors that should be reported, one of ERROR, WARN, INFO. (optional) (default to info)
+    max_errors = 100 # int | The maximum number of errors to return. (optional) (default to 100)
+    semantic_validation = False # bool | Whether a semantic validation against the default rule set should be performed. (optional) (default to False)
 
     try:
-        api_response = api_instance.validate_mz_tab_file(mztabfile, level=level, max_errors=max_errors, semantic_validation=semantic_validation)
+        api_response = api_instance.validate_mz_tab_file(mz_tab, level=level, max_errors=max_errors, semantic_validation=semantic_validation)
+        print("The response of ValidateApi->validate_mz_tab_file:\n")
         pprint(api_response)
-    except ApiException as e:
+    except Exception as e:
         print("Exception when calling ValidateApi->validate_mz_tab_file: %s\n" % e)
 ```
 
+
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **mztabfile** | [**MzTab**](MzTab.md)| mzTab file that should be validated. | 
- **level** | **str**| The level of errors that should be reported, one of ERROR, WARN, INFO. | [optional] [default to &#39;info&#39;]
+ **mz_tab** | [**MzTab**](MzTab.md)| mzTab file that should be validated. | 
+ **level** | **str**| The level of errors that should be reported, one of ERROR, WARN, INFO. | [optional] [default to info]
  **max_errors** | **int**| The maximum number of errors to return. | [optional] [default to 100]
  **semantic_validation** | **bool**| Whether a semantic validation against the default rule set should be performed. | [optional] [default to False]
 
 ### Return type
 
-[**list[ValidationMessage]**](ValidationMessage.md)
+[**List[ValidationMessage]**](ValidationMessage.md)
 
 ### Authorization
 
@@ -62,6 +74,7 @@ No authorization required
  - **Accept**: application/json
 
 ### HTTP response details
+
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Validation Okay |  -  |

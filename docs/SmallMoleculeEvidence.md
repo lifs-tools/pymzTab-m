@@ -1,7 +1,9 @@
 # SmallMoleculeEvidence
 
 The small molecule evidence section is table-based, representing evidence for identifications of small molecules/features, from database search or any other process used to give putative identifications to molecules. In a typical case, each row represents one result from a single search or intepretation of a piece of evidence e.g. a database search with a fragmentation spectrum. Multiple results from a given input data item (e.g. one fragment spectrum) SHOULD share the same value under evidence_input_id.  The small molecule evidence section MUST always come after the Small Molecule Feature Table. All table columns MUST be Tab separated. There MUST NOT be any empty cells. Missing values MUST be reported using “null”.  The order of columns MUST follow the order specified below.  All columns are MANDATORY except for “opt_” columns. 
+
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **prefix** | **str** | The small molecule evidence table row prefix. SME MUST be used for rows of the small molecule evidence table. | [optional] [readonly] [default to 'SME']
@@ -19,14 +21,31 @@ Name | Type | Description | Notes
 **exp_mass_to_charge** | **float** | The experimental mass/charge value for the precursor ion. If multiple adduct forms have been combined into a single identification event/search, then a single value e.g. for the protonated form SHOULD be reported here. | 
 **charge** | **int** | The small molecule evidence’s charge value using positive integers both for positive and negative polarity modes. | 
 **theoretical_mass_to_charge** | **float** | The theoretical mass/charge value for the small molecule or the database mass/charge value (for a spectral library match). | 
-**spectra_ref** | [**list[SpectraRef]**](SpectraRef.md) | Reference to a spectrum in a spectrum file, for example a fragmentation spectrum has been used to support the identification. If a separate spectrum file has been used for fragmentation spectrum, this MUST be reported in the metadata section as additional ms_runs. The reference must be in the format ms_run[1-n]:{SPECTRA_REF} where SPECTRA_REF MUST follow the format defined in 5.2 (including references to chromatograms where these are used to inform identification). Multiple spectra MUST be referenced using a “|” delimited list for the (rare) cases in which search engines have combined or aggregated multiple spectra in advance of the search to make identifications.  If a fragmentation spectrum has not been used, the value should indicate the ms_run to which is identification is mapped e.g. “ms_run[1]”.  | 
+**spectra_ref** | [**List[SpectraRef]**](SpectraRef.md) | Reference to a spectrum in a spectrum file, for example a fragmentation spectrum has been used to support the identification. If a separate spectrum file has been used for fragmentation spectrum, this MUST be reported in the metadata section as additional ms_runs. The reference must be in the format ms_run[1-n]:{SPECTRA_REF} where SPECTRA_REF MUST follow the format defined in 5.2 (including references to chromatograms where these are used to inform identification). Multiple spectra MUST be referenced using a “|” delimited list for the (rare) cases in which search engines have combined or aggregated multiple spectra in advance of the search to make identifications.  If a fragmentation spectrum has not been used, the value should indicate the ms_run to which is identification is mapped e.g. “ms_run[1]”.  | [default to []]
 **identification_method** | [**Parameter**](Parameter.md) |  | 
 **ms_level** | [**Parameter**](Parameter.md) |  | 
-**id_confidence_measure** | **list[float]** | Any statistical value or score for the identification. The metadata section reports the type of score used, as id_confidence_measure[1-n] of type Param. | [optional] 
+**id_confidence_measure** | **List[float]** | Any statistical value or score for the identification. The metadata section reports the type of score used, as id_confidence_measure[1-n] of type Param. | [optional] [default to []]
 **rank** | **int** | The rank of this identification from this approach as increasing integers from 1 (best ranked identification). Ties (equal score) are represented by using the same rank – defaults to 1 if there is no ranking system used. | [default to 1]
-**opt** | [**list[OptColumnMapping]**](OptColumnMapping.md) | Additional columns can be added to the end of the small molecule evidence table. These column headers MUST start with the prefix “opt_” followed by the {identifier} of the object they reference: assay, study variable, MS run or “global” (if the value relates to all replicates). Column names MUST only contain the following characters: ‘A’-‘Z’, ‘a’-‘z’, ‘0’-‘9’, ‘’, ‘-’, ‘[’, ‘]’, and ‘:’. CV parameter accessions MAY be used for optional columns following the format: opt{identifier}_cv_{accession}_\\{parameter name}. Spaces within the parameter’s name MUST be replaced by ‘_’.  | [optional] 
-**comment** | [**list[Comment]**](Comment.md) |  | [optional] 
+**opt** | [**List[OptColumnMapping]**](OptColumnMapping.md) | Additional columns can be added to the end of the small molecule evidence table. These column headers MUST start with the prefix “opt_” followed by the {identifier} of the object they reference: assay, study variable, MS run or “global” (if the value relates to all replicates). Column names MUST only contain the following characters: ‘A’-‘Z’, ‘a’-‘z’, ‘0’-‘9’, ‘’, ‘-’, ‘[’, ‘]’, and ‘:’. CV parameter accessions MAY be used for optional columns following the format: opt{identifier}_cv_{accession}_\\{parameter name}. Spaces within the parameter’s name MUST be replaced by ‘_’.  | [optional] [default to []]
+**comment** | [**List[Comment]**](Comment.md) |  | [optional] [default to []]
 
+## Example
+
+```python
+from openapi_client.models.small_molecule_evidence import SmallMoleculeEvidence
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of SmallMoleculeEvidence from a JSON string
+small_molecule_evidence_instance = SmallMoleculeEvidence.from_json(json)
+# print the JSON string representation of the object
+print(SmallMoleculeEvidence.to_json())
+
+# convert the object into a dict
+small_molecule_evidence_dict = small_molecule_evidence_instance.to_dict()
+# create an instance of SmallMoleculeEvidence from a dict
+small_molecule_evidence_from_dict = SmallMoleculeEvidence.from_dict(small_molecule_evidence_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

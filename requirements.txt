@@ -1,5 +1,12 @@
-certifi>=2024.7.4
-python-dateutil>=2.9.0.post0
-six>=1.16.0
-urllib3>=2.2.2
-pandas>=2.2.2
+annotated-types==0.7.0
+certifi==2024.7.4
+numpy==2.0.0
+pandas==2.2.2
+pydantic==2.8.2
+pydantic_core==2.20.1
+python-dateutil==2.9.0.post0
+pytz==2024.1
+six==1.16.0
+typing_extensions==4.12.2
+tzdata==2024.1
+urllib3==2.2.2
