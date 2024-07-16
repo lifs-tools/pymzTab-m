@@ -1,6 +1,7 @@
 import re
 import mztab_m_swagger_client.models
 from mztab_m_swagger_client.models import *
+import pandas as pd
 
 def parseComments(text):
     comments = []
@@ -96,21 +97,22 @@ def parseMetadata(text):
             kwargs[k]=None
     return kwargs
 
-def parseSmall_molecule_summary(text):
+def parseMetadata_as_pandas(text):
     import sys
     if sys.version_info[0] < 3: 
         from StringIO import StringIO
     else:
         from io import StringIO
-        
-    import pandas as pd
     
     df = pd.read_csv(StringIO(text), sep='\t', header=None)
     
-    headers =  df[df[0] =='SMH'].squeeze()
-    headers.index = headers.index +1 # got the index column
-    sml_df = df[df[0] =='SML']
-    sml_df.columns = headers.tolist()
+    mtd_df = df[df[0] =='MTD']
+    mtd_df.columns = list("Key","Value")
+    return mtd_df
+
+def parseSmall_molecule_summary(text):
+    
+    sml_df, headers = parseSmall_molecule_summary_as_pandas(text)
     
     items = []
     
@@ -119,51 +121,79 @@ def parseSmall_molecule_summary(text):
     
     return items
 
-def parseSmall_molecule_feature(text):
+def parseSmall_molecule_summary_as_pandas(text):
     import sys
     if sys.version_info[0] < 3: 
         from StringIO import StringIO
     else:
         from io import StringIO
-        
-    import pandas as pd
+    
+    df = pd.read_csv(StringIO(text), sep='\t', header=None)
+    
+    headers =  df[df[0] =='SMH'].squeeze()
+    headers.index = headers.index +1 # got the index column
+    sml_df = df[df[0] =='SML']
+    sml_df.columns = headers.tolist()
+    return sml_df, headers
+
+def parseSmall_molecule_feature(text):
+
+    smf_df, headers = parseSmall_molecule_feature_as_pandas(text)
+    
+    items = []
+    
+    for tup in smf_df.itertuples(): # we need the headers because they are renamed
+        items.append(SmallMoleculeFeature.fromTuple(tup, headers))
+    
+    return items
+
+def parseSmall_molecule_feature_as_pandas(text):
+    import sys
+    if sys.version_info[0] < 3: 
+        from StringIO import StringIO
+    else:
+        from io import StringIO
     
     df = pd.read_csv(StringIO(text), sep='\t', header=None)
     
     headers =  df[df[0] =='SFH'].squeeze()
     headers.index = headers.index +1 # got the index column
-    sml_df = df[df[0] =='SMF']
-    sml_df.columns = headers.tolist()
+    smf_df = df[df[0] =='SMF']
+    smf_df.columns = headers.tolist()
+    return smf_df, headers
+
+def parseSmall_molecule_evidence(text):
+    
+    sme_df, headers = parseSmall_molecule_evidence_as_pandas(text)
     
     items = []
     
-    for tup in sml_df.itertuples(): # we need the headers because they are renamed
-        items.append(SmallMoleculeFeature.fromTuple(tup, headers))
+    for tup in sme_df.itertuples(): # we need the headers because they are renamed
+        items.append(SmallMoleculeEvidence.fromTuple(tup, ['index']+headers))
     
     return items
 
-def parseSmall_molecule_evidence(text):
+def parseSmall_molecule_evidence_as_pandas(text):
     import sys
     if sys.version_info[0] < 3: 
         from StringIO import StringIO
     else:
         from io import StringIO
-        
-    import pandas as pd
     
     df = pd.read_csv(StringIO(text), sep='\t', header=None)
     
     headers =  df[df[0] =='SEH'].squeeze()
     headers.index = headers.index +1 # got the index column
-    sml_df = df[df[0] =='SME']
-    sml_df.columns = headers.tolist()
-    
-    items = []
-    
-    for tup in sml_df.itertuples(): # we need the headers because they are renamed
-        items.append(SmallMoleculeEvidence.fromTuple(tup, ['index']+headers))
-    
-    return items
+    sme_df = df[df[0] =='SME']
+    sme_df.columns = headers.tolist()
+    return sme_df, headers
+
+def parse_as_pandas(text):
+    mtd_df = parseMetadata_as_pandas(text)
+    sml_df = parseSmall_molecule_summary_as_pandas(text)
+    smf_df = parseSmall_molecule_feature_as_pandas(text)
+    sme_df = parseSmall_molecule_evidence_as_pandas(text)
+    return { "MTD": mtd_df, "SML": sml_df, "SMF": smf_df, "SME": sme_df}
 
 def parse(text):
     
