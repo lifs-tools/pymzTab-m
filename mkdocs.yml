@@ -5,7 +5,12 @@ repo_url: https://github.com/lifs-tools/pymzTab-m
 repo_name: lifs-tools/pymzTab-m
 docs_dir: docs
 theme:
-  name: readthedocs
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
 nav:
   - Home: index.md
   - API Reference: api.md
