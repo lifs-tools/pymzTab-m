@@ -17,6 +17,9 @@ plugins:
       handlers:
         python:
           options:
+            extensions:
+              - griffe_pydantic:
+                  schema: true
             docstring_style: google
             merge_init_into_class: true
             show_root_heading: true
