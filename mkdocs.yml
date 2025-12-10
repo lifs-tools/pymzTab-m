@@ -21,6 +21,8 @@ plugins:
             merge_init_into_class: true
             show_root_heading: true
             show_signature: true
+            show_if_no_docstring: true
+            members_order: source
   - autorefs
 markdown_extensions:
   - admonition
