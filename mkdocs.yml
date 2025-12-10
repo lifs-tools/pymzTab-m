@@ -8,3 +8,20 @@ theme:
   name: readthedocs
 nav:
   - Home: index.md
+  - API Reference: api.md
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            merge_init_into_class: true
+            show_root_heading: true
+            show_signature: true
+  - autorefs
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
