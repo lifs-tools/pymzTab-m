@@ -1,0 +1,10 @@
+site_name: pymzTab-m
+site_description: Python implementation of the mzTab-M standard in Python.
+site_url: https://pymztab-m.readthedocs.io/
+repo_url: https://github.com/lifs-tools/pymzTab-m
+repo_name: lifs-tools/pymzTab-m
+docs_dir: docs
+theme:
+  name: readthedocs
+nav:
+  - Home: index.md
