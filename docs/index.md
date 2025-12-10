@@ -39,4 +39,5 @@ mztabm.write(result.mztabm, str(target_path), format="tsv")
 
 - Project repository: [https://github.com/lifs-tools/pymzTab-m](https://github.com/lifs-tools/pymzTab-m)
 - mzTab-M standard: [https://github.com/HUPO-PSI/mzTab-M](https://github.com/HUPO-PSI/mzTab-M)
-- API reference: [api.md](./api/)
+- API reference: [api](./api/)
+- Data model sections: [model sections](./model_sections/)

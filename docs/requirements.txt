@@ -1,3 +1,4 @@
 mkdocs>=1.5
 mkdocstrings[python]>=0.25
 mkdocs-autorefs>=1.2
+griffe-pydantic>=0.1.0

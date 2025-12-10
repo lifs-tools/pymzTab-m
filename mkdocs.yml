@@ -16,10 +16,17 @@ plugins:
       handlers:
         python:
           options:
+            extensions:
+              - griffe_pydantic:
+                  schema: true
             docstring_style: google
             merge_init_into_class: true
             show_root_heading: true
             show_signature: true
+            show_if_no_docstring: true
+            members_order: source
+          import:
+            - https://docs.pydantic.dev/latest/objects.inv
   - autorefs
 markdown_extensions:
   - admonition
