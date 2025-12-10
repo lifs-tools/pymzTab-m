@@ -39,3 +39,4 @@ mztabm.write(result.mztabm, str(target_path), format="tsv")
 
 - Project repository: https://github.com/lifs-tools/pymzTab-m
 - mzTab-M standard: https://github.com/HUPO-PSI/mzTab
+- API reference: api.md
