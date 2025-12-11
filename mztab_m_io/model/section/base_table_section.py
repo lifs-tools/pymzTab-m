@@ -103,7 +103,8 @@ class BaseTableSection(MzTabBaseModel, CustomSerializer):
                         )
                         row.append(val)
                     else:
-                        self.serialize_value(val)
+                        val = self.serialize_value(val)
+                        row.append(val)
                 else:
                     if isinstance(val, list):
                         row.extend(self.serialize_value(val))
