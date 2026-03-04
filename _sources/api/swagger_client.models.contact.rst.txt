@@ -1,7 +1,0 @@
-swagger\_client.models.contact module
-=====================================
-
-.. automodule:: swagger_client.models.contact
-   :members:
-   :undoc-members:
-   :show-inheritance:

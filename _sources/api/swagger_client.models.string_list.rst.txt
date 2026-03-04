@@ -1,7 +1,0 @@
-swagger\_client.models.string\_list module
-==========================================
-
-.. automodule:: swagger_client.models.string_list
-   :members:
-   :undoc-members:
-   :show-inheritance:

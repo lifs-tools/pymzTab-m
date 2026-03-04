@@ -1,7 +1,0 @@
-swagger\_client.configuration module
-====================================
-
-.. automodule:: swagger_client.configuration
-   :members:
-   :undoc-members:
-   :show-inheritance:
