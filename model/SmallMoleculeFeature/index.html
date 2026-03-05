@@ -876,6 +876,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmallMoleculeFeature
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -892,6 +910,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1111,6 +1159,20 @@
 
 
 <h1 id="smallmoleculefeature">SmallMoleculeFeature<a class="headerlink" href="#smallmoleculefeature" title="Permanent link">&para;</a></h1>
+<p>The small molecule feature section is table-based, representing individual
+MS regions (generally considered to be the elution profile for all isotopomers
+formed from a single charge state of a molecule), that have been
+measured/quantified. However, for approaches that quantify individual isotopomers.
+e.g. stable isotope labelling/flux studies,
+then each SMF row SHOULD represent a single isotopomer.</p>
+<p>Different adducts or derivatives and different charge states of
+individual molecules should be reported as separate SMF rows.</p>
+<p>The small molecule feature section MUST always come after the Small Molecule Table.
+All table columns MUST be Tab separated. There MUST NOT be any empty cells.
+Missing values MUST be reported using “null”.</p>
+<p>The order of columns MUST follow the order specified below.</p>
+<p>All columns are MANDATORY except for “opt_” columns.</p>
+<h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>

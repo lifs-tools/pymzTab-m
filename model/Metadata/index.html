@@ -624,6 +624,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metadata
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -640,6 +658,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1111,6 +1159,7 @@
 
 
 <h1 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h1>
+<h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -1130,7 +1179,7 @@
 <tr>
 <td>mztab_version<br/>(mzTab-version)</td>
 <td><code><code>str</code></code> (<code>2.1.0-M</code>)</td>
-<td><strong>required</strong><br/>pattern: <code>^\d{1}.\d{1}.\d{1}-[A-Z]{1}$</code><br/>Validation type: <strong><code>error</code></strong></td>
+<td><strong>required</strong><br/>pattern: <code>^\d{1}\.\d{1}\.\d{1}-[A-Z]{1}$</code><br/>Validation type: <strong><code>error</code></strong></td>
 <td>Version number of the mzTab format used.&lt;br/&gt;&lt;br/&gt;Format: `major.minor.patch-variant`&lt;br/&gt;Must end with "-M" suffix for metabolomics variant.&lt;br/&gt;&lt;br/&gt;Used to ensure compatibility and processing correctness.</td>
 </tr>
 <tr>

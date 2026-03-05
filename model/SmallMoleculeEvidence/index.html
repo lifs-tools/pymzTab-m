@@ -848,6 +848,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmallMoleculeEvidence
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -864,6 +882,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1111,6 +1159,7 @@
 
 
 <h1 id="smallmoleculeevidence">SmallMoleculeEvidence<a class="headerlink" href="#smallmoleculeevidence" title="Permanent link">&para;</a></h1>
+<h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -1196,7 +1245,7 @@
 <tr>
 <td>adduct_ion</td>
 <td><code>str</code></td>
-<td>pattern: <code>^[\d<em>M([+-][\w\d]+)</em>]\d<em>[+-]$</code><br/>Validation type: *</em><code>error</code>**</td>
+<td>pattern: <code>^\[\d*M([+-][\w\d]+)*\]\d*[+-]$</code><br/>Validation type: <strong><code>error</code></strong></td>
 <td>The assumed classification of this molecule’s adduct ion after detection, following the general style in the 2013 IUPAC recommendations on terms relating to MS e.g. [M+H]1+, [M+Na]1+, [M+NH4]1+, [M-H]1-, [M+Cl]1-. If the adduct classification is ambiguous with regards to identification evidence it MAY be null.</td>
 </tr>
 <tr>
