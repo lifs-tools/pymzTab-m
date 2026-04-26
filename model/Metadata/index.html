@@ -1243,6 +1243,12 @@
 <td>Specification of sample. A name for each sample to serve as a list of the samples that MUST be reported in the following tables. Samples MUST be reported if a statistical design is being captured (i.e. bio or tech replicates). If the type of replicates are not known, samples SHOULD NOT be reported. species: The respective species of the samples analysed. For more complex cases, such as metagenomics, optional columns and userParams should be used.tissue: The respective tissue(s) of the sample. cell_type: The respective cell type(s) of the sample. disease: The respective disease(s) of the sample. description: A human readable description of the sample. custom: Custom parameters describing the sample's additional properties. Dates MUST be provided in ISO-8601 format.</td>
 </tr>
 <tr>
+<td>protocol</td>
+<td>List of <code>Protocol</code></td>
+<td>-</td>
+<td>The protocol(s) used in the experiment.</td>
+</tr>
+<tr>
 <td>sample_processing</td>
 <td>List of <code>SampleProcessing</code></td>
 <td>-</td>
@@ -1270,7 +1276,13 @@
 <td>assay</td>
 <td>List of <code>Assay</code></td>
 <td><strong>required</strong><br/>min: 1<br/>Validation type: <strong><code>error</code></strong></td>
-<td>Specification of assay. (empty) name: A name for each assay, to serve as a list of the assays that MUST be reported in the following tables. custom: Additional custom parameters or values for a given assay. external_uri: An external reference uri to further information about the assay, for example via a reference to an object within an ISA-TAB file. sample_ref: An association from a given assay to the sample analysed. ms_run_ref: An association from a given assay to the source MS run. All assays MUST reference exactly one ms_run unless a workflow with pre-fractionation is being encoded, in which case each assay MUST reference n ms_runs where n fractions have been collected. Multiple assays SHOULD reference the same ms_run to capture multiplexed experimental designs.</td>
+<td>Specification of assay. (empty) name: A name for each assay, to serve as a list of the assays that MUST be reported in the following tables. custom: Additional custom parameters or values for a given assay. external_uri: An external reference uri to further information about the assay, for example via a reference to an object within an ISA-TAB file. sample_ref: An association from a given assay to the sample analysed. ms_run_refs: An association from a given assay to the source MS run. All assays MUST reference exactly one ms_run unless a workflow with pre-fractionation is being encoded, in which case each assay MUST reference n ms_runs where n fractions have been collected. Multiple assays SHOULD reference the same ms_run to capture multiplexed experimental designs.</td>
+</tr>
+<tr>
+<td>study_variable_group</td>
+<td>List of <code>StudyVariableGroup</code></td>
+<td>-</td>
+<td>A parameter defining the group to which study variables belong, allowing grouping of related study variables that belong to the same experimental design factor in multi-factorial designs. For software that does not capture study variables, a single study_variable_group MUST be reported, linking to the single study variable, and MUST have the identifier 'undefined'.</td>
 </tr>
 <tr>
 <td>study_variable</td>
@@ -1299,7 +1311,7 @@
 <tr>
 <td>small_molecule_feature_quantification_unit<br/>(small_molecule_feature-quantification_unit)</td>
 <td><code>Parameter</code></td>
-<td><strong>required</strong><br/>Validation type: <strong><code>error</code></strong></td>
+<td>-</td>
 <td>Defines what type of units are reported in the small molecule feature quantification / abundance fields.</td>
 </tr>
 <tr>

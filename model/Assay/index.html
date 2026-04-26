@@ -1201,10 +1201,22 @@
 <td>Sample reference.</td>
 </tr>
 <tr>
-<td>ms_run_ref</td>
+<td>ms_run_refs<br/>(ms_run_ref)</td>
 <td>List of <code>int</code></td>
 <td><strong>required</strong><br/>min: 1<br/>format: <code>non-negative-integer</code><br/>Validation type: <strong><code>error</code></strong></td>
 <td>The ms run(s) referenced by this assay.</td>
+</tr>
+<tr>
+<td>protocol_refs</td>
+<td>List of <code>int</code></td>
+<td>format: <code>non-negative-integer</code><br/>Validation type: <strong><code>error</code></strong></td>
+<td>The protocol(s) referenced by this assay.</td>
+</tr>
+<tr>
+<td>parameters</td>
+<td>List of <code>ExtendedParameter</code></td>
+<td>-</td>
+<td>Additional parameters of the assay, separated by bars.</td>
 </tr>
 </tbody>
 </table>

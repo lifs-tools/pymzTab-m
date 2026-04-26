@@ -1267,8 +1267,8 @@
 <td>The theoretical mass/charge value for the small molecule or the database mass/charge value (for a spectral library match).</td>
 </tr>
 <tr>
-<td>spectra_ref</td>
-<td>List of <code>SpectraRef</code></td>
+<td>spectra_references<br/>(spectra_ref)</td>
+<td>List of <code>SpectraReference</code></td>
 <td><strong>required</strong><br/>min: 1<br/>Validation type: <strong><code>error</code></strong></td>
 <td>Reference to a spectrum in a spectrum file, for example a fragmentation spectrum has been used to support the identification. If a separate spectrum file has been used for fragmentation spectrum, this MUST be reported in the metadata section as additional ms_runs. The reference must be in the format ms_run[1-n]:{SPECTRA_REF} where SPECTRA_REF MUST follow the format defined in 5.2 (including references to chromatograms where these are used to inform identification). Multiple spectra MUST be referenced using a | delimited list for the (rare) cases in which search engines have combined or aggregated multiple spectra in advance of the search to make identifications.  If a fragmentation spectrum has not been used, the value should indicate the ms_run to which is identification is mapped e.g. “ms_run[1]”.</td>
 </tr>
@@ -1300,7 +1300,7 @@
 <td>opt</td>
 <td>List of <code>OptColumnMapping</code></td>
 <td>-</td>
-<td>Additional columns can be added to the end of the small molecule evidence table. These column headers MUST start with the prefix “opt_” followed by the {identifier} of the object they reference: assay, study variable, MS run or “global” (if the value relates to all replicates). Column names MUST only contain the following characters: 'A'-'Z', 'a'-'z', '0'-'9', '_', '-', '[', ']', and ':'. CV parameter accessions MAY be used for optional columns following the format: opt{identifier}_cv_{accession}_{parameter name}. Spaces within the parameter's name MUST be replaced by '_'.</td>
+<td>Additional columns can be added to the end of the small molecule evidence table. These column headers MUST start with the prefix “opt_” followed by the {identifier} of the object they reference: assay, study variable, MS run or “global” (if the value relates to all replicates). Column names MUST only contain the following characters: 'A'-'Z', 'a'-'z', '0'-'9', '_', '-', '[', ']', and ':'. CV parameter accessions MAY be used for optional columns following the format: opt_{identifier}_cv_{accession}_{parameter name}. Spaces within the parameter's name MUST be replaced by '_'.</td>
 </tr>
 </tbody>
 </table>
