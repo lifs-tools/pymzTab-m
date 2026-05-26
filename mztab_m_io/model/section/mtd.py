@@ -464,7 +464,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
                 validation_policy=ValidationPolicy(required=True, minimum=1)
             ).model_dump(),
         ),
-    ]
+    ] = None
 
     small_molecule_quantification_unit: Annotated[
         Optional[Parameter],
