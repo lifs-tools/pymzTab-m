@@ -2,7 +2,6 @@ import json
 import shutil
 from pathlib import Path
 
-import pytest
 import mztab_m_io as mztabm
 
 
