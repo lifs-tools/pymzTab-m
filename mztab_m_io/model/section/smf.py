@@ -10,7 +10,6 @@ from mztab_m_io.model.common import OptColumnMapping, Parameter
 from mztab_m_io.model.section.base_table_section import BaseTableSection
 from mztab_m_io.model.serialization import (
     TableSerialization,
-    ValidationPolicy,
 )
 
 
@@ -40,10 +39,7 @@ class SmallMoleculeFeature(BaseTableSection):
         Field(
             description="The small molecule feature table row prefix. "
             "SMF MUST be used for rows of the small molecule feature table.",
-            json_schema_extra=TableSerialization(
-                ignore=True,
-                validation_policy=ValidationPolicy(required=True, pattern=r"SMF"),
-            ).model_dump(),
+            json_schema_extra=TableSerialization(ignore=True).model_dump(),
         ),
     ] = "SMF"
     header_prefix: Annotated[
@@ -52,10 +48,7 @@ class SmallMoleculeFeature(BaseTableSection):
             description="The small molecule feature table header prefix. "
             "SFH MUST be used for the small molecule feature table header line "
             "(the column labels).",
-            json_schema_extra=TableSerialization(
-                ignore=True,
-                validation_policy=ValidationPolicy(required=True, pattern=r"SFH"),
-            ).model_dump(),
+            json_schema_extra=TableSerialization(ignore=True).model_dump(),
         ),
     ] = "SFH"
     smf_id: Annotated[
@@ -65,11 +58,7 @@ class SmallMoleculeFeature(BaseTableSection):
             description="A within file unique identifier for the "
             "small molecule feature.",
             examples=[1],
-            json_schema_extra=TableSerialization(
-                validation_policy=ValidationPolicy(
-                    required=True, value_constraint="non-negative-integer"
-                ),
-            ).model_dump(),
+            json_schema_extra=TableSerialization().model_dump(),
         ),
     ] = None
     sme_id_refs: Annotated[
@@ -85,10 +74,7 @@ class SmallMoleculeFeature(BaseTableSection):
             "different features should just reference the same SME_ID value(s).",
             examples=[[5, 6, 12]],
             json_schema_extra=TableSerialization(
-                list_concatenation_str="|",
-                validation_policy=ValidationPolicy(
-                    minimum=1, value_constraint="non-negative-integer"
-                ),
+                list_concatenation_str="|"
             ).model_dump(),
         ),
     ] = None
@@ -103,9 +89,7 @@ class SmallMoleculeFeature(BaseTableSection):
             "streams. If there are no or one value under SME_ID_REFs, this "
             "MUST be reported as null.",
             examples=[1],
-            json_schema_extra=TableSerialization(
-                validation_policy=ValidationPolicy(minimum=1, maximum=3)
-            ).model_dump(),
+            json_schema_extra=TableSerialization().model_dump(),
         ),
     ] = None
     adduct_ion: Annotated[
@@ -116,9 +100,7 @@ class SmallMoleculeFeature(BaseTableSection):
             "recommendations on terms relating to MS e.g. [M+H]1+, [M+Na]1+, "
             "[M+NH4]1+, [M-H]1-, [M+Cl]1-. ",
             examples=["[M+H]1+", "[M+2Na]2+"],
-            json_schema_extra=TableSerialization(
-                pattern=r"^\[\d*M([+-][\w\d]+)*\]\d*[+-]$",
-            ).model_dump(),
+            json_schema_extra=TableSerialization().model_dump(),
         ),
     ] = None
     isotopomer: Annotated[
@@ -140,9 +122,7 @@ class SmallMoleculeFeature(BaseTableSection):
             "value. For approaches that report isotopomers as SMF rows, "
             "then the m/z of the isotopomer MUST be reported here.",
             examples=[1234.5],
-            json_schema_extra=TableSerialization(
-                validation_policy=ValidationPolicy(required=True)
-            ).model_dump(),
+            json_schema_extra=TableSerialization().model_dump(),
         ),
     ] = None
     charge: Annotated[
@@ -151,9 +131,7 @@ class SmallMoleculeFeature(BaseTableSection):
             description="The feature’s charge value using positive integers "
             "both for positive and negative polarity modes.",
             examples=[1],
-            json_schema_extra=TableSerialization(
-                validation_policy=ValidationPolicy(required=True)
-            ).model_dump(),
+            json_schema_extra=TableSerialization().model_dump(),
         ),
     ] = None
     retention_time_in_seconds: Annotated[

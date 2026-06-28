@@ -10,7 +10,7 @@ from pydantic import Field
 
 from mztab_m_io.model.common import Comment
 from mztab_m_io.model.mztabm_parser_utils import check_ids, parse_tsv_file, update_ids
-from mztab_m_io.model.mztabm_validation import check_validation_policies, cross_check
+from mztab_m_io.model.mztabm_validation import cross_check
 from mztab_m_io.model.section.mtd import Metadata
 from mztab_m_io.model.section.sme import SmallMoleculeEvidence
 from mztab_m_io.model.section.smf import SmallMoleculeFeature
@@ -20,7 +20,6 @@ from mztab_m_io.model.serialization import (
     MetadataSerialization,
     MzTabSerializableModel,
     SerializationContext,
-    ValidationPolicy,
 )
 from mztab_m_io.model.validation import (
     Category,
@@ -31,8 +30,7 @@ from mztab_m_io.model.validation import (
 
 
 class MzTabM(MzTabSerializableModel, CustomSerializer):
-    """
-        mzTab-M is intended as a reporting standard for quantitative results
+    """mzTab-M is intended as a reporting standard for quantitative results
         from metabolomics/lipodomics approaches.
 
         This format is further intended to provide local LIMS systems
@@ -72,7 +70,6 @@ class MzTabM(MzTabSerializableModel, CustomSerializer):
             description="The metadata section contains general information "
             "about the mztab file content.",
             json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True),
                 mztab_example="MTD\tmzTab-version\t2.0.0-M\nMTD\tmzTab-ID\tMTBL1234\n"
                 "MTD\ttitle\tEffects of Rapamycin on metabolite profile\n...\n",
             ).model_dump(),
@@ -99,11 +96,7 @@ class MzTabM(MzTabSerializableModel, CustomSerializer):
             "in the Small Molecule Feature section.  "
             "The order of columns MUST follow the order specified below.  "
             "All columns are MANDATORY except for “opt_” columns. ",
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(
-                    required=True, minimum=1, enforcement_level="recommended"
-                )
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
     small_molecule_feature: Annotated[
@@ -126,11 +119,7 @@ class MzTabM(MzTabSerializableModel, CustomSerializer):
             "MUST be reported using “null”.  "
             "The order of columns MUST follow the order specified below.  "
             "All columns are MANDATORY except for “opt_” columns. ",
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(
-                    required=True, minimum=1, enforcement_level="recommended"
-                )
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
     small_molecule_evidence: Annotated[
@@ -154,11 +143,7 @@ class MzTabM(MzTabSerializableModel, CustomSerializer):
             "MUST be reported using “null”.  "
             "The order of columns MUST follow the order specified below.  "
             "All columns are MANDATORY except for “opt_” columns. ",
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(
-                    required=True, minimum=1, enforcement_level="recommended"
-                )
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
     comment: Annotated[
@@ -197,8 +182,6 @@ class MzTabM(MzTabSerializableModel, CustomSerializer):
         if not context:
             context = ValidationContext(messages=[], source_format="json")
         self.post_process_model(self, context)
-        # cross_check(self, context.messages)
-        # check_validation_policies([], self, context.messages)
         return context
 
     @classmethod
@@ -207,7 +190,6 @@ class MzTabM(MzTabSerializableModel, CustomSerializer):
             update_ids(model)
         check_ids(model, [], context.messages)
         cross_check(model, context.messages)
-        check_validation_policies([], model, context.messages)
 
     @classmethod
     def from_dict(

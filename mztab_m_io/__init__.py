@@ -1,3 +1,4 @@
+import json
 import pathlib
 from typing import Annotated, Any, Dict, Literal, Optional, Tuple
 
@@ -12,6 +13,10 @@ from mztab_m_io.model.validation import (
     MessageType,
     MzTabMessage,
     ValidationContext,
+)
+from mztab_m_io.validator.mztabm_validator import (
+    MzTabMValidationResult,
+    MzTabMValidator,
 )
 
 
@@ -45,6 +50,8 @@ def read(
     file_path: str,
     format: Literal["tsv", "json", "yaml"] = "tsv",
     auto_complete_ids: bool = False,
+    validator: None | MzTabMValidator = None,
+    mztabm_profile_file_path: None | str | pathlib.Path = None,
 ) -> MzTabMLoadResult:
     """Read and parse an mzTab-M file in TSV, JSON, or YAML format.
 
@@ -87,7 +94,9 @@ def read(
     input_path = pathlib.Path(file_path)
     if not input_path.exists():
         raise ValueError("Input file does not exist.")
-
+    if mztabm_profile_file_path and isinstance(mztabm_profile_file_path, str):
+        mztabm_profile_file_path = pathlib.Path(mztabm_profile_file_path)
+    result = None
     if format == "tsv":
         result = MzTabMLoadResult(
             success=False,
@@ -99,7 +108,8 @@ def read(
             mztabm, context = MzTabM.from_tsv_file(
                 input_path,
                 context=ValidationContext(
-                    source_format="tsv", auto_complete_ids=auto_complete_ids
+                    source_format="tsv",
+                    auto_complete_ids=auto_complete_ids,
                 ),
             )
             result.mztabm = mztabm
@@ -118,21 +128,87 @@ def read(
                     for x in ex.errors()
                 ]
             )
-        return result
     elif format == "json" or format == "yaml":
+        context = ValidationContext(
+            source_format=format,
+            auto_complete_ids=auto_complete_ids,
+        )
         if format == "json":
-            mztabm, context = MzTabM.from_json_file(input_path)
+            mztabm, context = MzTabM.from_json_file(input_path, context=context)
         else:
-            mztabm, context = MzTabM.from_yaml_file(input_path)
+            mztabm, context = MzTabM.from_yaml_file(input_path, context=context)
         success = False
         errors = [x for x in context.messages if x.message_type == MessageType.ERROR]
         if not errors and mztabm:
             success = True
-        return MzTabMLoadResult(
+
+        result = MzTabMLoadResult(
             success=success, mztabm=mztabm, messages=context.messages
         )
     else:
         raise ValueError(f"invalid format type: {format}")
+    if result and result.mztabm:
+        validate(
+            source=result.mztabm,
+            mztabm_profile_file_path=mztabm_profile_file_path,
+            messages=result.messages,
+            validator=validator,
+        )
+    else:
+        result.messages.append(
+            MzTabMessage(
+                category=Category.FORMAT,
+                message_type=MessageType.ERROR,
+                message="MzTabM file content is not valid",
+            )
+        )
+    return result
+
+
+def validate(
+    source: dict | MzTabM | pathlib.Path | bytes | str,
+    mztabm_profile_file_path: None | str = None,
+    messages: None | list[MzTabMessage] = None,
+    validator: None | MzTabMValidator = None,
+) -> list[MzTabMessage]:
+    if messages is None:
+        messages = []
+    mztabm_input = None
+    if isinstance(source, MzTabM):
+        mztabm_input = source.model_dump(by_alias=True)
+    elif isinstance(source, dict):
+        mztabm_input = source
+    elif isinstance(source, pathlib.Path):
+        mztabm_input = json.loads(source.read_text())
+    elif isinstance(source, str):
+        mztabm_input = json.loads(source)
+    else:
+        raise ValueError("source is not valid")
+
+    if isinstance(mztabm_profile_file_path, str):
+        mztabm_profile_file_path = pathlib.Path(mztabm_profile_file_path)
+    if not validator:
+        validator = MzTabMValidator(mztabm_profile_file_path)
+    validation_result: MzTabMValidationResult = validator.validate_mztabm_json(
+        input_json=mztabm_input
+    )
+    for message_type, message_dict in [
+        (MessageType.ERROR, validation_result.errors),
+        (MessageType.WARNING, validation_result.recommendations),
+        (MessageType.INFO, validation_result.optionals),
+    ]:
+        for _, items in message_dict.items() or {}:
+            for item in items:
+                messages.append(
+                    MzTabMessage(
+                        code=item.code or "",
+                        category=Category.PROFILE,
+                        message_type=message_type,
+                        message=item.message,
+                        source=item.source,
+                    )
+                )
+    return messages
 
 
 def write(

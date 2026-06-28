@@ -2,7 +2,6 @@ from mztab_m_io.model import serialization, validation
 from mztab_m_io.model.base import MzTabBaseModel
 from mztab_m_io.model.common import (
     CV,
-    AdductIon,
     Assay,
     ColumnParameterMapping,
     Comment,
@@ -21,12 +20,10 @@ from mztab_m_io.model.common import (
     Software,
     SpectraReference,
     StudyVariable,
-    Uri,
 )
 from mztab_m_io.model.mztabm import MzTabM
 from mztab_m_io.model.mztabm_validation import (
     MessageTypeMap,
-    check_validation_policies,
     cross_check,
     to_jsonpath,
 )
@@ -41,14 +38,12 @@ __all__ = [
     "MzTabBaseModel",
     "CompactObjectModel",
     "CustomSerializer",
-    "AdductIon",
     "Parameter",
     "Instrument",
     "SampleProcessing",
     "Software",
     "PublicationItem",
     "Contact",
-    "Uri",
     "Sample",
     "MsRun",
     "Assay",
@@ -68,7 +63,6 @@ __all__ = [
     "validation",
     "serialization",
     "cross_check",
-    "check_validation_policies",
     "MessageTypeMap",
     "to_jsonpath",
 ]

@@ -132,7 +132,7 @@ def split_file_sections(
                 context.messages.append(
                     MzTabMessage(
                         category=Category.FORMAT,
-                        type=MessageType.ERROR,
+                        message_type=MessageType.ERROR,
                         message=f"line error at {idx}: '{line}'",
                     )
                 )
@@ -143,7 +143,7 @@ def split_file_sections(
                 context.messages.append(
                     MzTabMessage(
                         category=Category.FORMAT,
-                        type=MessageType.ERROR,
+                        message_type=MessageType.ERROR,
                         message=f"line error at {idx}: '{line}'",
                     )
                 )

@@ -51,23 +51,19 @@ ValueConstraint = Literal[
     "email",
 ]
 
-EnforcementLevel = Literal["recommended", "required"]
+EnforcementLevel = Literal["not-defined", "optional", "recommended", "required"]
 
 
-class ValidationPolicy(MzTabBaseModel):
-    required: Optional[bool] = None
-    minimum: Optional[int] = None
-    maximum: Optional[int] = None
-    pattern: Optional[str] = None
-    value_constraint: Optional[ValueConstraint] = None
-    enforcement_level: Optional[EnforcementLevel] = "required"
+# class ValidationPolicy(MzTabBaseModel):
+#     required: Optional[bool] = None
+#     minimum: Optional[int] = None
+#     maximum: Optional[int] = None
+#     pattern: Optional[str] = None
+#     value_constraint: Optional[ValueConstraint] = None
+#     enforcement_level: Optional[EnforcementLevel] = None
 
 
-class ValidationProfile(MzTabBaseModel):
-    validation_policy: Optional[Union[ValidationPolicy]] = ValidationPolicy()
-
-
-class MetadataSerialization(ValidationProfile):
+class MetadataSerialization(MzTabBaseModel):
     ignore: bool = False
     object_level_value: bool = False
     list_concatenation_str: Optional[str] = None
@@ -77,7 +73,7 @@ class MetadataSerialization(ValidationProfile):
     mztab_example: Annotated[Optional[str], Field(alias="x-mztab-example")] = None
 
 
-class TableSerialization(ValidationProfile):
+class TableSerialization(MzTabBaseModel):
     ignore: bool = False
     list_concatenation_str: Optional[str] = None
     multiple_columns: bool = False
@@ -225,7 +221,7 @@ class MzTabSerializableModel(MzTabBaseModel):
                         info.context.messages = []
                     info.context.messages.append(
                         MzTabMessage(
-                            category=Category.WARNING,
+                            category=Category.FORMAT,
                             message_type=MessageType.WARNING,
                             message=f"Unknown field: {item}",
                         )

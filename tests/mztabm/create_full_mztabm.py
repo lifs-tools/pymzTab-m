@@ -448,7 +448,7 @@ def create_full_mztabm():
             ),
             StudyVariableGroup(
                 id=2,
-                name="treatment timepoint",
+                name=Parameter(name="treatment timepoint"),
                 description="treatment timepoint",
                 type=Parameter(
                     cv_label="MS", cv_accession="MS:1000000", name="timepoint"
@@ -708,7 +708,7 @@ def create_full_mztabm():
             exp_mass_to_charge=76.016,
             charge=1,
             theoretical_mass_to_charge=76.016,
-            spectra_references=[SpectraReference(ms_run_ref=1, reference="scan=1")],
+            spectra_reference=[SpectraReference(ms_run_ref=1, reference="scan=1")],
             identification_method=Parameter(name="MS-DIAL"),
             ms_level=Parameter(
                 cv_label="MS", cv_accession="MS:1000511", name="ms level", value="1"
@@ -729,7 +729,7 @@ def create_full_mztabm():
             exp_mass_to_charge=89.047,
             charge=1,
             theoretical_mass_to_charge=89.047,
-            spectra_references=[SpectraReference(ms_run_ref=1, reference="scan=1")],
+            spectra_reference=[SpectraReference(ms_run_ref=1, reference="scan=1")],
             identification_method=Parameter(name="MS-DIAL"),
             ms_level=Parameter(
                 cv_label="MS", cv_accession="MS:1000511", name="ms level", value="1"
@@ -750,7 +750,7 @@ def create_full_mztabm():
             exp_mass_to_charge=75.032,
             charge=1,
             theoretical_mass_to_charge=75.032,
-            spectra_references=[SpectraReference(ms_run_ref=1, reference="scan=1")],
+            spectra_reference=[SpectraReference(ms_run_ref=1, reference="scan=1")],
             identification_method=Parameter(name="MS-DIAL"),
             ms_level=Parameter(
                 cv_label="MS", cv_accession="MS:1000511", name="ms level", value="1"

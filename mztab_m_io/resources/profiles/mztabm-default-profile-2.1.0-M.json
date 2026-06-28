@@ -1,0 +1,1997 @@
+{
+    "id": "https://github.com/HUPO-PSI/mzTab-M/tree/main/schema/mztabm-default-profile-2.1.0-M.json",
+    "version": "2.1.0-M",
+    "name": "mzTab-M 2.1.0-M Default Profile",
+    "description": "mzTab-M Default Profile is used  for checking minimum valid mzTab-M files",
+    "configuration": {},
+    "requirements": {
+        "$": {
+            "code": "D-0001",
+            "enforcement_level": "required",
+            "required_properties": [
+                "metadata"
+            ],
+            "recommended_properties": [
+                "smallMoleculeSummary"
+            ]
+        },
+        "$.comment[*]": {
+            "code": "D-COMMENT-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "pattern": "^COM$",
+                "case_sensitive": true
+            }
+        },
+        "$.comment[*].message": {
+            "code": "D-COMMENT-MESSAGE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "minimum": 1
+            }
+        },
+        "$.comment[*].line_number": {
+            "code": "D-COMMENT-LINE_NUMBER-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.metadata": {
+            "code": "D-METADATA-0001",
+            "enforcement_level": "required",
+            "match_is_required": true,
+            "required_properties": [
+                "prefix",
+                "mzTab-version",
+                "mzTab-ID",
+                "quantification_method",
+                "ms_run",
+                "assay",
+                "study_variable",
+                "cv",
+                "database",
+                "small_molecule-quantification_unit",
+                "id_confidence_measure"
+            ],
+            "recommended_properties": [
+                "contact",
+                "publication",
+                "software",
+                "sample"
+            ]
+        },
+        "$.metadata.prefix": {
+            "code": "D-METADATA-PREFIX-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "pattern": "^MTD$",
+                "case_sensitive": true
+            },
+            "match_is_required": true
+        },
+        "$.metadata.mzTab-version": {
+            "code": "D-METADATA-MZTAB_VERSION-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "pattern": "^\\d{1}\\.\\d{1}\\.\\d{1}-[A-Z]{1}$",
+                "case_sensitive": true
+            },
+            "match_is_required": true
+        },
+        "$.metadata.mzTab-ID": {
+            "code": "D-METADATA-MZTAB_ID-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "minimum": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.instrument": {
+            "code": "D-METADATA-INSTRUMENT-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.instrument[*]": {
+            "code": "D-METADATA-INSTRUMENT-0010",
+            "enforcement_level": "recommended",
+            "recommended_properties": [
+                "name"
+            ]
+        },
+        "$.metadata.software": {
+            "code": "D-METADATA-SOFTWARE-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.software[*]": {
+            "code": "D-METADATA-SOFTWARE-0010",
+            "enforcement_level": "recommended",
+            "required_properties": [
+                "parameter"
+            ]
+        },
+        "$.metadata.software[*].parameter": {
+            "code": "D-METADATA-SOFTWARE-0011",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.metadata.publication": {
+            "code": "D-MTD-PUBLICATION-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.publication[*]": {
+            "code": "D-MTD-PUBLICATION-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "json_path": ".publication_items",
+                "min_occurs": 1
+            },
+            "required_properties": [
+                "publication_items"
+            ]
+        },
+        "$.metadata.publication[*].publication_items[*]": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "D-MTD-PUBLICATION-0020",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "group",
+                        "constraints": [
+                            {
+                                "type": "regex",
+                                "json_path": ".type",
+                                "null_values": [
+                                    null,
+                                    "null",
+                                    "",
+                                    "\"\"",
+                                    "''"
+                                ],
+                                "pattern": "^doi|pubmed|uri$",
+                                "case_sensitive": true
+                            },
+                            {
+                                "type": "not-null",
+                                "json_path": ".accession",
+                                "null_values": [
+                                    null,
+                                    "null",
+                                    "",
+                                    "\"\"",
+                                    "''"
+                                ]
+                            }
+                        ],
+                        "join_operator": "and"
+                    },
+                    "required_properties": [
+                        "type",
+                        "accession"
+                    ]
+                },
+                {
+                    "code": "D-MTD-PUBLICATION-0021",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "regex",
+                        "precondition": {
+                            "evaluations": [
+                                {
+                                    "json_path": ".type",
+                                    "constraint": {
+                                        "type": "regex",
+                                        "pattern": "^doi$",
+                                        "case_sensitive": true
+                                    },
+                                    "default_evaluation": false,
+                                    "join_operator": "and"
+                                }
+                            ],
+                            "join_operator": "and"
+                        },
+                        "json_path": ".accession",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ],
+                        "exceptional_values": [
+                            null
+                        ],
+                        "pattern": "^11\\..+/.+$",
+                        "case_sensitive": true
+                    }
+                },
+                {
+                    "code": "D-MTD-PUBLICATION-0022",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "regex",
+                        "precondition": {
+                            "evaluations": [
+                                {
+                                    "json_path": ".type",
+                                    "constraint": {
+                                        "type": "regex",
+                                        "pattern": "^pubmed$",
+                                        "case_sensitive": true
+                                    },
+                                    "join_operator": "and"
+                                }
+                            ],
+                            "join_operator": "and"
+                        },
+                        "json_path": ".accession",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ],
+                        "exceptional_values": [
+                            null
+                        ],
+                        "pattern": "^\\d+$",
+                        "case_sensitive": true
+                    }
+                },
+                {
+                    "code": "D-MTD-PUBLICATION-0023",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "uri",
+                        "precondition": {
+                            "evaluations": [
+                                {
+                                    "json_path": ".type",
+                                    "constraint": {
+                                        "type": "regex",
+                                        "pattern": "^uri$",
+                                        "case_sensitive": true
+                                    },
+                                    "join_operator": "and"
+                                }
+                            ],
+                            "join_operator": "and"
+                        },
+                        "json_path": ".accession",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ],
+                        "exceptional_values": [
+                            null
+                        ]
+                    }
+                }
+            ]
+        },
+        "$.metadata.contact": {
+            "code": "D-MTD-CONTACT-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.contact[*]": {
+            "code": "D-MTD-CONTACT-0010",
+            "enforcement_level": "recommended",
+            "recommended_properties": [
+                "name",
+                "email",
+                "affiliation",
+                "orcid"
+            ]
+        },
+        "$.metadata.contact[*].name": {
+            "code": "D-MTD-CONTACT-NAME-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "string-length",
+                "minimum": 5
+            }
+        },
+        "$.metadata.contact[*].email": {
+            "code": "D-MTD-CONTACT-EMAIL-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "email"
+            }
+        },
+        "$.metadata.contact[*].affiliation": {
+            "code": "D-MTD-CONTACT-AFFILIATION-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "string-length",
+                "minimum": 2
+            }
+        },
+        "$.metadata.contact[*].orcid": {
+            "code": "D-MTD-CONTACT-ORCID-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[X0-9]$",
+                "case_sensitive": true
+            }
+        },
+        "$.metadata.uri[*]": {
+            "code": "D-MTD-CONTACT-URI-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "uri",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.metadata.external_study_uri[*]": {
+            "code": "D-MTD-CONTACT-EXTERNAL_STUDY_URI-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "uri",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.metadata.quantification_method": {
+            "code": "D-MTD-CONTACT-QUANTIFICATION_METHOD-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            },
+            "match_is_required": true
+        },
+        "$.metadata.sample": {
+            "code": "D-MTD-SAMPLE-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.sample[*]": {
+            "code": "D-MTD-SAMPLE-0010",
+            "enforcement_level": "recommended",
+            "required_properties": [
+                "name"
+            ],
+            "recommended_properties": [
+                "species"
+            ]
+        },
+        "$.metadata.sample[*].name": {
+            "code": "D-MTD-SAMPLE-0011",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "minimum": 1
+            }
+        },
+        "$.metadata.sample[*].species[*]": {
+            "code": "D-MTD-SAMPLE-0020",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "allowed-cv-list",
+                "allow_user_defined_terms": false,
+                "allowed_cv_list": [
+                    "NCBITAXON",
+                    "ENVO",
+                    "CHEBI"
+                ]
+            }
+        },
+        "$.metadata.ms_run": {
+            "code": "D-MTD-MS_RUN-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.ms_run[*]": {
+            "code": "D-MTD-MS_RUN-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "location"
+            ],
+            "recommended_properties": [
+                "instrument_ref"
+            ]
+        },
+        "$.metadata.ms_run[*].location": {
+            "code": "D-MTD-MS_RUN-0020",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "uri",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.metadata.ms_run[*].scan_polarity": {
+            "code": "D-MTD-MS_RUN-0030",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "max_occurs": 2
+            }
+        },
+        "$.metadata.ms_run[*].scan_polarity[*]": {
+            "code": "D-MTD-MS_RUN-0031",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term-enum",
+                "allowed_cv_terms": [
+                    {
+                        "cv_label": "MS",
+                        "cv_accession": "MS:1000129",
+                        "name": "negative scan"
+                    },
+                    {
+                        "cv_label": "MS",
+                        "cv_accession": "MS:1000130",
+                        "name": "positive scan"
+                    }
+                ]
+            }
+        },
+        "$.metadata.ms_run[*].instrument_ref": {
+            "code": "D-MTD-MS_RUN-0040",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "positive-integer",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "minimum": 1
+            }
+        },
+        "$.metadata.assay": {
+            "code": "D-MTD-ASSAY-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.assay[*]": {
+            "code": "D-MTD-ASSAY-0020",
+            "enforcement_level": "required",
+            "required_properties": [
+                "name",
+                "ms_run_ref"
+            ],
+            "recommended_properties": [
+                "sample_ref"
+            ]
+        },
+        "$.metadata.assay[*].name": {
+            "code": "D-MTD-ASSAY-0030",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "minimum": 1
+            }
+        },
+        "$.metadata.assay[*].ms_run_ref": {
+            "code": "D-MTD-ASSAY-0040",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            }
+        },
+        "$.metadata.assay[*].ms_run_ref[*]": {
+            "code": "D-MTD-ASSAY-0041",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.metadata.assay[*].protocol_refs[*]": {
+            "code": "D-MTD-ASSAY-0050",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.metadata.assay[*].sample_ref": {
+            "code": "D-MTD-ASSAY-0060",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "minimum": 1
+            }
+        },
+        "$.metadata.assay[*].external_uri": {
+            "code": "D-MTD-ASSAY-0070",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "uri",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.metadata.protocol[*]": {
+            "code": "D-MTD-PROTOCOL-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "name",
+                "type"
+            ]
+        },
+        "$.metadata.protocol[*].name": {
+            "code": "D-MTD-PROTOCOL-0020",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length"
+            }
+        },
+        "$.metadata.protocol[*].type": {
+            "code": "D-MTD-PROTOCOL-0030",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.metadata.study_variable_group[*]": {
+            "code": "D-MTD-STUDY_VARIABLE_GROUP-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "name"
+            ],
+            "recommended_properties": [
+                "type",
+                "datatype"
+            ]
+        },
+        "$.metadata.study_variable_group[*].name": {
+            "code": "D-MTD-STUDY_VARIABLE_GROUP-0020",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.metadata.study_variable_group[*].type": {
+            "code": "D-MTD-STUDY_VARIABLE_GROUP-0030",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.metadata.study_variable_group[*].datatype": {
+            "code": "D-MTD-STUDY_VARIABLE_GROUP-0040",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-enum",
+                "options": [
+                    "xsd:string",
+                    "xsd:integer",
+                    "xsd:decimal",
+                    "xsd:boolean",
+                    "xsd:date",
+                    "xsd:time",
+                    "xsd:dateTime",
+                    "xsd:anyURI",
+                    "Parameter"
+                ]
+            }
+        },
+        "$.metadata.study_variable": {
+            "code": "D-MTD-STUDY_VARIABLE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.study_variable[*]": {
+            "code": "D-MTD-STUDY_VARIABLE-0020",
+            "enforcement_level": "required",
+            "required_properties": [
+                "name"
+            ],
+            "recommended_properties": [
+                "group_refs"
+            ]
+        },
+        "$.metadata.study_variable[*].name": {
+            "code": "D-MTD-STUDY_VARIABLE-0030",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "group",
+                "constraints": [
+                    {
+                        "type": "cv-term",
+                        "allow_user_defined_terms": true
+                    },
+                    {
+                        "type": "string-length",
+                        "minimum": 1
+                    },
+                    {
+                        "type": "integer"
+                    },
+                    {
+                        "type": "decimal"
+                    },
+                    {
+                        "type": "boolean"
+                    }
+                ],
+                "join_operator": "or"
+            }
+        },
+        "$.metadata.study_variable[*].group_refs[*]": {
+            "code": "D-MTD-STUDY_VARIABLE-0041",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.metadata.study_variable[*].assay_refs[*]": {
+            "code": "D-MTD-STUDY_VARIABLE-0051",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.metadata.study_variable[*].ms_run_refs[*]": {
+            "code": "D-MTD-STUDY_VARIABLE-0061",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.metadata.custom[*]": {
+            "code": "D-MTD-CUSTOM-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.metadata.cv": {
+            "code": "D-MTD-CV-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            }
+        },
+        "$.metadata.cv[*]": {
+            "code": "D-MTD-CV-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "label",
+                "full_name",
+                "version",
+                "uri"
+            ]
+        },
+        "$.metadata.cv[*].label": {
+            "code": "D-MTD-CV-0020",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "minimum": 1
+            }
+        },
+        "$.metadata.cv[*].full_name": {
+            "code": "D-MTD-CV-0030",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "minimum": 1
+            }
+        },
+        "$.metadata.cv[*].version": {
+            "code": "D-MTD-CV-0040",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "minimum": 1
+            }
+        },
+        "$.metadata.cv[*].uri": {
+            "code": "D-MTD-CV-0050",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "uri",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.metadata.small_molecule-quantification_unit": {
+            "code": "D-MTD-SML_QUANTIFICATION_UNIT-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            },
+            "match_is_required": true
+        },
+        "$.metadata.small_molecule_feature-quantification_unit": {
+            "code": "D-MTD-SMF_QUANTIFICATION_UNIT-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.metadata.small_molecule-identification_reliability": {
+            "code": "D-MTD-SML_IDENTIFICATION_RELIABILITY-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.metadata.database": {
+            "code": "D-MTD-DATABASE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            }
+        },
+        "$.metadata.database[*]": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "D-MTD-DATABASE-0010",
+                    "enforcement_level": "required",
+                    "required_properties": [
+                        "param",
+                        "prefix",
+                        "version",
+                        "uri"
+                    ]
+                },
+                {
+                    "code": "D-MTD-DATABASE-0020",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "cv-term",
+                        "json_path": ".param",
+                        "allow_user_defined_terms": true
+                    }
+                },
+                {
+                    "code": "D-MTD-DATABASE-0030",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "string-length",
+                        "json_path": ".version",
+                        "exceptional_values": [
+                            "Unknown"
+                        ],
+                        "minimum": 1
+                    }
+                },
+                {
+                    "code": "D-MTD-DATABASE-0040",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "uri",
+                        "json_path": ".uri",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ],
+                        "exceptional_values": [
+                            null
+                        ]
+                    }
+                }
+            ]
+        },
+        "$.metadata.id_confidence_measure": {
+            "code": "D-MTD-ID_CONFIDENCE_MEASURE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.id_confidence_measure[*]": {
+            "code": "D-MTD-ID_CONFIDENCE_MEASURE-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.metadata.colunit-small_molecule[*]": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "D-MTD-COLUNIT_SML-0010",
+                    "enforcement_level": "required",
+                    "required_properties": [
+                        "column_name",
+                        "param"
+                    ]
+                },
+                {
+                    "code": "D-MTD-COLUNIT_SML-0020",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "string-length",
+                        "json_path": ".column_name",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ],
+                        "minimum": 1
+                    }
+                },
+                {
+                    "code": "D-MTD-COLUNIT_SML-0030",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "cv-term",
+                        "json_path": ".param",
+                        "allow_user_defined_terms": true
+                    }
+                }
+            ]
+        },
+        "$.metadata.colunit-small_molecule_feature[*]": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "D-MTD-COLUNIT_SMF-0010",
+                    "enforcement_level": "required",
+                    "required_properties": [
+                        "column_name",
+                        "param"
+                    ]
+                },
+                {
+                    "code": "D-MTD-COLUNIT_SMF-0020",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "string-length",
+                        "json_path": ".column_name",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ],
+                        "minimum": 1
+                    }
+                },
+                {
+                    "code": "D-MTD-COLUNIT_SMF-0030",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "cv-term",
+                        "json_path": ".param",
+                        "allow_user_defined_terms": true
+                    }
+                }
+            ]
+        },
+        "$.metadata.colunit-small_molecule_evidence[*]": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "D-MTD-COLUNIT_SME-0010",
+                    "enforcement_level": "required",
+                    "required_properties": [
+                        "column_name",
+                        "param"
+                    ]
+                },
+                {
+                    "code": "D-MTD-COLUNIT_SME-0020",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "string-length",
+                        "json_path": ".column_name",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ],
+                        "minimum": 1
+                    }
+                },
+                {
+                    "code": "D-MTD-COLUNIT_SME-0030",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "cv-term",
+                        "json_path": ".param",
+                        "allow_user_defined_terms": true
+                    }
+                }
+            ]
+        },
+        "$.smallMoleculeSummary": {
+            "code": "D-SML-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.smallMoleculeSummary[*]": {
+            "code": "D-SML-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "prefix",
+                "header_prefix",
+                "sml_id",
+                "smf_id_refs",
+                "database_identifier",
+                "chemical_formula",
+                "smiles",
+                "inchi",
+                "chemical_name",
+                "uri",
+                "theoretical_neutral_mass",
+                "adduct_ions",
+                "reliability",
+                "best_id_confidence_measure",
+                "best_id_confidence_value"
+            ]
+        },
+        "$.smallMoleculeSummary[*].prefix": {
+            "code": "D-SML-PREFIX-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "pattern": "^SML$",
+                "case_sensitive": true
+            }
+        },
+        "$.smallMoleculeSummary[*].header_prefix": {
+            "code": "D-SML-HEADER_PREFIX-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "pattern": "^SMH$",
+                "case_sensitive": true
+            }
+        },
+        "$.smallMoleculeSummary[*].sml_id": {
+            "code": "D-SML-SML_ID-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeSummary[*].smf_id_refs[*]": {
+            "code": "D-SML-SMF_ID_REFS-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeSummary[*].database_identifier[*]": {
+            "code": "D-SML-DATABASE_IDENTIFIER-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "not-null",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].chemical_formula[*]": {
+            "code": "D-SML-CHEMICAL_FORMULA-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "not-null",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].smiles[*]": {
+            "code": "D-SML-SMILES-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "not-null",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].inchi[*]": {
+            "code": "D-SML-INCHI-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "not-null",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].chemical_name[*]": {
+            "code": "D-SML-CHEMICAL_NAME-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "not-null",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].uri[*]": {
+            "code": "D-SML-URI-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "uri",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].theoretical_neutral_mass[*]": {
+            "code": "D-SML-THEORETICAL_NEUTRAL_MASS-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].adduct_ions[*]": {
+            "code": "D-SML-ADDUCT_IONS-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "pattern": "^\\[\\d*M([+-][\\w\\d]+)*\\]\\d*[+-]$",
+                "case_sensitive": true
+            }
+        },
+        "$.smallMoleculeSummary[*].best_id_confidence_measure": {
+            "code": "D-SML-BEST_ID_CONFIDENCE_MEASURE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.smallMoleculeSummary[*].best_id_confidence_value": {
+            "code": "D-SML-BEST_ID_CONFIDENCE_VALUE-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].abundance_assay[*]": {
+            "code": "D-SML-ABUNDANCE_ASSAY-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].abundance_study_variable[*]": {
+            "code": "D-SML-ABUNDANCE_STUDY_VARIABLE-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].abundance_variation_study_variable[*]": {
+            "code": "D-SML-ABUNDANCE_VARIATION_STUDY_VARIABLE-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.smallMoleculeSummary[*].opt[*]": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "D-SML-OPT-0010",
+                    "enforcement_level": "required",
+                    "recommended_properties": [
+                        "identifier",
+                        "param"
+                    ]
+                },
+                {
+                    "code": "D-SML-OPT-0020",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "regex",
+                        "json_path": ".identifier",
+                        "pattern": "^global|ms_run\\[\\d+\\]|assay\\[\\d+\\]|study_variable\\[\\d+\\]$",
+                        "case_sensitive": true
+                    }
+                },
+                {
+                    "code": "D-SML-OPT-0030",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "cv-term",
+                        "json_path": ".param",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ],
+                        "allow_user_defined_terms": true
+                    }
+                }
+            ]
+        },
+        "$.smallMoleculeFeature": {
+            "code": "D-SMF-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.smallMoleculeFeature[*]": {
+            "code": "D-SMF-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "prefix",
+                "header_prefix",
+                "smf_id",
+                "sme_id_refs",
+                "sme_id_ref_ambiguity_code",
+                "adduct_ion",
+                "isotopomer",
+                "exp_mass_to_charge",
+                "charge",
+                "retention_time_in_seconds",
+                "retention_time_in_seconds_start",
+                "retention_time_in_seconds_end"
+            ]
+        },
+        "$.smallMoleculeFeature[*].prefix": {
+            "code": "D-SMF-PREFIX-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "pattern": "^SMF$",
+                "case_sensitive": true
+            }
+        },
+        "$.smallMoleculeFeature[*].header_prefix": {
+            "code": "D-SMF-HEADER_PREFIX-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "pattern": "^SFH$",
+                "case_sensitive": true
+            }
+        },
+        "$.smallMoleculeFeature[*].smf_id": {
+            "code": "D-SMF-SMF_ID-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeFeature[*].sme_id_refs[*]": {
+            "code": "D-SMF-SME_ID_REFS-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeFeature[*].sme_id_ref_ambiguity_code": {
+            "code": "D-SMF-SME_ID_REF_AMBIGUITY_CODE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "integer-enum",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "options": {
+                    "1": "Ambiguous identification",
+                    "2": "Only different evidence streams for the same molecule with no ambiguity",
+                    "3": "Both ambiguous identification and multiple evidence streams"
+                }
+            }
+        },
+        "$.smallMoleculeFeature[*].adduct_ion": {
+            "code": "D-SMF-ADDUCT_ION-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "pattern": "^\\[\\d*M([+-][\\w\\d]+)*\\]\\d*[+-]$",
+                "case_sensitive": true
+            }
+        },
+        "$.smallMoleculeFeature[*].isotopomer": {
+            "code": "D-SMF-ISOTOPOMER-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.smallMoleculeFeature[*].exp_mass_to_charge": {
+            "code": "D-SMF-EXP_MASS_TO_CHARGE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.smallMoleculeFeature[*].charge": {
+            "code": "D-SMF-CHARGE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeFeature[*].retention_time_in_seconds": {
+            "code": "D-SMF-RETENTION_TIME_IN_SECONDS-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.smallMoleculeFeature[*].retention_time_in_seconds_start": {
+            "code": "D-SMF-RETENTION_TIME_IN_SECONDS_START-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.smallMoleculeFeature[*].retention_time_in_seconds_end": {
+            "code": "D-SMF-RETENTION_TIME_IN_SECONDS_END-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.smallMoleculeFeature[*].abundance_assay[*]": {
+            "code": "D-SMF-ABUNDANCE_ASSAY-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.smallMoleculeFeature[*].opt[*]": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "D-SMF-OPT-0010",
+                    "enforcement_level": "required",
+                    "recommended_properties": [
+                        "identifier",
+                        "param"
+                    ]
+                },
+                {
+                    "code": "D-SMF-OPT-0020",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "regex",
+                        "json_path": ".identifier",
+                        "pattern": "^global|ms_run\\[\\d+\\]|assay\\[\\d+\\]|study_variable\\[\\d+\\]$",
+                        "case_sensitive": true
+                    }
+                },
+                {
+                    "code": "D-SMF-OPT-0030",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "cv-term",
+                        "json_path": ".param",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ],
+                        "allow_user_defined_terms": true
+                    }
+                }
+            ]
+        },
+        "$.smallMoleculeEvidence": {
+            "code": "D-SME-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.smallMoleculeEvidence[*]": {
+            "code": "D-SME-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "prefix",
+                "header_prefix",
+                "sme_id",
+                "evidence_input_id",
+                "database_identifier",
+                "chemical_formula",
+                "smiles",
+                "inchi",
+                "chemical_name",
+                "uri",
+                "derivatized_form",
+                "adduct_ion",
+                "exp_mass_to_charge",
+                "charge",
+                "theoretical_mass_to_charge",
+                "spectra_ref",
+                "identification_method",
+                "ms_level",
+                "id_confidence_measure",
+                "rank"
+            ]
+        },
+        "$.smallMoleculeEvidence[*].prefix": {
+            "code": "D-SME-PREFIX-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "pattern": "^SME$",
+                "case_sensitive": true
+            }
+        },
+        "$.smallMoleculeEvidence[*].header_prefix": {
+            "code": "D-SME-HEADER_PREFIX-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "pattern": "^SEH$",
+                "case_sensitive": true
+            }
+        },
+        "$.smallMoleculeEvidence[*].sme_id": {
+            "code": "D-SME-SME_ID-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeEvidence[*].evidence_input_id": {
+            "code": "D-SME-EVIDENCE_INPUT_ID-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeEvidence[*].database_identifier": {
+            "code": "D-SME-DATABASE_IDENTIFIER-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "pattern": "^[a-zA-Z_]+:.+$",
+                "case_sensitive": true
+            }
+        },
+        "$.smallMoleculeEvidence[*].chemical_formula": {
+            "code": "D-SME-CHEMICAL_FORMULA-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeEvidence[*].smiles": {
+            "code": "D-SME-SMILES-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeEvidence[*].inchi": {
+            "code": "D-SME-INCHI-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeEvidence[*].chemical_name": {
+            "code": "D-SME-CHEMICAL_NAME-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeEvidence[*].uri": {
+            "code": "D-SME-URI-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "uri",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.smallMoleculeEvidence[*].derivatized_form": {
+            "code": "D-SME-DERIVATIZED_FORM-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.smallMoleculeEvidence[*].adduct_ion": {
+            "code": "D-SME-ADDUCT_ION-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "regex",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ],
+                "pattern": "^\\[\\d*M([+-][\\w\\d]+)*\\]\\d*[+-]$",
+                "case_sensitive": true
+            }
+        },
+        "$.smallMoleculeEvidence[*].exp_mass_to_charge": {
+            "code": "D-SME-EXP_MASS_TO_CHARGE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.smallMoleculeEvidence[*].charge": {
+            "code": "D-SME-CHARGE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeEvidence[*].theoretical_mass_to_charge": {
+            "code": "D-SME-THEORETICAL_MASS_TO_CHARGE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ]
+            }
+        },
+        "$.smallMoleculeEvidence[*].spectra_ref": {
+            "code": "D-SME-SPECTRA_REF-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "min_occurs": 1
+            }
+        },
+        "$.smallMoleculeEvidence[*].spectra_ref[*]": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "D-SME-SPECTRA_REF-0010",
+                    "enforcement_level": "required",
+                    "required_properties": [
+                        "ms_run",
+                        "reference"
+                    ]
+                },
+                {
+                    "code": "D-SME-SPECTRA_REF-0011",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "positive-integer",
+                        "json_path": ".ms_run",
+                        "minimum": 1
+                    }
+                },
+                {
+                    "code": "D-SME-SPECTRA_REF-0012",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "not-null",
+                        "json_path": ".reference",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ]
+                    }
+                }
+            ]
+        },
+        "$.smallMoleculeEvidence[*].identification_method": {
+            "code": "D-SME-IDENTIFICATION_METHOD-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term",
+                "allow_user_defined_terms": true
+            }
+        },
+        "$.smallMoleculeEvidence[*].ms_level": {
+            "code": "D-SME-MS_LEVEL-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "cv-term-enum",
+                "is_cv_term_value_required": true,
+                "allowed_cv_terms": [
+                    {
+                        "cv_label": "MS",
+                        "cv_accession": "MS:1000511",
+                        "name": "ms level"
+                    }
+                ]
+            }
+        },
+        "$.smallMoleculeEvidence[*].id_confidence_measure[*]": {
+            "code": "D-SME-ID_CONFIDENCE_MEASURE-0010",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "decimal",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "exceptional_values": [
+                    null
+                ]
+            }
+        },
+        "$.smallMoleculeEvidence[*].rank": {
+            "code": "D-SME-RANK-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "minimum": 1
+            }
+        },
+        "$.smallMoleculeEvidence[*].opt[*]": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "D-SME-OPT-0010",
+                    "enforcement_level": "required",
+                    "recommended_properties": [
+                        "identifier",
+                        "param"
+                    ]
+                },
+                {
+                    "code": "D-SME-OPT-0020",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "regex",
+                        "json_path": ".identifier",
+                        "pattern": "^global|ms_run\\[\\d+\\]|assay\\[\\d+\\]|study_variable\\[\\d+\\]$",
+                        "case_sensitive": true
+                    }
+                },
+                {
+                    "code": "D-SME-OPT-0030",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "cv-term",
+                        "json_path": ".param",
+                        "null_values": [
+                            null,
+                            "null",
+                            "",
+                            "\"\"",
+                            "''"
+                        ],
+                        "allow_user_defined_terms": true
+                    }
+                }
+            ]
+        }
+    }
+}

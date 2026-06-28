@@ -4,6 +4,7 @@
 
 |Name (Alias)|Type (Default)|Constraints|Description|
 |---|---|----|----------|
+custom|List of <code>ExtendedParameter</code>|-|Additional parameters for the field, separated by bars\.
 id|<code>int</code>|-|
 label|<code>str</code>|**required**<br/>Validation type: **<code>error</code>**|The abbreviated CV label\.
 full_name|<code>str</code>|**required**<br/>Validation type: **<code>error</code>**|The full name of this CV, for humans\.

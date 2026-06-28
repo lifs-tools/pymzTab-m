@@ -4,18 +4,14 @@ from typing import List, Literal, Optional
 from mztab_m_io.model.base import MzTabBaseModel
 
 
-class Error(MzTabBaseModel):
-    code: int
-    message: str
-
-
-class Category(enum.Enum):
+class Category(str, enum.Enum):
     FORMAT = "format"
     LOGICAL = "logical"
     CROSS_CHECK = "cross_check"
+    PROFILE = "profile"
 
 
-class MessageType(enum.Enum):
+class MessageType(str, enum.Enum):
     ERROR = "error"
     WARNING = "warn"
     INFO = "info"

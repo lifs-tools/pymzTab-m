@@ -13,11 +13,24 @@
       "justMyCode": false
     },
     {
+      "name": "Read ",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/read.py",
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      },
+      "justMyCode": false
+    },
+    {
       "name": "Python: Debug Tests",
       "type": "debugpy",
       "request": "launch",
       "program": "${file}",
-      "purpose": ["debug-test"],
+      "purpose": [
+        "debug-test"
+      ],
       "console": "integratedTerminal",
       "justMyCode": false,
       "env": {

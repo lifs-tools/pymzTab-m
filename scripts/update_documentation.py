@@ -7,7 +7,6 @@ from pydantic import BaseModel
 from mztab_m_io import MzTabM
 from mztab_m_io.model.field_utils import get_field_type_info
 from mztab_m_io.model.mztabm_validation import MessageTypeMap
-from mztab_m_io.model.serialization import ValidationProfile
 from mztab_m_io.model.validation import MessageType
 
 
@@ -63,9 +62,9 @@ def update_documentation(
         f.write("|" + "|".join(["---", "---", "----", "----------"]) + "|\n")
 
         for field, field_info in model_class.model_fields.items():
-            extra = field_info.json_schema_extra or {}
+            # extra = field_info.json_schema_extra or {}
             alias = field_info.validation_alias or field
-            validation_profile = ValidationProfile.model_validate(extra, by_alias=True)
+
             is_list, field_type = get_field_type_info(model_class, field)
             name = field if field == alias else f"{field}<br/>({alias})"
             if (
@@ -84,7 +83,8 @@ def update_documentation(
                 field_type_name = (
                     f"<code>{field_type_name}</code> (<code>{default_value}</code>)"
                 )
-            policy = validation_profile.validation_policy
+            # policy = validation_profile.validation_policy
+            policy = None
             constraints_list = []
             if policy.required:
                 constraints_list.append("**required**")

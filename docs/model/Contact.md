@@ -4,6 +4,7 @@
 
 |Name (Alias)|Type (Default)|Constraints|Description|
 |---|---|----|----------|
+custom|List of <code>ExtendedParameter</code>|-|Additional parameters for the field, separated by bars\.
 id|<code>int</code>|-|
 name|<code>str</code>|-|The contact's name\.
 affiliation|<code>str</code>|-|The contact's affiliation\.

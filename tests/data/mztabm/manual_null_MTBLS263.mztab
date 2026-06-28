@@ -16,7 +16,7 @@ MTD	protocol[3]-parameters	[OBI, OBI:0000485, chromatography instrument, "[MS, M
 MTD	protocol[4]-name	Mass spectrometry
 MTD	protocol[4]-type	[CHMO, CHMO:0000470, mass spectrometry, ]
 MTD	protocol[4]-description	Eluting compounds were detected from m/z 100-1000 using a hybrid quadrupole …
-MTD	protocol[4]-parameters	[MS, MS:1000008, ionization type, "[MS,MS:1000073, electrospray ionization, ]"] | [MS, MS:1003761, instrument class, "[MS, MS:1003951, time-of-flight instrument, ]"] |  [, , Scan m/z range, 100-1000]
+MTD	protocol[4]-parameters	[MSIO, MSIO:0000171, mass spectrometry instrument, "[MS, MS:1003124, timsTOF fleX, ]"] | [MS, MS:1000008, ionization type, "[MS,MS:1000073, electrospray ionization, ]"] | [MS, MS:1003761, instrument class, "[MS, MS:1003951, time-of-flight instrument, ]"] |  [, , Scan m/z range, 100-1000]
 MTD	protocol[5]-name	Data transformation
 MTD	protocol[5]-type	[, , data transformation, ]
 MTD	protocol[5]-description	Raw data files were converted to mzData format using the vendor-specific...
@@ -124,37 +124,48 @@ MTD	assay[1]-ms_run_ref	ms_run[1]
 MTD	assay[1]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]
 MTD	assay[2]	3injections_inj2_POS																															
 MTD	assay[2]-sample_ref	sample[2]																															
-MTD	assay[2]-ms_run_ref	ms_run[2]																															
+MTD	assay[2]-ms_run_ref	ms_run[2]	
+MTD	assay[2]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																														
 MTD	assay[3]	3injections_inj3_POS																															
 MTD	assay[3]-sample_ref	sample[3]																															
-MTD	assay[3]-ms_run_ref	ms_run[3]																															
+MTD	assay[3]-ms_run_ref	ms_run[3]	
+MTD	assay[3]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																														
 MTD	assay[4]	3samples_sampl1_POS																															
 MTD	assay[4]-sample_ref	sample[4]																															
-MTD	assay[4]-ms_run_ref	ms_run[4]																															
+MTD	assay[4]-ms_run_ref	ms_run[4]	
+MTD	assay[4]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																													
 MTD	assay[5]	3samples_sampl2_POS																															
 MTD	assay[5]-sample_ref	sample[5]																															
-MTD	assay[5]-ms_run_ref	ms_run[5]																															
+MTD	assay[5]-ms_run_ref	ms_run[5]	
+MTD	assay[5]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																														
 MTD	assay[6]	3samples_sampl3_POS																															
 MTD	assay[6]-sample_ref	sample[6]																															
-MTD	assay[6]-ms_run_ref	ms_run[6]																															
+MTD	assay[6]-ms_run_ref	ms_run[6]	
+MTD	assay[6]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																													
 MTD	assay[7]	3injections_inj1_NEG																															
 MTD	assay[7]-sample_ref	sample[1]																															
-MTD	assay[7]-ms_run_ref	ms_run[7]																															
+MTD	assay[7]-ms_run_ref	ms_run[7]	
+MTD	assay[7]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																													
 MTD	assay[8]	3injections_inj2_NEG																															
 MTD	assay[8]-sample_ref	sample[2]																															
-MTD	assay[8]-ms_run_ref	ms_run[8]																															
+MTD	assay[8]-ms_run_ref	ms_run[8]	
+MTD	assay[8]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																													
 MTD	assay[9]	3injections_inj3_NEG																															
 MTD	assay[9]-sample_ref	sample[3]																															
-MTD	assay[9]-ms_run_ref	ms_run[9]																															
+MTD	assay[9]-ms_run_ref	ms_run[9]	
+MTD	assay[9]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																													
 MTD	assay[10]	3samples_sampl1_NEG																															
 MTD	assay[10]-sample_ref	sample[4]																															
-MTD	assay[10]-ms_run_ref	ms_run[10]																															
+MTD	assay[10]-ms_run_ref	ms_run[10]	
+MTD	assay[10]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																														
 MTD	assay[11]	3samples_sampl2_NEG																															
 MTD	assay[11]-sample_ref	sample[5]																															
-MTD	assay[11]-ms_run_ref	ms_run[11]																															
+MTD	assay[11]-ms_run_ref	ms_run[11]	
+MTD	assay[11]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																														
 MTD	assay[12]	3samples_sampl3_NEG																															
 MTD	assay[12]-sample_ref	sample[6]																															
-MTD	assay[12]-ms_run_ref	ms_run[12]																															
+MTD	assay[12]-ms_run_ref	ms_run[12]		
+MTD	assay[12]-protocol_refs	protocol[1] | protocol[2] | protocol[3] | protocol[4] | protocol[5] | protocol[6]																													
 MTD	study_variable_group[1]	[ , , treatment day, ]																												
 MTD	study_variable_group[1]-description	Time after treatment																															
 MTD	study_variable_group[1]-type	[EFO, EFO:0000724, timepoint, ]																											

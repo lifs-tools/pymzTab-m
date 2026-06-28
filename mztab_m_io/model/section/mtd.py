@@ -34,7 +34,6 @@ from mztab_m_io.model.common import (
     Software,
     StudyVariable,
     StudyVariableGroup,
-    Uri,
 )
 from mztab_m_io.model.field_utils import get_field_type_info, sanitize_str
 from mztab_m_io.model.serialization import (
@@ -45,7 +44,6 @@ from mztab_m_io.model.serialization import (
     MetadataSerialization,
     MzTabSerializableModel,
     SerializationContext,
-    ValidationPolicy,
 )
 from mztab_m_io.model.validation import (
     Category,
@@ -64,10 +62,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
             "in the mzTab-M file format.",
             examples=["MTD"],
             frozen=True,
-            json_schema_extra=MetadataSerialization(
-                ignore=True,
-                validation_policy=ValidationPolicy(required=True, pattern=r"MTD"),
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization(ignore=True).model_dump(),
         ),
     ] = "MTD"
 
@@ -80,11 +75,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
             'Must end with "-M" suffix for metabolomics variant.\n\n'
             "Used to ensure compatibility and processing correctness.",
             examples=["2.0.0-M", "2.1.0-M"],
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(
-                    required=True, pattern=r"^\d{1}\.\d{1}\.\d{1}-[A-Z]{1}$"
-                )
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = "2.1.0-M"
 
@@ -100,9 +91,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
             "NOT intended as a globally unique identifier,\n"
             "but SHOULD have local meaning within its context.",
             examples=["MTBLS214", "LAB001_2023", "STUDY123_BATCH1"],
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
 
@@ -182,7 +171,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
     ] = None
 
     uri: Annotated[
-        Optional[List[Uri]],
+        Optional[List[str]],
         Field(
             description="A URI pointing to the file's source data "
             "(e.g., a MetaboLights records).",
@@ -191,7 +180,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
     ] = None
 
     external_study_uri: Annotated[
-        Optional[List[Uri]],
+        Optional[List[str]],
         Field(
             description="A URI pointing to an external file with more details "
             "about the study design (e.g., an ISA-TAB file).",
@@ -224,9 +213,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
         Field(
             description="The quantification method used in the "
             "experiment reported in the file.",
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
 
@@ -301,9 +288,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
                 "MTD\tsoftware[1]\t[MS,MS:1000532,Xcalibur,3.1]",
                 "MTD\tsoftware[2]\t[MS,MS:1002342,MetaboScape,2022b]",
             ],
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True, minimum=1)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
 
@@ -324,7 +309,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
     ms_run: Annotated[
         Optional[List[MsRun]],
         Field(
-            alias="ms_run",
+            # alias="ms_run",
             description="Specification of ms_run. "
             "location: Location of the external data file e.g. raw files on which "
             "analysis has been performed. "
@@ -360,9 +345,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
             "of the mzML format. "
             "If ms_run[1-n]-hash is present, ms_run[1-n]-hash_method "
             "SHOULD also be present.",
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True, minimum=1)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
 
@@ -385,9 +368,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
             "where n fractions have been collected. "
             "Multiple assays SHOULD reference the same ms_run to capture "
             "multiplexed experimental designs.",
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True, minimum=1)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
     study_variable_group: Annotated[
@@ -428,9 +409,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
             "“standard error”. description: A textual description of "
             "the study variable. "
             "group_refs: Related study variable group IDs.",
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True, minimum=1)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
 
@@ -459,9 +438,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
                 "MTD\tcv[1]-version\t4.1.0",
                 "MTD\tcv[1]-uri\thttp://purl.obolibrary.org/obo/ms.obo",
             ],
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True, minimum=1)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ]
 
@@ -474,9 +451,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
             examples=[
                 "MTD\tsmall_molecule-quantification_unit\t[MS, MS:1001113, peak area, ]"
             ],
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
 
@@ -505,9 +480,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
                 "MTD\tsmall_molecule-identification_reliability\t"
                 "[MS, MS:1000932, identification reliability, ]"
             ],
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
 
@@ -535,9 +508,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
                 "MTD\tdatabase[1]-prefix\tHMDB",
                 "MTD\tdatabase[1]-uri\thttp://www.hmdb.ca/metabolites/",
             ],
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True, minimum=1)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
 
@@ -554,9 +525,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
                 "MTD\tid_confidence_measure[1]\t[MS,MS:1002890,fragmentation score,]",
                 "MTD\tid_confidence_measure[2]\t[MS,MS:1002891,retention time score,]",
             ],
-            json_schema_extra=MetadataSerialization(
-                validation_policy=ValidationPolicy(required=True, minimum=1)
-            ).model_dump(),
+            json_schema_extra=MetadataSerialization().model_dump(),
         ),
     ] = None
 
@@ -785,7 +754,7 @@ class Metadata(MzTabSerializableModel, CustomSerializer):
                     MzTabMessage(
                         message_type=MessageType.WARNING,
                         category=Category.FORMAT,
-                        msg=f"unexpected line '{key}'",
+                        message=f"unexpected line '{key}'",
                     )
                 )
 

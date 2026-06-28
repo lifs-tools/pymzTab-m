@@ -1,0 +1,337 @@
+{
+    "id": "https://github.com/HUPO-PSI/mzTab-M/tree/main/schema/mztabm-metabolights-profile-2.1.0-M.json",
+    "version": "2.1.0-M",
+    "name": "mzTab-M 2.1.0-M Profile for MetaboLights Submissions",
+    "description": "mzTab-M MetaboLights Profile is used  for checking additional requirements of MetaboLights",
+    "configuration": {},
+    "requirements": {
+        "$": {
+            "code": "MTBLS-0001",
+            "enforcement_level": "required",
+            "required_properties": [
+                "metadata",
+                "smallMoleculeSummary"
+            ]
+        },
+        "$.metadata": {
+            "code": "MTBLS-METADATA-0001",
+            "enforcement_level": "required",
+            "match_is_required": true,
+            "required_properties": [
+                "prefix",
+                "mzTab-version",
+                "mzTab-ID",
+                "quantification_method",
+                "ms_run",
+                "assay",
+                "study_variable",
+                "cv",
+                "database",
+                "small_molecule-quantification_unit",
+                "id_confidence_measure",
+                "study_variable_group",
+                "protocol",
+                "sample",
+                "contact"
+            ],
+            "recommended_properties": [
+                "software",
+                "publication"
+            ]
+        },
+        "$.metadata.instrument": null,
+        "$.metadata.instrument[*]": null,
+        "$.metadata.publication": {
+            "code": "MTBLS-METADATA-PUBLICATION-0001",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.contact": {
+            "code": "MTBLS-METADATA-CONTACT-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.contact[*]": {
+            "code": "MTBLS-METADATA-CONTACT-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "name",
+                "email",
+                "affiliation"
+            ],
+            "recommended_properties": [
+                "orcid"
+            ]
+        },
+        "$.metadata.contact[*].name": {
+            "code": "MTBLS-METADATA-CONTACT-0020",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "minimum": 5
+            }
+        },
+        "$.metadata.contact[*].email": {
+            "code": "MTBLS-METADATA-CONTACT-0030",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "email"
+            }
+        },
+        "$.metadata.contact[*].affiliation": {
+            "code": "MTBLS-METADATA-CONTACT-0040",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "minimum": 2
+            }
+        },
+        "$.metadata.contact[*].orcid": {
+            "code": "MTBLS-METADATA-CONTACT-0050",
+            "enforcement_level": "recommended",
+            "value_constraint": {
+                "type": "regex",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[X0-9]$",
+                "case_sensitive": true
+            }
+        },
+        "$.metadata.sample": {
+            "code": "MTBLS-METADATA-SAMPLE-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.sample[*]": {
+            "code": "MTBLS-METADATA-SAMPLE-0010",
+            "enforcement_level": "recommended",
+            "required_properties": [
+                "name",
+                "species"
+            ],
+            "recommended_properties": [
+                "tissue",
+                "cell_type"
+            ]
+        },
+        "$.metadata.sample[*].name": {
+            "code": "MTBLS-METADATA-SAMPLE-0020",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length",
+                "minimum": 2
+            }
+        },
+        "$.metadata.sample[*].species": {
+            "code": "MTBLS-METADATA-SAMPLE-0030",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            }
+        },
+        "$.metadata.sample[*].species[*]": {
+            "code": "MTBLS-METADATA-SAMPLE-0031",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "allowed-cv-list",
+                "allow_user_defined_terms": false,
+                "allowed_cv_list": [
+                    "NCBITAXON",
+                    "ENVO",
+                    "CHEBI"
+                ]
+            }
+        },
+        "$.metadata.ms_run": {
+            "code": "MTBLS-METADATA-MS_RUN-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.ms_run[*]": {
+            "code": "MTBLS-METADATA-MS_RUN-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "location"
+            ]
+        },
+        "$.metadata.ms_run[*].instrument_ref": null,
+        "$.metadata.assay": {
+            "code": "MTBLS-METADATA-ASSAY-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.assay[*]": {
+            "code": "MTBLS-METADATA-ASSAY-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "name",
+                "ms_run_ref",
+                "sample_ref"
+            ]
+        },
+        "$.metadata.assay[*].sample_ref": {
+            "code": "MTBLS-METADATA-ASSAY-0020",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "positive-integer",
+                "null_values": [
+                    null,
+                    "null",
+                    "",
+                    "\"\"",
+                    "''"
+                ],
+                "minimum": 1
+            }
+        },
+        "$.metadata.protocol": {
+            "code": "MTBLS-METADATA-PROTOCOL-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1,
+                "item_value_jsonpath_list": [
+                    "$[*].type.cv_accession"
+                ],
+                "match_reference_values": [
+                    "EFO:0005518",
+                    "EFO:0000490",
+                    "CHMO:0000470",
+                    "CHMO:0001000",
+                    "OBI:0200000",
+                    "MI:2131"
+                ],
+                "min_match": 6,
+                "min_referenced_value_match": 6
+            },
+            "match_is_required": true
+        },
+        "$.metadata.protocol[*]": {
+            "code": "MTBLS-METADATA-PROTOCOL-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "name",
+                "type"
+            ]
+        },
+        "$.metadata.protocol[*].name": {
+            "code": "MTBLS-METADATA-PROTOCOL-0020",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "string-length"
+            }
+        },
+        "$.metadata.protocol[*].type": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "MTBLS-METADATA-PROTOCOL-0030",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "cv-term",
+                        "allow_user_defined_terms": true
+                    }
+                }
+            ]
+        },
+        "$.metadata.study_variable_group": {
+            "code": "MTBLS-METADATA-STUDY_VARIABLE_GROUP-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.metadata.study_variable_group[*]": {
+            "code": "MTBLS-METADATA-STUDY_VARIABLE_GROUP-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "name",
+                "type"
+            ],
+            "recommended_properties": [
+                "datatype"
+            ]
+        },
+        "$.metadata.study_variable_group[*].name": {
+            "code": "MTBLS-METADATA-STUDY_VARIABLE_GROUP-0020",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "group",
+                "constraints": [
+                    {
+                        "type": "cv-term",
+                        "allow_user_defined_terms": true
+                    },
+                    {
+                        "type": "string-length",
+                        "minimum": 2
+                    }
+                ],
+                "join_operator": "or"
+            }
+        },
+        "$.metadata.study_variable[*]": {
+            "code": "MTBLS-METADATA-STUDY_VARIABLE-0010",
+            "enforcement_level": "required",
+            "required_properties": [
+                "name",
+                "group_refs",
+                "assay_refs"
+            ]
+        },
+        "$.metadata.study_variable[*].group_refs": {
+            "code": "MTBLS-METADATA-STUDY_VARIABLE-0020",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            }
+        },
+        "$.metadata.study_variable[*].assay_refs": {
+            "code": "MTBLS-METADATA-STUDY_VARIABLE-0030",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            }
+        },
+        "$.smallMoleculeSummary": {
+            "code": "MTBLS-SML-0001",
+            "enforcement_level": "required",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": true
+        },
+        "$.smallMoleculeSummary[*].smf_id_refs[*]": null
+    }
+}

@@ -6,9 +6,9 @@ from typing import (
 
 from pydantic import Field
 
-from mztab_m_io.model.common import AdductIon, OptColumnMapping, Parameter
+from mztab_m_io.model.common import OptColumnMapping, Parameter
 from mztab_m_io.model.section.base_table_section import BaseTableSection
-from mztab_m_io.model.serialization import TableSerialization, ValidationPolicy
+from mztab_m_io.model.serialization import TableSerialization
 
 
 class SmallMoleculeSummary(BaseTableSection):
@@ -17,10 +17,7 @@ class SmallMoleculeSummary(BaseTableSection):
         Field(
             description="The small molecule table row prefix. "
             "SML MUST be used for rows of the small molecule table.",
-            json_schema_extra=TableSerialization(
-                ignore=True,
-                validation_policy=ValidationPolicy(required=True, pattern=r"SML"),
-            ).model_dump(),
+            json_schema_extra=TableSerialization(ignore=True).model_dump(),
         ),
     ] = "SML"
     header_prefix: Annotated[
@@ -29,24 +26,18 @@ class SmallMoleculeSummary(BaseTableSection):
             description="The small molecule table header prefix. "
             "SMH MUST be used for the small molecule table "
             "header line (the column labels).",
-            json_schema_extra=TableSerialization(
-                ignore=True,
-                validation_policy=ValidationPolicy(required=True, pattern=r"SMH"),
-            ).model_dump(),
+            json_schema_extra=TableSerialization(ignore=True).model_dump(),
         ),
     ] = "SMH"
     sml_id: Annotated[
         Optional[int],
         Field(
             validation_alias="SML_ID",
+            serialization_alias="sml_id",
             description="A within file unique identifier "
             "for the small molecule summary.",
             examples=[1],
-            json_schema_extra=TableSerialization(
-                validation_policy=ValidationPolicy(
-                    required=True, value_constraint="non-negative-integer"
-                ),
-            ).model_dump(),
+            json_schema_extra=TableSerialization().model_dump(),
         ),
     ] = None
     smf_id_refs: Annotated[
@@ -59,10 +50,7 @@ class SmallMoleculeSummary(BaseTableSection):
             "to aggregate the SML row.",
             examples=[[2, 3, 11]],
             json_schema_extra=TableSerialization(
-                list_concatenation_str="|",
-                validation_policy=ValidationPolicy(
-                    value_constraint="non-negative-integer"
-                ),
+                list_concatenation_str="|"
             ).model_dump(),
         ),
     ] = None
@@ -160,9 +148,6 @@ class SmallMoleculeSummary(BaseTableSection):
             ],
             json_schema_extra=TableSerialization(
                 list_concatenation_str="|",
-                validation_policy=ValidationPolicy(
-                    value_constraint="any-url", minimum=1
-                ),
             ).model_dump(),
         ),
     ] = None
@@ -178,7 +163,7 @@ class SmallMoleculeSummary(BaseTableSection):
         ),
     ] = None
     adduct_ions: Annotated[
-        Optional[List[AdductIon]],
+        Optional[List[str]],
         Field(
             description="A | separated list of the detected adduct ion "
             "forms for this small molecule. The terms should follow the "
@@ -222,11 +207,7 @@ class SmallMoleculeSummary(BaseTableSection):
             description="The small molecule confidence measure/score value "
             "of the best identification for this small molecule summary.",
             examples=[0.85],
-            json_schema_extra=TableSerialization(
-                validation_policy=ValidationPolicy(
-                    required=True, enforcement_level="recommended"
-                )
-            ).model_dump(),
+            json_schema_extra=TableSerialization().model_dump(),
         ),
     ] = None
     abundance_assay: Annotated[

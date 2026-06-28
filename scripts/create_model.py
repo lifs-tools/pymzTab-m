@@ -30,7 +30,6 @@ MTD = Metadata(
         StudyVariable(
             name="study variable 1",
             assay_refs=[1],
-            factors=[Parameter(cv_label="XX", cv_accession="XX:0012", name="factor 1")],
         )
     ],
     cv=[

@@ -12,7 +12,6 @@ from mztab_m_io.model.serialization import (
     SerializationContext,
     TableSectionInfo,
     TableSerialization,
-    ValidationPolicy,
 )
 
 
@@ -30,12 +29,7 @@ class BaseTableSection(MzTabBaseModel, CustomSerializer):
         Field(
             description="The table row prefix. SMF, SME or SML MUST be used for rows "
             "of the table.",
-            json_schema_extra=TableSerialization(
-                ignore=True,
-                validation_policy=ValidationPolicy(
-                    required=True, pattern=r"SMF|SME|SML"
-                ),
-            ).model_dump(),
+            json_schema_extra=TableSerialization(ignore=True).model_dump(),
         ),
     ] = None
 
@@ -44,12 +38,7 @@ class BaseTableSection(MzTabBaseModel, CustomSerializer):
         Field(
             description="The table header prefix. SFH, SEH or SMH MUST be used for "
             "the table header line (the column labels).",
-            json_schema_extra=TableSerialization(
-                ignore=True,
-                validation_policy=ValidationPolicy(
-                    required=True, pattern=r"SFH|SEH|SMH"
-                ),
-            ).model_dump(),
+            json_schema_extra=TableSerialization(ignore=True).model_dump(),
         ),
     ] = None
 

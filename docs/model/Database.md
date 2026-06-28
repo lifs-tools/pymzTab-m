@@ -4,6 +4,7 @@
 
 |Name (Alias)|Type (Default)|Constraints|Description|
 |---|---|----|----------|
+custom|List of <code>ExtendedParameter</code>|-|Additional parameters for the field, separated by bars\.
 id|<code>int</code>|-|
 param|<code>Parameter</code>|**required**<br/>Validation type: **<code>error</code>**|The database name\.
 prefix|<code>str</code>|**required**<br/>Validation type: **<code>warn</code>**|The prefix used in the “identifier” column of data tables\. For the 'no database' case 'null' must be used\.
