@@ -16,6 +16,7 @@ from mztab_m_io.profile.constraints import (
     IntegerConstraint,
     IntegerEnumConstraint,
     NotNullConstraint,
+    OpaPolicyConstraint,
     PositiveIntegerConstraint,
     Precondition,
     RegexConstraint,
@@ -40,15 +41,34 @@ DEFAULT_PROFILE = MzTabMProfile(
     " for checking minimum valid mzTab-M files",
     configuration=MzTabMProfileConfiguration(),
     requirements={
-        "$": FieldRequirement(
-            code="D-0001",
-            enforcement_level="required",
-            required_properties=["metadata"],
-            recommended_properties=["smallMoleculeSummary"],
+        "": FieldRequirementGroup(
+            description="MzTabM general cross check rules",
+            requirements=[
+                FieldRequirement(
+                    code="D-0010",
+                    description="Verifies that smallMoleculeSummary and "
+                    "smallMoleculeEvidence rows define the same number of "
+                    "abundance_assay values as assays declared in metadata.",
+                    enforcement_level="required",
+                    value_constraint=OpaPolicyConstraint(
+                        entrypoint="mztabm/policies/policy_D_0010"
+                    ),
+                ),
+            ],
+        ),
+        "$": FieldRequirementGroup(
+            requirements=[
+                FieldRequirement(
+                    code="D-0001",
+                    enforcement_level="required",
+                    required_properties=["metadata"],
+                    recommended_properties=["smallMoleculeSummary"],
+                ),
+            ]
         ),
         "$.comment[*]": FieldRequirement(
             code="D-COMMENT-0001",
-            value_constraint=RegexConstraint(pattern=r"^COM$"),
+            value_constraint=RegexConstraint(json_path=".prefix", pattern=r"^COM$"),
         ),
         "$.comment[*].message": FieldRequirement(
             code="D-COMMENT-MESSAGE-0001", value_constraint=StringConstraint(minimum=1)
@@ -167,7 +187,7 @@ DEFAULT_PROFILE = MzTabMProfile(
                             ]
                         ),
                         json_path=".accession",
-                        pattern=r"^11\..+/.+$",
+                        pattern=r"^10\..+/.+$",
                         exceptional_values=[None],
                         null_values=DEFAULT_NULL_VALUES,
                     ),
@@ -910,7 +930,7 @@ DEFAULT_PROFILE = MzTabMProfile(
             code="D-SME-DATABASE_IDENTIFIER-0001",
             enforcement_level="required",
             value_constraint=RegexConstraint(
-                pattern=r"^[a-zA-Z_]+:.+$",
+                pattern=r"^[0-9a-zA-Z_]+:.+$",
                 null_values=DEFAULT_NULL_VALUES,
             ),
         ),

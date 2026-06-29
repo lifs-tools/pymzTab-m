@@ -13,6 +13,28 @@ from mztab_m_io.model.common import ExtendedParameter
 from mztab_m_io.profile.base import JsonPath
 
 
+class ValidationRuntimeConfiguration(MzTabBaseModel):
+    offline_mode: Annotated[
+        None | bool,
+        Field(description="Skip online validations and checks."),
+    ] = None
+
+    skipped_requirements: Annotated[
+        None | list[str],
+        Field(description="Skip the listed requirements."),
+    ] = None
+
+    max_messages_for_each_requirement: Annotated[
+        None | int,
+        Field(description="Maximum message for each requirement."),
+    ] = 10
+
+    skip_decimal_validations: Annotated[
+        None | bool,
+        Field(description="Skip decimal value constraints."),
+    ] = None
+
+
 class BaseParameter(MzTabBaseModel):
     """A lightweight reference to a controlled vocabulary (CV) term.
 
@@ -607,7 +629,7 @@ class CVTermValueConstraint(Constraint):
     """
 
     type: Annotated[str, Field(description="Constraint type discriminator.")] = (
-        "cv-term"
+        "cv-term-value"
     )
     key_cv_term: Annotated[
         Optional[BaseParameter],
@@ -617,29 +639,30 @@ class CVTermValueConstraint(Constraint):
         ),
     ] = None
     value_constraint: Annotated[
-        Optional[
-            Union[
-                NotNullConstraint,
-                IntegerConstraint,
-                DecimalConstraint,
-                DateTimeConstraint,
-                EmailConstraint,
-                UriConstraint,
-                RegexConstraint,
-                StringConstraint,
-                StringEnumConstraint,
-                IntegerEnumConstraint,
-                CVTermConstraint,
-                ParentCVTermConstraint,
-                CVTermEnumConstraint,
-                CVListConstraint,
-            ]
-        ],
+        Optional["DefaultConstraintType"],
         Field(
             description="Constraint applied to the value slot of the "
             "matched CV term. Determines the expected type and format."
         ),
     ] = None
+
+
+class OpaPolicyConstraint(Constraint):
+    """Evaluates policy and returns messages.
+    If there is no message, it will return empty list
+    """
+
+    type: Annotated[str, Field(description="Constraint type discriminator.")] = (
+        "opa-policy"
+    )
+    opa_policy_file: Annotated[
+        Optional[str],
+        Field(
+            description="OPA policy file key defined in profile configuration. "
+            "If it is not defined, default policy file will be used."
+        ),
+    ] = None
+    entrypoint: Annotated[str, Field(description="Entrypoint for evaluation")]
 
 
 class CustomConstraint(Constraint):
@@ -688,6 +711,7 @@ DefaultConstraintType = Annotated[
         CVListConstraint,
         CVTermEnumConstraint,
         CustomConstraint,
+        OpaPolicyConstraint,
         "ConstraintGroup",
     ],
     Field(description="A constraint type for a field."),
@@ -786,6 +810,7 @@ DEFAULT_CONSTRAINTS: list[type[Constraint]] = [
     CVListConstraint,
     CVTermEnumConstraint,
     CustomConstraint,
+    OpaPolicyConstraint,
     ConstraintGroup,
 ]
 DEFAULT_CONSTRAINTS_MAP: dict[str, Constraint] = {

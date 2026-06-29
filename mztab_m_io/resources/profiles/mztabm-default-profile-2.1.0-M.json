@@ -5,14 +5,34 @@
     "description": "mzTab-M Default Profile is used  for checking minimum valid mzTab-M files",
     "configuration": {},
     "requirements": {
-        "$": {
-            "code": "D-0001",
+        "": {
+            "description": "MzTabM general cross check rules",
             "enforcement_level": "required",
-            "required_properties": [
-                "metadata"
-            ],
-            "recommended_properties": [
-                "smallMoleculeSummary"
+            "requirements": [
+                {
+                    "code": "D-0010",
+                    "description": "Verifies that smallMoleculeSummary and smallMoleculeEvidence rows define the same number of abundance_assay values as assays declared in metadata.",
+                    "enforcement_level": "required",
+                    "value_constraint": {
+                        "type": "opa-policy",
+                        "entrypoint": "mztabm/policies/policy_D_0010"
+                    }
+                }
+            ]
+        },
+        "$": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "D-0001",
+                    "enforcement_level": "required",
+                    "required_properties": [
+                        "metadata"
+                    ],
+                    "recommended_properties": [
+                        "smallMoleculeSummary"
+                    ]
+                }
             ]
         },
         "$.comment[*]": {
@@ -20,6 +40,7 @@
             "enforcement_level": "required",
             "value_constraint": {
                 "type": "regex",
+                "json_path": ".prefix",
                 "pattern": "^COM$",
                 "case_sensitive": true
             }
@@ -233,7 +254,7 @@
                         "exceptional_values": [
                             null
                         ],
-                        "pattern": "^11\\..+/.+$",
+                        "pattern": "^10\\..+/.+$",
                         "case_sensitive": true
                     }
                 },
@@ -1688,7 +1709,7 @@
                     "\"\"",
                     "''"
                 ],
-                "pattern": "^[a-zA-Z_]+:.+$",
+                "pattern": "^[0-9a-zA-Z_]+:.+$",
                 "case_sensitive": true
             }
         },

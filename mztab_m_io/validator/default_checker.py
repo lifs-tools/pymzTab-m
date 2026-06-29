@@ -1,20 +1,23 @@
 import datetime
+import logging
 import re
+import time
 from decimal import Decimal
-from typing import Any, Mapping, Optional, Tuple
+from importlib.resources import files
+from typing import Any, Optional, Tuple
 
 import email_validator
 import jsonpath_ng
 from rfc3986 import urlparse
 from rfc3986.validators import Validator as Rfc3986Validator
 
+import mztab_m_io
 from mztab_m_io.model.base import MzTabBaseModel
 from mztab_m_io.model.common import Parameter
 from mztab_m_io.model.mztabm_validation import (
     convert_full_path,
     is_non_string_container,
 )
-from mztab_m_io.profile.base import JsonPath
 from mztab_m_io.profile.constraints import (
     BaseParameter,
     BooleanConstraint,
@@ -31,18 +34,22 @@ from mztab_m_io.profile.constraints import (
     IntegerEnumConstraint,
     NonNegativeIntegerConstraint,
     NotNullConstraint,
+    OpaPolicyConstraint,
     ParentCVTermConstraint,
     PositiveIntegerConstraint,
     RegexConstraint,
     StringConstraint,
     StringEnumConstraint,
     UriConstraint,
+    ValidationRuntimeConfiguration,
 )
 from mztab_m_io.profile.model import MzTabMProfileConfiguration
 from mztab_m_io.validator.base import (
     ConstraintChecker,
     constraint_checker,
 )
+
+logger = logging.getLogger(__name__)
 
 
 def extract_cv_info(value: Any) -> Parameter:
@@ -80,6 +87,7 @@ class NotNullConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         messages = []
@@ -112,6 +120,7 @@ class RegexConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         if value is not None and constraint.null_values:
@@ -160,6 +169,7 @@ class StringConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         if value is not None and constraint.null_values:
             str_val = str(value)
@@ -212,13 +222,13 @@ class StringConstraintChecker(ConstraintChecker):
 
 @constraint_checker(CollectionConstraint)
 class CollectionConstraintChecker(ConstraintChecker):
-
     def validate(
         self,
         constraint: CollectionConstraint,
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         if value is not None and constraint.null_values:
             str_val = str(value)
@@ -408,6 +418,7 @@ class StringEnumConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         message = ""
@@ -446,6 +457,7 @@ class IntegerEnumConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         message = ""
@@ -491,6 +503,7 @@ class IntegerConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         message = ""
@@ -566,6 +579,7 @@ class BooleanConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         message = ""
@@ -613,7 +627,10 @@ class DecimalConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
+        if runtime_config and runtime_config.skip_decimal_validations:
+            return True, "Decimal validation is skipped."
         evaluation = False
         message = ""
         min_req = False
@@ -717,6 +734,7 @@ class DateTimeConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         message = ""
@@ -761,6 +779,7 @@ class EmailConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         message = ""
@@ -804,6 +823,7 @@ class UriConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         message = ""
@@ -850,6 +870,7 @@ class CVTermConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         param = None
@@ -917,6 +938,7 @@ class CVListConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         if value is not None and constraint.null_values:
@@ -1002,6 +1024,7 @@ class CVTermEnumConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         if value is not None and constraint.null_values:
@@ -1086,6 +1109,7 @@ class ParentCVTermConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         evaluation = False
         if value is not None and constraint.null_values:
@@ -1163,6 +1187,7 @@ class CVTermValueConstraintChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         checker = CVTermConstraintChecker()
         is_valid, msg = checker.validate(constraint, value)
@@ -1187,16 +1212,19 @@ class CVTermValueConstraintChecker(ConstraintChecker):
             ):
                 key_matches = True
 
-            if key_matches and constraint.value_constraint:
-                checker = (
-                    self.constraint_checker_manager.get_checker_by_constraint_type(
+            skip = False
+            if runtime_config and runtime_config.skip_decimal_validations:
+                if isinstance(constraint, DecimalConstraint):
+                    skip = True
+            if not skip:
+                if key_matches and constraint.value_constraint:
+                    checker = self.profile_validator_factory.get_checker(
                         constraint.value_constraint
                     )
-                )
-                res = checker.validate_constraint(
-                    constraint.value_constraint, param.value, root=root
-                )
-                return res.is_valid, res.message
+                    res = checker.validate_constraint(
+                        constraint.value_constraint, param.value, root=root
+                    )
+                    return res.is_valid, res.message
 
         return True, None
 
@@ -1209,6 +1237,7 @@ class ConstraintGroupChecker(ConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         if not constraint.constraints:
             return True, None
@@ -1251,6 +1280,96 @@ class ConstraintGroupChecker(ConstraintChecker):
             else:
                 messages.append(f"Max {max_valid} conditions are not valid")
         message = ". ".join(messages)
+        if constraint.negated:
+            evaluation = not evaluation
+        return evaluation, message
+
+
+class OpaPolicyInput(MzTabBaseModel):
+    value: Any
+    root: dict
+    config: Optional[MzTabMProfileConfiguration] = None
+    constraint: OpaPolicyConstraint
+
+
+class OpaPolicyOutput(MzTabBaseModel):
+    evaluation: Optional[bool] = None
+    message: Optional[str] = None
+
+
+DEFAULT_MZTABM_OPA_POLICY_WASM_FILE = files(mztab_m_io.__name__).joinpath(
+    "resources/mztabm-default-2.1.0-M.wasm"
+)
+DEFAULT_MZTABM_OPA_POLICY_WASM_FILE_URL = "https://github.com/HUPO-PSI/mzTab-M/raw/refs/heads/development/mztab_m_io/resources/mztabm-default-2.1.0-M.wasm"
+
+
+@constraint_checker(OpaPolicyConstraint)
+class OpaPolicyConstraintChecker(ConstraintChecker):
+    def __init__(self):
+        super().__init__()
+
+    def validate(
+        self,
+        constraint: OpaPolicyConstraint,
+        value: Any,
+        root: None | dict[str, Any] = None,
+        config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
+    ) -> Tuple[bool, Optional[str]]:
+        evaluation = False
+        if value is not None and constraint.null_values:
+            str_val = str(value)
+            if str_val in constraint.null_values:
+                value = None
+        message = ""
+        if value is None:
+            if constraint.exceptional_values and value in constraint.exceptional_values:
+                evaluation = True
+            message = "value is null"
+        else:
+            str_val = str(value)
+            if constraint.exceptional_values and (
+                str_val in constraint.exceptional_values
+                or value in constraint.exceptional_values
+            ):
+                evaluation = True
+            else:
+                if not constraint.opa_policy_file:
+                    wasm_file_path = str(DEFAULT_MZTABM_OPA_POLICY_WASM_FILE)
+                    wasm_download_url = DEFAULT_MZTABM_OPA_POLICY_WASM_FILE_URL
+                elif config and config.custom_opa_policies:
+                    opa_config = config.custom_opa_policies.get(
+                        constraint.opa_policy_file
+                    )
+                    if not opa_config:
+                        raise ValueError("OPA policy file not found")
+                    wasm_file_path = opa_config.wasm_file_path
+                    wasm_download_url = opa_config.wasm_download_url
+
+                engine = (
+                    self.profile_validator_factory.opa_engine_factory.get_opa_engine(
+                        wasm_file_path=wasm_file_path,
+                        wasm_download_url=wasm_download_url,
+                    )
+                )
+                opa_input = OpaPolicyInput(
+                    value=value, root=root, config=config, constraint=constraint
+                )
+                input_data = opa_input.model_dump(by_alias=True)
+                entrypoint = constraint.entrypoint or 0
+                start = time.perf_counter()
+
+                result = engine.evaluate(input_data=input_data, entrypoint=entrypoint)
+                end = time.perf_counter()
+                logger.info("Policy Engine Execution time: %.6f seconds", (end - start))
+                if not result or not isinstance(result, list):
+                    raise ValueError("OPA policy decision is not valid")
+                decision = OpaPolicyOutput.model_validate(result[0])
+                evaluation = decision.evaluation
+                message = decision.message
+                if evaluation is None:
+                    raise ValueError(f"Evaluation is not successful. {message}")
+
         if constraint.negated:
             evaluation = not evaluation
         return evaluation, message

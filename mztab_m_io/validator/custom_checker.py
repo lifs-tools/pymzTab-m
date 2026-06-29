@@ -5,7 +5,10 @@ from typing import Any, Optional, Tuple
 import httpx2
 from cachetools import TTLCache, cached
 
-from mztab_m_io.profile.constraints import CustomConstraint
+from mztab_m_io.profile.constraints import (
+    CustomConstraint,
+    ValidationRuntimeConfiguration,
+)
 from mztab_m_io.profile.model import MzTabMProfileConfiguration
 from mztab_m_io.validator.base import (
     CustomConstraintChecker,
@@ -32,6 +35,7 @@ class OrcidValidator(CustomConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         """
         Validates the provided value against the ORCID regular expression pattern.
@@ -47,6 +51,7 @@ class OrcidValidator(CustomConstraintChecker):
         """
         if not isinstance(value, str):
             return False, "Value must be a string"
+
         if not re.match(self.pattern, value):
             return (
                 False,
@@ -77,7 +82,10 @@ class AccessibleUrlChecker(CustomConstraintChecker):
         value: Any,
         root: None | dict[str, Any] = None,
         config: None | MzTabMProfileConfiguration = None,
+        runtime_config: None | ValidationRuntimeConfiguration = None,
     ) -> Tuple[bool, Optional[str]]:
         if not isinstance(value, str):
             return False, "Value must be a string"
+        if runtime_config and runtime_config.offline_mode:
+            return True, "Offline mode"
         return self.check_http_url(value)

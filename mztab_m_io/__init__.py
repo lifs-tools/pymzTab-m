@@ -1,5 +1,7 @@
 import json
+import logging
 import pathlib
+import time
 from typing import Annotated, Any, Dict, Literal, Optional, Tuple
 
 from pydantic import ValidationError
@@ -14,10 +16,13 @@ from mztab_m_io.model.validation import (
     MzTabMessage,
     ValidationContext,
 )
+from mztab_m_io.profile.constraints import ValidationRuntimeConfiguration
 from mztab_m_io.validator.mztabm_validator import (
     MzTabMValidationResult,
     MzTabMValidator,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class MzTabMLoadResult(ValidationContext):
@@ -52,6 +57,7 @@ def read(
     auto_complete_ids: bool = False,
     validator: None | MzTabMValidator = None,
     mztabm_profile_file_path: None | str | pathlib.Path = None,
+    runtime_config: None | ValidationRuntimeConfiguration = None,
 ) -> MzTabMLoadResult:
     """Read and parse an mzTab-M file in TSV, JSON, or YAML format.
 
@@ -65,6 +71,12 @@ def read(
             - "tsv": Tab-separated values (default)
             - "json": JSON format
             - "yaml": YAML format
+        auto_complete_ids: Automatically populate undefined ids
+        mztabm_profile_file_path: MzTab-M profile file path. It it is defined,
+            it is merged with default profile and used for validation.
+            It it is not defined, only default profile will be used.
+        runtime_config: Runtime configurations for validations.
+            It overrides some rules or disables some validation features.
 
     Returns:
         MzTabMLoadResult containing:
@@ -148,11 +160,18 @@ def read(
     else:
         raise ValueError(f"invalid format type: {format}")
     if result and result.mztabm:
+        validation_start = time.perf_counter()
         validate(
             source=result.mztabm,
             mztabm_profile_file_path=mztabm_profile_file_path,
             messages=result.messages,
             validator=validator,
+            runtime_config=runtime_config,
+        )
+        validation_end = time.perf_counter()
+        logger.info(
+            "MzTabM validation execution time: %.6f seconds",
+            (validation_start - validation_end),
         )
     else:
         result.messages.append(
@@ -170,6 +189,7 @@ def validate(
     mztabm_profile_file_path: None | str = None,
     messages: None | list[MzTabMessage] = None,
     validator: None | MzTabMValidator = None,
+    runtime_config: None | ValidationRuntimeConfiguration = None,
 ) -> list[MzTabMessage]:
     if messages is None:
         messages = []
@@ -190,7 +210,7 @@ def validate(
     if not validator:
         validator = MzTabMValidator(mztabm_profile_file_path)
     validation_result: MzTabMValidationResult = validator.validate_mztabm_json(
-        input_json=mztabm_input
+        input_json=mztabm_input, runtime_config=runtime_config
     )
     for message_type, message_dict in [
         (MessageType.ERROR, validation_result.errors),

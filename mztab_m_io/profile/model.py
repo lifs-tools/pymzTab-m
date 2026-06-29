@@ -1,7 +1,7 @@
-from collections.abc import Mapping
 import json
+from collections.abc import Mapping
 from pathlib import Path
-from typing import Annotated, Any, Literal, Optional, Union
+from typing import Annotated, Any, Optional, Union
 
 from pydantic import Field, field_validator
 
@@ -118,6 +118,17 @@ class ProfileValidatorDefinition(MzTabBaseModel):
     ] = None
 
 
+class OpaPolicyConfiguration(MzTabBaseModel):
+    wasm_download_url: Annotated[
+        str,
+        Field(description="WASM file download URL. If wasm file does not exist"),
+    ]
+    wasm_file_path: Annotated[
+        str,
+        Field(description="WASM file that contains OPA policy implementation"),
+    ]
+
+
 class MzTabMProfileConfiguration(MzTabBaseModel):
     supported_cv_lists: Annotated[
         Optional[list[str]],
@@ -148,6 +159,8 @@ class MzTabMProfileConfiguration(MzTabBaseModel):
         Optional[dict[str, Any]],
         Field(description="Key value arguments for profile factory class"),
     ] = None
+
+    custom_opa_policies: Optional[dict[str, OpaPolicyConfiguration]] = None
 
 
 class MzTabMProfile(MzTabBaseModel):

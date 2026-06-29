@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
+
 import jsonpath_ng
+
 from mztab_m_io.model.validation import Category, MessageType, MzTabMessage
 from mztab_m_io.profile.model import (
     FieldRequirement,

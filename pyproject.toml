@@ -10,6 +10,7 @@ dependencies = [
     "httpx2>=0.28.1",
     "jsonpath-ng>=1.8.0",
     "jsonschema>=4.26.0",
+    "opa-wasmtime>=0.1.1",
     "pydantic>=2.12.4",
     "pyyaml>=6.0.3",
     "rfc3986>=2.0.0",

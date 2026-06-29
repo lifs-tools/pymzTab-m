@@ -10,7 +10,6 @@ from mztab_m_io.profile.constraints import (
     PositiveIntegerConstraint,
     RegexConstraint,
     StringConstraint,
-    UriConstraint,
 )
 from mztab_m_io.profile.default_profile import DEFAULT_NULL_VALUES
 from mztab_m_io.profile.model import (

@@ -26,6 +26,8 @@ MTD	assay[5]	MeKO_01_02_1
 MTD	assay[5]-ms_run_ref	ms_run[5]
 MTD	assay[6]	MeKO_01_03_1
 MTD	assay[6]-ms_run_ref	ms_run[6]
+MTD	assay[6]	MeKO_01_04_1
+MTD	assay[6]-ms_run_ref	ms_run[5]
 MTD	study_variable[1]	cont
 MTD	study_variable[1]-assay_refs	assay[1] | assay[2] | assay[3] 
 MTD	study_variable[1]-description	cont

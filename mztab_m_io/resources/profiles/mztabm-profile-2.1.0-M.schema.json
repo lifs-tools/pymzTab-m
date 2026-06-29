@@ -1223,6 +1223,9 @@
                                 "$ref": "#/$defs/CustomConstraint"
                             },
                             {
+                                "$ref": "#/$defs/OpaPolicyConstraint"
+                            },
+                            {
                                 "$ref": "#/$defs/ConstraintGroup"
                             }
                         ],
@@ -2062,6 +2065,9 @@
                             "$ref": "#/$defs/CustomConstraint"
                         },
                         {
+                            "$ref": "#/$defs/OpaPolicyConstraint"
+                        },
+                        {
                             "$ref": "#/$defs/ConstraintGroup"
                         }
                     ],
@@ -2334,6 +2340,9 @@
                                 },
                                 {
                                     "$ref": "#/$defs/CustomConstraint"
+                                },
+                                {
+                                    "$ref": "#/$defs/OpaPolicyConstraint"
                                 },
                                 {
                                     "$ref": "#/$defs/ConstraintGroup"
@@ -2907,6 +2916,21 @@
                     "default": null,
                     "description": "Key value arguments for profile factory class",
                     "title": "Profile Validator Factory Class Arguments"
+                },
+                "custom_opa_policies": {
+                    "anyOf": [
+                        {
+                            "additionalProperties": {
+                                "$ref": "#/$defs/OpaPolicyConfiguration"
+                            },
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Custom Opa Policies"
                 }
             },
             "title": "MzTabMProfileConfiguration",
@@ -3225,6 +3249,185 @@
                 }
             },
             "title": "NotNullConstraint",
+            "type": "object"
+        },
+        "OpaPolicyConfiguration": {
+            "properties": {
+                "wasm_download_url": {
+                    "description": "WASM file download URL. If wasm file does not exist",
+                    "title": "Wasm Download Url",
+                    "type": "string"
+                },
+                "wasm_file_path": {
+                    "description": "WASM file that contains OPA policy implementation",
+                    "title": "Wasm File Path",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "wasm_download_url",
+                "wasm_file_path"
+            ],
+            "title": "OpaPolicyConfiguration",
+            "type": "object"
+        },
+        "OpaPolicyConstraint": {
+            "description": "Evaluates policy and returns messages.\nIf there is no message, it will return empty list",
+            "properties": {
+                "validator": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Label of validator. If it is not defined, default validator will be used",
+                    "title": "Validator"
+                },
+                "type": {
+                    "default": "opa-policy",
+                    "description": "Constraint type discriminator.",
+                    "title": "Type",
+                    "type": "string"
+                },
+                "name": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Name of constraint.",
+                    "title": "Name"
+                },
+                "precondition": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Precondition"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "",
+                    "title": "Precondition"
+                },
+                "json_path": {
+                    "anyOf": [
+                        {
+                            "description": "JSONPath expression",
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Jsonpath used as input to constraint. It is relative jsonpath of `value`. If it is not defined, `value` will be used.",
+                    "title": "Json Path"
+                },
+                "default_precondition_evaluation": {
+                    "anyOf": [
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Defines evaluation value if there is a precondition failure. if it is not defined, evaluation value will be considered True",
+                    "title": "Default Precondition Evaluation"
+                },
+                "negated": {
+                    "anyOf": [
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Whether the constraint should be negated. If set to true, the constraint is inverted.",
+                    "title": "Negated"
+                },
+                "null_values": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ]
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "List of values that should be considered null.",
+                    "title": "Null Values"
+                },
+                "exceptional_values": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ]
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "List of values that are exceptions to the constraint. If a value is found in this list, the constraint will not be applied to it and return True.",
+                    "title": "Exceptional Values"
+                },
+                "opa_policy_file": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "OPA policy file key defined in profile configuration. If it is not defined, default policy file will be used.",
+                    "title": "Opa Policy File"
+                },
+                "entrypoint": {
+                    "description": "Entrypoint for evaluation",
+                    "title": "Entrypoint",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "entrypoint"
+            ],
+            "title": "OpaPolicyConstraint",
             "type": "object"
         },
         "Parameter": {
