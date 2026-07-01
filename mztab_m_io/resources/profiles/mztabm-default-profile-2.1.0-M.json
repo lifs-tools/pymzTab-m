@@ -3,7 +3,15 @@
     "version": "2.1.0-M",
     "name": "mzTab-M 2.1.0-M Default Profile",
     "description": "mzTab-M Default Profile is used  for checking minimum valid mzTab-M files",
-    "configuration": {},
+    "configuration": {
+        "default_wasm_file_key": "default",
+        "wasm_file_definitions": {
+            "default": {
+                "wasm_file_download_url": "https://github.com/HUPO-PSI/mzTab-M/raw/refs/heads/development/mztab_m_io/resources/mztabm-default-2.1.0-M.wasm",
+                "wasm_file_path": "/Users/ozgury/work/development/pymztab-m/mztab_m_io/resources/mztabm-default-2.1.0-M.wasm"
+            }
+        }
+    },
     "requirements": {
         "": {
             "description": "MzTabM general cross check rules",

@@ -9,26 +9,25 @@ import rego.v1
 # custom:
 #  policy_id: policy_000_0001
 policy_D_0010 contains result if {
+	assays_count := count(utils.get_normalized_object_array(input.root.metadata, "assay"))
+	tables := {
+		"smallMoleculeSummary": utils.get_normalized_object_array(input.root, "smallMoleculeSummary"),
+		"smallMoleculeFeature": utils.get_normalized_object_array(input.root, "smallMoleculeFeature"),
+	}
 
-    assays_count := count(utils.get_normalized_object_array(input.root.metadata, "assay"),)
-    tables := {
-        "smallMoleculeSummary": utils.get_normalized_object_array(input.root, "smallMoleculeSummary"),
-        "smallMoleculeFeature": utils.get_normalized_object_array(input.root, "smallMoleculeFeature"),
-    }
-
-    violations := [msg |
-        some name, table in tables
-        count(table) > 0
-        item := table[0]
-        referenced := count(utils.get_normalized_object_array(item, "abundance_assay"))
-        referenced != assays_count
-        msg := sprintf(
-            "Number of assays in metadata section: %v, number of abundance_assay columns in %v: %v",
-            [assays_count, name, referenced],
-        )
-    ]
-    result := {
-        "evaluation": count(violations) == 0,
-        "message": concat(", ", violations),
-    }
+	violations := [msg |
+		some name, table in tables
+		count(table) > 0
+		item := table[0]
+		referenced := count(utils.get_normalized_object_array(item, "abundance_assay"))
+		referenced != assays_count
+		msg := sprintf(
+			"Number of assays in metadata section: %v, number of abundance_assay columns in %v: %v",
+			[assays_count, name, referenced],
+		)
+	]
+	result := {
+		"evaluation": count(violations) == 0,
+		"message": concat(", ", violations),
+	}
 }

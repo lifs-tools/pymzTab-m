@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from mztab_m_io.profile.constraints import (
+from jsonprofile.profile.constraints import (
     CollectionConstraint,
     ConstraintGroup,
     CVListConstraint,
@@ -11,28 +11,23 @@ from mztab_m_io.profile.constraints import (
     RegexConstraint,
     StringConstraint,
 )
-from mztab_m_io.profile.default_profile import DEFAULT_NULL_VALUES
-from mztab_m_io.profile.model import (
+from jsonprofile.profile.model import (
     FieldRequirement,
     FieldRequirementGroup,
-    MzTabMProfile,
-    MzTabMProfileConfiguration,
+    JsonProfile,
+    JsonProfileConfiguration,
 )
 
-METABOLIGHTS_PROFILE = MzTabMProfile(
+from mztab_m_io.profile.default_profile import DEFAULT_NULL_VALUES
+
+METABOLIGHTS_PROFILE = JsonProfile(
     id="https://github.com/HUPO-PSI/mzTab-M/tree/main/schema/mztabm-metabolights-profile-2.1.0-M.json",
+    extends="https://github.com/HUPO-PSI/mzTab-M/tree/main/schema/mztabm-default-profile-2.1.0-M.json",
     version="2.1.0-M",
     name="mzTab-M 2.1.0-M Profile for MetaboLights Submissions",
     description="mzTab-M MetaboLights Profile is used "
     " for checking additional requirements of MetaboLights",
-    configuration=MzTabMProfileConfiguration(
-        # supported_custom_validators=[
-        #     ProfileValidatorDefinition(
-        #         name="metabolights",
-        #         id="python+http://www.ebi.ac.uk/metabolights/validators/mztab-m",
-        #     )
-        # ],
-    ),
+    configuration=JsonProfileConfiguration(),
     requirements={
         "$": FieldRequirement(
             code="MTBLS-0001",

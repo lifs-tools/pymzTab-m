@@ -4,6 +4,12 @@ import pathlib
 import time
 from typing import Annotated, Any, Dict, Literal, Optional, Tuple
 
+from jsonprofile.validator.context import (
+    CvTermSearch,
+    JsonValidationResult,
+    ValidationRuntimeConfiguration,
+)
+from jsonprofile.validator.json_validator import JsonValidator
 from pydantic import ValidationError
 from pydantic.fields import Field
 
@@ -15,11 +21,6 @@ from mztab_m_io.model.validation import (
     MessageType,
     MzTabMessage,
     ValidationContext,
-)
-from mztab_m_io.profile.constraints import ValidationRuntimeConfiguration
-from mztab_m_io.validator.mztabm_validator import (
-    MzTabMValidationResult,
-    MzTabMValidator,
 )
 
 logger = logging.getLogger(__name__)
@@ -55,9 +56,11 @@ def read(
     file_path: str,
     format: Literal["tsv", "json", "yaml"] = "tsv",
     auto_complete_ids: bool = False,
-    validator: None | MzTabMValidator = None,
     mztabm_profile_file_path: None | str | pathlib.Path = None,
     runtime_config: None | ValidationRuntimeConfiguration = None,
+    referenced_profiles: None | dict[str, str] = None,
+    validator: None | JsonValidator = None,
+    default_cv_term_search: None | CvTermSearch = None,
 ) -> MzTabMLoadResult:
     """Read and parse an mzTab-M file in TSV, JSON, or YAML format.
 
@@ -167,11 +170,13 @@ def read(
             messages=result.messages,
             validator=validator,
             runtime_config=runtime_config,
+            referenced_profiles=referenced_profiles,
+            default_cv_term_search=default_cv_term_search,
         )
         validation_end = time.perf_counter()
         logger.info(
             "MzTabM validation execution time: %.6f seconds",
-            (validation_start - validation_end),
+            (validation_end - validation_start),
         )
     else:
         result.messages.append(
@@ -188,8 +193,10 @@ def validate(
     source: dict | MzTabM | pathlib.Path | bytes | str,
     mztabm_profile_file_path: None | str = None,
     messages: None | list[MzTabMessage] = None,
-    validator: None | MzTabMValidator = None,
+    validator: None | JsonValidator = None,
     runtime_config: None | ValidationRuntimeConfiguration = None,
+    referenced_profiles: None | dict[str, str] = None,
+    default_cv_term_search: None | CvTermSearch = None,
 ) -> list[MzTabMessage]:
     if messages is None:
         messages = []
@@ -204,12 +211,17 @@ def validate(
         mztabm_input = json.loads(source)
     else:
         raise ValueError("source is not valid")
-
+    if not runtime_config:
+        runtime_config = ValidationRuntimeConfiguration()
     if isinstance(mztabm_profile_file_path, str):
         mztabm_profile_file_path = pathlib.Path(mztabm_profile_file_path)
     if not validator:
-        validator = MzTabMValidator(mztabm_profile_file_path)
-    validation_result: MzTabMValidationResult = validator.validate_mztabm_json(
+        validator = JsonValidator(
+            mztabm_profile_file_path,
+            referenced_profiles=referenced_profiles,
+            default_cv_term_search=default_cv_term_search,
+        )
+    validation_result: JsonValidationResult = validator.validate_dict(
         input_json=mztabm_input, runtime_config=runtime_config
     )
     for message_type, message_dict in [

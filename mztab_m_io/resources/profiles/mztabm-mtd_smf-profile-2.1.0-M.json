@@ -1,0 +1,40 @@
+{
+    "id": "https://github.com/HUPO-PSI/mzTab-M/tree/main/schema/mztabm-mtd_smf-profile-2.1.0-M.json",
+    "version": "2.1.0-M",
+    "name": "mzTab-M 2.1.0-M File Profile with feature section",
+    "description": "mzTab-M Default Profile  with metadata and feature section",
+    "requirements": {
+        "$": {
+            "enforcement_level": "required",
+            "requirements": [
+                {
+                    "code": "MTD_SML-0001",
+                    "enforcement_level": "required",
+                    "required_properties": [
+                        "metadata",
+                        "smallMoleculeFeature"
+                    ]
+                }
+            ]
+        },
+        "$.smallMoleculeSummary": {
+            "code": "MTD_SML-SML-0001",
+            "enforcement_level": "optional",
+            "value_constraint": {
+                "type": "items-count",
+                "min_occurs": 1
+            },
+            "match_is_required": false
+        },
+        "$.smallMoleculeFeature": {
+            "code": "MTD_SML-SMF-0001",
+            "enforcement_level": "required",
+            "match_is_required": true
+        },
+        "$.smallMoleculeEvidence": {
+            "code": "D-MTD_SML-0001",
+            "enforcement_level": "optional",
+            "match_is_required": false
+        }
+    }
+}

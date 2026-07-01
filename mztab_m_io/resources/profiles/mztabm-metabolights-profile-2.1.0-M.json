@@ -1,5 +1,6 @@
 {
     "id": "https://github.com/HUPO-PSI/mzTab-M/tree/main/schema/mztabm-metabolights-profile-2.1.0-M.json",
+    "extends": "https://github.com/HUPO-PSI/mzTab-M/tree/main/schema/mztabm-default-profile-2.1.0-M.json",
     "version": "2.1.0-M",
     "name": "mzTab-M 2.1.0-M Profile for MetaboLights Submissions",
     "description": "mzTab-M MetaboLights Profile is used  for checking additional requirements of MetaboLights",

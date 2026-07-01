@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
     "iaaiaaspdr",
+    "metabolights",
+    "mtbls",
     "mztab",
     "mztabm",
     "pydantic",
@@ -8,7 +10,9 @@
     "pytest"
   ],
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
-  "python.testing.pytestArgs": ["tests"],
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
   "search.exclude": {

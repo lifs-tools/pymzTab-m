@@ -2,7 +2,7 @@ repos:
 - repo: https://github.com/abravalheri/validate-pyproject
   rev: v0.25
   hooks:
-    - id: validate-pyproject
+  - id: validate-pyproject
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v6.0.0
   hooks:
@@ -22,12 +22,12 @@ repos:
   rev: v0.1.6
   hooks:
   - id: detect-missing-init
-    args: [ "--create", "--track", "--python-folders", "gnps2mhd" ]
+    args: [ "--create", "--track", "--python-folders", "mztab_m_io" ]
 - repo: https://github.com/astral-sh/uv-pre-commit
   # uv version.
   rev: 0.11.7
   hooks:
-    - id: uv-lock
+  - id: uv-lock
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
   rev: v0.15.11
@@ -41,7 +41,7 @@ repos:
 - repo: https://github.com/commitizen-tools/commitizen
   rev: v4.13.10
   hooks:
-    - id: commitizen
-      stages: [ commit-msg ]
-    - id: commitizen-branch
-      stages: [pre-push]
+  - id: commitizen
+    stages: [ commit-msg ]
+  - id: commitizen-branch
+    stages: [ pre-push ]

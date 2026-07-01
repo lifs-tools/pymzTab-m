@@ -9,6 +9,7 @@ dependencies = [
     "email-validator>=2.3.0",
     "httpx2>=0.28.1",
     "jsonpath-ng>=1.8.0",
+    "jsonprofile",
     "jsonschema>=4.26.0",
     "opa-wasmtime>=0.1.1",
     "pydantic>=2.12.4",
@@ -52,3 +53,6 @@ exclude = ["tests*", "docs*", "scripts*"]
 
 [tool.setuptools.package-data]
 "mztab_m_io" = ["**/*.json"]
+
+[tool.uv.sources]
+jsonprofile = { git = "https://github.com/oyurekten/jsonprofile.git", subdirectory = "python" }

@@ -1,9 +1,9 @@
 import json
+from importlib import resources
 from pathlib import Path
 
-from mztab_m_io.model.common import Parameter
-from mztab_m_io.profile.constraints import (
-    BaseParameter,
+from jsonprofile.profile import BaseCvTerm
+from jsonprofile.profile.constraints import (
     BooleanConstraint,
     CollectionConstraint,
     ConstraintGroup,
@@ -24,22 +24,38 @@ from mztab_m_io.profile.constraints import (
     StringEnumConstraint,
     UriConstraint,
 )
-from mztab_m_io.profile.model import (
+from jsonprofile.profile.model import (
     FieldRequirement,
     FieldRequirementGroup,
-    MzTabMProfile,
-    MzTabMProfileConfiguration,
+    JsonProfile,
+    JsonProfileConfiguration,
+    WasmFileDefinition,
 )
 
-EMPTY_PARAMETER = str(Parameter(cv_label="", cv_accession="", name="", value=""))
+import mztab_m_io
+
 DEFAULT_NULL_VALUES = [None, "null", "", '""', "''"]
-DEFAULT_PROFILE = MzTabMProfile(
+DEFAULT_MZTABM_OPA_POLICY_WASM_FILE = resources.files(mztab_m_io.__name__).joinpath(
+    "resources/mztabm-default-2.1.0-M.wasm"
+)
+DEFAULT_MZTABM_OPA_POLICY_WASM_FILE_URL = "https://github.com/HUPO-PSI/mzTab-M/raw/refs/heads/development/mztab_m_io/resources/mztabm-default-2.1.0-M.wasm"
+
+
+DEFAULT_PROFILE = JsonProfile(
     id="https://github.com/HUPO-PSI/mzTab-M/tree/main/schema/mztabm-default-profile-2.1.0-M.json",
     version="2.1.0-M",
     name="mzTab-M 2.1.0-M Default Profile",
     description="mzTab-M Default Profile is used "
     " for checking minimum valid mzTab-M files",
-    configuration=MzTabMProfileConfiguration(),
+    configuration=JsonProfileConfiguration(
+        default_wasm_file_key="default",
+        wasm_file_definitions={
+            "default": WasmFileDefinition(
+                wasm_file_download_url=DEFAULT_MZTABM_OPA_POLICY_WASM_FILE_URL,
+                wasm_file_path=str(DEFAULT_MZTABM_OPA_POLICY_WASM_FILE),
+            ),
+        },
+    ),
     requirements={
         "": FieldRequirementGroup(
             description="MzTabM general cross check rules",
@@ -322,10 +338,10 @@ DEFAULT_PROFILE = MzTabMProfile(
             code="D-MTD-MS_RUN-0031",
             value_constraint=CVTermEnumConstraint(
                 allowed_cv_terms=[
-                    BaseParameter(
+                    BaseCvTerm(
                         cv_label="MS", cv_accession="MS:1000129", name="negative scan"
                     ),
-                    BaseParameter(
+                    BaseCvTerm(
                         cv_label="MS", cv_accession="MS:1000130", name="positive scan"
                     ),
                 ]
@@ -1027,7 +1043,7 @@ DEFAULT_PROFILE = MzTabMProfile(
             code="D-SME-MS_LEVEL-0001",
             value_constraint=CVTermEnumConstraint(
                 allowed_cv_terms=[
-                    BaseParameter(
+                    BaseCvTerm(
                         cv_label="MS", cv_accession="MS:1000511", name="ms level"
                     )
                 ],
@@ -1073,7 +1089,7 @@ DEFAULT_PROFILE = MzTabMProfile(
 
 
 if __name__ == "__main__":
-    json_schema = MzTabMProfile.model_json_schema(by_alias=True, mode="serialization")
+    json_schema = JsonProfile.model_json_schema(by_alias=True, mode="serialization")
     with Path("mztab_m_io/resources/profiles/mztabm-profile-2.1.0-M.schema.json").open(
         "w"
     ) as f:
