@@ -217,7 +217,7 @@ def validate(
         mztabm_profile_file_path = pathlib.Path(mztabm_profile_file_path)
     if not validator:
         validator = JsonValidator(
-            mztabm_profile_file_path,
+            json_schema=mztabm_profile_file_path,
             referenced_profiles=referenced_profiles,
             default_cv_term_search=default_cv_term_search,
         )

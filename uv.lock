@@ -476,7 +476,7 @@ wheels = [
 [[package]]
 name = "jsonprofile"
 version = "0.1.0"
-source = { git = "https://github.com/oyurekten/jsonprofile.git?subdirectory=python#41cf68319fbffc908886ee7489b968e24cbfdfe0" }
+source = { git = "https://github.com/oyurekten/jsonprofile.git?subdirectory=python#e8ec0dc583ad34bbe68c7734ec6a26e94b6d6bf7" }
 dependencies = [
     { name = "bioregistry" },
     { name = "cachetools" },

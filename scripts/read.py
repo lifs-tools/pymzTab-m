@@ -3,13 +3,11 @@ import logging
 import traceback
 from pathlib import Path
 
-from jsonprofile.profile import JsonProfile
-from jsonprofile.validator import JsonValidator
 from jsonprofile.validator.context import ValidationRuntimeConfiguration
 
-from mztab_m_io import MzTabMLoadResult, read
+from mztab_m_io import MzTabMLoadResult
 from mztab_m_io.model.validation import Category, MzTabMessage
-from mztab_m_io.profile.default_profile import DEFAULT_PROFILE
+from mztab_m_io.profile.validator import MzTabMLoader
 from scripts.utils import setup_basic_logging_config
 
 logger = logging.getLogger(__name__)
@@ -19,21 +17,12 @@ if __name__ == "__main__":
     setup_basic_logging_config()
 
     profiles = Path("mztab_m_io/resources/profiles")
-    profile_schema_json = JsonProfile.model_json_schema(
-        by_alias=True, mode="serialization"
-    )
-
-    profile_schema = profiles / Path("mztabm-profile-2.1.0-M.schema.json")
-    default_profile_path = profiles / Path("mztabm-default-profile-2.1.0-M.json")
     mtbls_profile_path = profiles / Path("mztabm-metabolights-profile-2.1.0-M.json")
     mtbls_profile_json = json.loads(mtbls_profile_path.read_text())
 
     files = list(Path("tests/data/mztabm").glob("*.mz?ab"))
-    referenced_profiles = {DEFAULT_PROFILE.id: str(default_profile_path)}
-    validator = JsonValidator(
-        profile=mtbls_profile_json, referenced_profiles=referenced_profiles
-    )
 
+    loader = MzTabMLoader(profile=mtbls_profile_json)
     max_same_error_code = 10
     runtime_config = ValidationRuntimeConfiguration(
         max_messages_for_each_requirement=5,
@@ -47,8 +36,8 @@ if __name__ == "__main__":
             logger.info("(%s / %s) %s will be validated.", idx, len(files), file_path)
             logger.info("%s", 120 * "-")
 
-            result: MzTabMLoadResult = read(
-                str(file_path), validator=validator, runtime_config=runtime_config
+            result: MzTabMLoadResult = loader.read(
+                str(file_path), runtime_config=runtime_config
             )
             result_file_path = Path("./output") / Path(f"{file_path.name}.result.json")
             json_file_path = Path("./output") / Path(f"{file_path.name}.json")
