@@ -57,8 +57,9 @@ def test_load_from_dict():
     file_path = "tests/data/example/example.json"
     with Path(file_path).open() as f:
         mztabm_dict = json.load(f)
-    mztabm_model = mztabm.load_from_dict(mztabm_dict)
-    assert mztabm_model
+    result = mztabm.load_from_dict(mztabm_dict)
+    assert result.mztabm is not None
+    assert isinstance(result.mztabm, mztabm.MzTabM)
 
 
 def test_write_01():
