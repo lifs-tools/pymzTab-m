@@ -1,0 +1,47 @@
+repos:
+- repo: https://github.com/abravalheri/validate-pyproject
+  rev: v0.25
+  hooks:
+    - id: validate-pyproject
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v6.0.0
+  hooks:
+  - id: check-added-large-files
+    args: [ "--maxkb=2000" ]
+    exclude: "tests/.+\\.json"
+  - id: check-toml
+  - id: check-json
+    exclude: .vscode/.+
+  - id: check-yaml
+    args:
+    - --unsafe
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+    exclude: "tests/data/.+"
+- repo: https://github.com/lk16/detect-missing-init
+  rev: v0.1.6
+  hooks:
+  - id: detect-missing-init
+    args: [ "--create", "--track", "--python-folders", "gnps2mhd" ]
+- repo: https://github.com/astral-sh/uv-pre-commit
+  # uv version.
+  rev: 0.11.7
+  hooks:
+    - id: uv-lock
+
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.15.11
+  hooks:
+  - id: ruff-check
+    args:
+    - --fix
+    - --extend-select
+    - I
+  - id: ruff-format
+- repo: https://github.com/commitizen-tools/commitizen
+  rev: v4.13.10
+  hooks:
+    - id: commitizen
+      stages: [ commit-msg ]
+    - id: commitizen-branch
+      stages: [pre-push]

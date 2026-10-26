@@ -1,25 +1,24 @@
-import json
 import pathlib
-from typing import Annotated, Any, Optional
+from typing import Annotated, Any, Dict, Literal, Optional, Tuple
 
-import yaml
-from pydantic import Field, ValidationError
-from typing_extensions import Literal
+from pydantic import ValidationError
+from pydantic.fields import Field
 
+from mztab_m_io import model
 from mztab_m_io.model.mztabm import MzTabM
 from mztab_m_io.model.serialization import SerializationContext
 from mztab_m_io.model.validation import (
     Category,
     MessageType,
-    ValidationMessage,
-    ValidationSummary,
+    MzTabMessage,
+    ValidationContext,
 )
 
 
-class MzTabMLoadResult(ValidationSummary):
+class MzTabMLoadResult(ValidationContext):
     """Result object containing the loaded MzTabM data and validation information.
 
-    This class extends ValidationSummary to include the loading status and
+    This class extends ValidationContext to include the loading status and
     the parsed MzTabM object. It's used as the return type for loading and
     parsing operations to provide both the result and any validation messages
     or errors that occurred during the process.
@@ -43,11 +42,14 @@ class MzTabMLoadResult(ValidationSummary):
 
 
 def read(
-    file_path: str, format: Literal["tsv", "json", "yaml"] = "tsv"
+    file_path: str,
+    format: Literal["tsv", "json", "yaml"] = "tsv",
+    auto_complete_ids: bool = False,
 ) -> MzTabMLoadResult:
     """Read and parse an mzTab-M file in TSV, JSON, or YAML format.
 
-    This function reads an mzTab-M formatted file and attempts to parse it into an MzTabM object.
+    This function reads an mzTab-M formatted file and attempts to parse
+    it into an MzTabM object.
     The parsing includes validation of the content against the mzTab-M specification.
 
     Args:
@@ -87,42 +89,59 @@ def read(
         raise ValueError("Input file does not exist.")
 
     if format == "tsv":
-        content = input_path.read_text()
-        result = MzTabMLoadResult(success=False, messages=[], source_format="tsv")
+        result = MzTabMLoadResult(
+            success=False,
+            messages=[],
+            source_format="tsv",
+            auto_complete_ids=auto_complete_ids,
+        )
         try:
-            mztabm = MzTabM.model_validate(content, by_alias=True, context=result)
+            mztabm, context = MzTabM.from_tsv_file(
+                input_path,
+                context=ValidationContext(
+                    source_format="tsv", auto_complete_ids=auto_complete_ids
+                ),
+            )
             result.mztabm = mztabm
-            result.success = True
+            if mztabm:
+                result.success = True
+            result.messages.extend(context.messages)
         except ValidationError as ex:
             result.messages.extend(
                 [
-                    ValidationMessage(
+                    MzTabMessage(
                         category=Category.FORMAT,
                         message_type=MessageType.ERROR,
                         message=repr(x),
+                        source="",
                     )
                     for x in ex.errors()
                 ]
             )
         return result
-    elif format == "json":
-        with input_path.open() as f:
-            content = json.load(f)
-    elif format == "yaml":
-        with input_path.open() as f:
-            content = yaml.safe_load(f)
+    elif format == "json" or format == "yaml":
+        if format == "json":
+            mztabm, context = MzTabM.from_json_file(input_path)
+        else:
+            mztabm, context = MzTabM.from_yaml_file(input_path)
+        success = False
+        errors = [x for x in context.messages if x.message_type == MessageType.ERROR]
+        if not errors and mztabm:
+            success = True
+        return MzTabMLoadResult(
+            success=success, mztabm=mztabm, messages=context.messages
+        )
     else:
         raise ValueError(f"invalid format type: {format}")
-
-    return load_from_dict(content)
 
 
 def write(
     mztabm: MzTabM, file_path: str, format: Literal["tsv", "json", "yaml"] = "tsv"
-) -> bool:
+) -> SerializationContext:
     """Write an MzTabM object to a file in TSV, JSON, or YAML format.
 
-    This function serializes an MzTabM object to the specified format and writes it to a file.
+    This function serializes an MzTabM object to the specified format
+    and writes it to a file.
     The target directory will be created if it doesn't exist.
 
     Args:
@@ -134,15 +153,16 @@ def write(
             - "yaml": YAML format
 
     Returns:
-        bool: True if the file was successfully written
+        context: The serialization context containing the result
+            and any validation messages
 
     Raises:
         ValueError: If mztabm is None, file_path is empty, or format is invalid
 
     Example:
         >>> mztabm = read("example.mztab")
-        >>> success = write(mztabm, "output.mztab")
-        >>> if success:
+        >>> context = write(mztabm, "output.mztab")
+        >>> if context.success:
         ...     print("File written successfully")
         ... else:
         ...     print("Failed to write file")
@@ -153,31 +173,12 @@ def write(
         raise ValueError("Invalid file path")
     if not format:
         raise ValueError("Invalid file format.")
-
-    if format == "tsv":
-        result = mztabm.model_dump(
-            context=SerializationContext(convert_to=format),
-            by_alias=True,
-            exclude_none=True,
-        )
-    elif format in {"json", "yaml"}:
-        result = mztabm.model_dump_json(
-            context=SerializationContext(convert_to="json"),
-            by_alias=True,
-            indent=2,
-            exclude_none=True,
-        )
-        if format == "yaml":
-            json_obj = json.loads(result)
-            result = yaml.safe_dump(json_obj, sort_keys=False)
-
     target_path = pathlib.Path(file_path)
     target_path.parent.mkdir(parents=True, exist_ok=True)
-    pathlib.Path(file_path).write_text(result)
-    return True
+    return mztabm.save(file_path, format)
 
 
-def load_from_dict(data: dict[str, Any]) -> MzTabMLoadResult:
+def load_from_dict(data: Dict[str, Any]) -> MzTabMLoadResult:
     """Load and validate an MzTabM object from a dictionary.
 
     This function takes a dictionary representation of an mzTab-M file and attempts to
@@ -206,13 +207,13 @@ def load_from_dict(data: dict[str, Any]) -> MzTabMLoadResult:
     """
     result = MzTabMLoadResult(success=False, messages=[], source_format="json")
     try:
-        mztabm = MzTabM.model_validate(data, by_alias=True, context=result)
+        mztabm = MzTabM.from_dict(data, context=result)
         result.mztabm = mztabm
         result.success = True
     except ValidationError as ex:
         result.messages.extend(
             [
-                ValidationMessage(
+                MzTabMessage(
                     category=Category.FORMAT,
                     message_type=MessageType.ERROR,
                     message=repr(x),
@@ -222,7 +223,7 @@ def load_from_dict(data: dict[str, Any]) -> MzTabMLoadResult:
         )
     except Exception as ex:
         result.messages.append(
-            ValidationMessage(
+            MzTabMessage(
                 category=Category.FORMAT,
                 message_type=MessageType.ERROR,
                 message=str(ex),
@@ -231,7 +232,9 @@ def load_from_dict(data: dict[str, Any]) -> MzTabMLoadResult:
     return result
 
 
-def convert_to_dict(mztabm: MzTabM) -> dict[str, Any]:
+def convert_to_dict(
+    mztabm: MzTabM, context: Optional[SerializationContext] = None
+) -> Tuple[Dict[str, Any], SerializationContext]:
     """Convert an MzTabM object to a dictionary representation.
 
     This function converts an MzTabM object into a dictionary format suitable for
@@ -240,23 +243,35 @@ def convert_to_dict(mztabm: MzTabM) -> dict[str, Any]:
 
     Args:
         mztabm: The MzTabM object to convert
+        context: Optional serialization context
 
     Returns:
-        dict[str, Any]: Dictionary representation of the MzTabM object
+        Tuple[Dict[str, Any], SerializationContext]: Dictionary representation of
+        the MzTabM object and the serialization context
 
     Raises:
         ValueError: If mztabm is None
 
     Example:
         >>> mztabm = read("example.mztab")
-        >>> dict_data = convert_to_dict(mztabm)
-        >>> print(f"Converted object with {len(dict_data)} top-level keys")
+        >>> dict_data, context = convert_to_dict(mztabm)
+        >>> if context.success:
+        ...     print(f"Converted object with {len(dict_data)} top-level keys")
+        ... else:
+        ...     print("Failed to convert object")
     """
     if not mztabm:
         raise ValueError("Invalid mzTab-M input")
+    if not context:
+        context = SerializationContext()
+    return mztabm.to_dict(context), context
 
-    return mztabm.model_dump(
-        context=SerializationContext(convert_to="json"),
-        by_alias=True,
-        exclude_none=True,
-    )
+
+__all__ = [
+    "MzTabMLoadResult",
+    "model",
+    "read",
+    "write",
+    "load_from_dict",
+    "convert_to_dict",
+]

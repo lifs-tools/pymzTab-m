@@ -1,0 +1,165 @@
+MTD	mzTab-version	2.0.0-M
+MTD	mzTab-ID	Height_0_20201291324.mzTab
+MTD	title	Metabolomics Study Example
+MTD	description	Example metabolomics study from MS-DIAL export
+MTD	contact[1]-name	John Doe
+MTD	contact[1]-affiliation	University of Example
+MTD	contact[1]-email	john.doe@example2.com
+MTD	contact[2]-name	Jane Smith
+MTD	contact[2]-affiliation	Institute of Science
+MTD	contact[2]-email	jane.smith@example2.com
+MTD	contact[3]-name	Bob Johnson
+MTD	contact[3]-affiliation	Research Lab
+MTD	contact[3]-email	bob.johnson@example2.com
+MTD	publication[1]	doi:10.1000/182
+MTD	publication[2]	pubmed:21345678
+MTD	publication[3]	doi:10.1000/183
+MTD	uri[1]	http://www.ebi.ac.uk/metabolights/MTBLS1
+MTD	external_study_uri[1]	http://www.ebi.ac.uk/metabolights/MTBLS1
+MTD	instrument[1]-name	[, , Thermo Fisher Q Exactive HF, ]
+MTD	instrument[1]-source	[MS, , ESI, ]
+MTD	instrument[1]-analyzer[1]	[MS, , TOF, ]
+MTD	instrument[1]-detector	[MS, , Microchannel plate detector, ]
+MTD	instrument[2]-name	[, , Agilent 6550 iFunnel Q-TOF, ]
+MTD	instrument[2]-source	[MS, , ESI, ]
+MTD	instrument[2]-analyzer[1]	[MS, , TOF, ]
+MTD	instrument[2]-detector	[MS, , Microchannel plate detector, ]
+MTD	instrument[3]-name	[, , Bruker impact II, ]
+MTD	instrument[3]-source	[MS, , ESI, ]
+MTD	instrument[3]-analyzer[1]	[MS, , TOF, ]
+MTD	instrument[3]-analyzer[2]	[MS, , TOF, ]
+MTD	instrument[3]-detector	[MS, , Microchannel plate detector, ]
+MTD	quantification_method	[, , Label-free raw feature quantitation, ]
+MTD	sample[1]	Sample 1
+MTD	sample[1]-custom[1]	[MS, , custom param, ]
+MTD	sample[1]-species[1]	[NCIT, , Homo sapiens, ]
+MTD	sample[1]-tissue[1]	[BTO, , blood plasma, ]
+MTD	sample[1]-cell_type[1]	[CL, , cell, ]
+MTD	sample[1]-disease[1]	[DOID, , disease, ]
+MTD	sample[1]-description	Control sample 1
+MTD	sample[2]	Sample 2
+MTD	sample[2]-custom[1]	[MS, , custom param, ]
+MTD	sample[2]-species[1]	[NCIT, , Homo sapiens, ]
+MTD	sample[2]-tissue[1]	[BTO, , blood plasma, ]
+MTD	sample[2]-cell_type[1]	[CL, , cell, ]
+MTD	sample[2]-disease[1]	[DOID, , disease, ]
+MTD	sample[2]-description	Control sample 2
+MTD	sample[3]	Sample 3
+MTD	sample[3]-custom[1]	[MS, , custom param, ]
+MTD	sample[3]-species[1]	[NCIT, , Homo sapiens, ]
+MTD	sample[3]-tissue[1]	[BTO, , blood plasma, ]
+MTD	sample[3]-cell_type[1]	[CL, , cell, ]
+MTD	sample[3]-disease[1]	[DOID, , disease, ]
+MTD	sample[3]-description	Control sample 3
+MTD	sample_processing[1]	[SEP, , extraction, ]|[SEP, , centrifugation, ]
+MTD	sample_processing[2]	[MS, , silylation, ]
+MTD	software[1]	[MS, , MS-DIAL, 4.12]
+MTD	software[2]	[, , MS-DIAL mzTab exporter, 1.05]
+MTD	software[2]-setting[1]	setting1
+MTD	software[2]-setting[2]	setting2
+MTD	software[3]	[, , Python Script, 1.0.0]
+MTD	software[3]-setting[1]	setting3
+MTD	derivatization_agent[1]	[MS, , silylation, ]
+MTD	ms_run[1]-location	file://Z:/data/Cont13_1.abf
+MTD	ms_run[1]-instrument_ref	instrument[1]
+MTD	ms_run[1]-format	[MS, , Mascot MGF file, ]
+MTD	ms_run[1]-id_format	[MS, , mzML unique identifier, ]
+MTD	ms_run[1]-fragmentation_method[1]	[MS, , CID, ]
+MTD	ms_run[1]-scan_polarity[1]	[MS, , positive scan, ]
+MTD	ms_run[1]-hash	de9f2c7fd25e1b3afad3e85a0bd17d9b100db4b3
+MTD	ms_run[1]-hash_method	[MS, , SHA-1, ]
+MTD	ms_run[2]-location	file://Z:/data/Cont14_1.abf
+MTD	ms_run[2]-instrument_ref	instrument[2]
+MTD	ms_run[2]-format	[MS, , Mascot MGF file, ]
+MTD	ms_run[2]-id_format	[MS, , mzML unique identifier, ]
+MTD	ms_run[2]-fragmentation_method[1]	[MS, , CID, ]
+MTD	ms_run[2]-scan_polarity[1]	[MS, , positive scan, ]
+MTD	ms_run[2]-hash	de9f2c7fd25e1b3afad3e85a0bd17d9b100db4b3
+MTD	ms_run[2]-hash_method	[MS, , SHA-1, ]
+MTD	ms_run[3]-location	file://Z:/data/Cont16_1.abf
+MTD	ms_run[3]-instrument_ref	instrument[3]
+MTD	ms_run[3]-format	[MS, , Mascot MGF file, ]
+MTD	ms_run[3]-id_format	[MS, , mzML unique identifier, ]
+MTD	ms_run[3]-fragmentation_method[1]	[MS, , CID, ]
+MTD	ms_run[3]-scan_polarity[1]	[MS, , positive scan, ]
+MTD	ms_run[3]-hash	de9f2c7fd25e1b3afad3e85a0bd17d9b100db4b3
+MTD	ms_run[3]-hash_method	[MS, , SHA-1, ]
+MTD	assay[1]	Cont13_1
+MTD	assay[1]-custom[1]	[MS, , custom param, ]
+MTD	assay[1]-external_uri	http://example.com/assay1
+MTD	assay[1]-sample_ref	sample[1]
+MTD	assay[1]-ms_run_ref	ms_run[1]
+MTD	assay[2]	Cont14_1
+MTD	assay[2]-custom[1]	[MS, , custom param, ]
+MTD	assay[2]-external_uri	http://example.com/assay2
+MTD	assay[2]-sample_ref	sample[2]
+MTD	assay[2]-ms_run_ref	ms_run[2]
+MTD	assay[3]	Cont16_1
+MTD	assay[3]-custom[1]	[MS, , custom param, ]
+MTD	assay[3]-external_uri	http://example.com/assay3
+MTD	assay[3]-sample_ref	sample[3]
+MTD	assay[3]-ms_run_ref	ms_run[3]
+MTD	study_variable[1]	cont
+MTD	study_variable[1]-assay_refs	assay[1]|assay[2]|assay[3]
+MTD	study_variable[1]-description	Control group
+MTD	study_variable[2]	treated
+MTD	study_variable[2]-description	Treated group
+MTD	study_variable[3]	blank
+MTD	study_variable[3]-description	Blank samples
+MTD	custom[1]	[MS, , custom param, custom value]
+MTD	cv[1]-label	MS
+MTD	cv[1]-full_name	PSI Mass Spectrometry Ontology
+MTD	cv[1]-version	4.1.0
+MTD	cv[1]-uri	https://raw.githubusercontent.com/HUPO-PSI/psi-ms-CV/master/psi-ms.obo
+MTD	cv[2]-label	UO
+MTD	cv[2]-full_name	Unit Ontology
+MTD	cv[2]-version	14:07:2021
+MTD	cv[2]-uri	https://raw.githubusercontent.com/bio-ontology-research-group/unit-ontology/master/unit.obo
+MTD	cv[3]-label	NCIT
+MTD	cv[3]-full_name	NCI Thesaurus
+MTD	cv[3]-version	20.10d
+MTD	cv[3]-uri	https://raw.githubusercontent.com/NCI-Thesaurus/thesaurus-obo-edition/master/ncit.obo
+MTD	small_molecule-quantification_unit	[, , precursor intensity (peak height), ]
+MTD	small_molecule_feature-quantification_unit	[, , precursor intensity (peak height), ]
+MTD	small_molecule-identification_reliability	[MS, , compound identification confidence code in MS-DIAL, ]
+MTD	database[1]	[MS, , database name, User-defined MSP library file]
+MTD	database[1]-prefix	MSP
+MTD	database[1]-version	Unknown
+MTD	database[1]-uri	file://Z:/GCMS_DB.msp
+MTD	database[2]	[MS, , database name, HMDB]
+MTD	database[2]-prefix	HMDB
+MTD	database[2]-version	4.0
+MTD	database[2]-uri	http://www.hmdb.ca/
+MTD	database[3]	[MS, , database name, KEGG]
+MTD	database[3]-prefix	KEGG
+MTD	database[3]-version	88.0
+MTD	database[3]-uri	http://www.kegg.jp/
+MTD	id_confidence_measure[1]	[, , MS-DIAL algorithm matching score, ]
+MTD	id_confidence_measure[2]	[, , Retention time similarity, ]
+MTD	id_confidence_measure[3]	[, , Dot product, ]
+MTD	colunit-small_molecule	retention_time=[UO, , minute, ]
+MTD	colunit-small_molecule	exp_mass_to_charge=[UO, , dalton, ]
+MTD	colunit-small_molecule	opt_study_variable[2]_other_attribute=[UO, , dimensionless unit, ]
+MTD	colunit-small_molecule_feature	retention_time=[UO, , minute, ]
+MTD	colunit-small_molecule_feature	exp_mass_to_charge=[UO, , dalton, ]
+MTD	colunit-small_molecule_feature	opt_study_variable[2]_other_attribute=[UO, , dimensionless unit, ]
+MTD	colunit-small_molecule_evidence	retention_time=[UO, , minute, ]
+MTD	colunit-small_molecule_evidence	exp_mass_to_charge=[UO, , dalton, ]
+
+
+SMH	SML_ID	SMF_ID_REFS	database_identifier	chemical_formula	smiles	inchi	chemical_name	uri	theoretical_neutral_mass	adduct_ions	reliability	best_id_confidence_measure	best_id_confidence_value	abundance_assay[1]	abundance_assay[2]	abundance_assay[3]	abundance_study_variable[1]	abundance_study_variable[2]	abundance_study_variable[3]	abundance_variation_study_variable[1]	abundance_variation_study_variable[2]	abundance_variation_study_variable[3]	opt_global_cv_MS:1002217_decoy_peptide	opt_study_variable[2]_other_attribute
+SML	1	1	MSP: Glycolic acid; GC-EI-TOF; MS; 2 TMS; BP	C2H4O3	OCC(O)=O	InChI=1S/C2H4O3/c3-1-2(4)5/h3H,1H2,(H,4,5)	Glycolic acid; GC-EI-TOF; MS; 2 TMS; BP	http://example.com/glycolic_acid	7.60160000000E+01	[M]1+	1	[, , MS-DIAL algorithm matching score, ]	8.29000000000E+01	1.50717300000E+05	1.18989200000E+05	1.54902100000E+05	1.41536218750E+05	7.64717031250E+04	0	1.96380600000E+04	8.36948000000E+03	0	0	some value
+SML	2	2	MSP: L-Alanine; GC-EI-TOF; MS; 3 TMS; BP	C3H7NO2	CC(N)C(O)=O	InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1	L-Alanine; GC-EI-TOF; MS; 3 TMS; BP	http://example.com/alanine	8.90470000000E+01	[M]1+	1	[, , MS-DIAL algorithm matching score, ]	9.71000000000E+01	2.96045800000E+05	2.72303300000E+05	1.69987900000E+05	2.46112338542E+05	1.81112260417E+05	0	66986	3.25785600000E+04	0	0	some value
+SML	3	3	MSP: Glycine; GC-EI-TOF; MS; 3 TMS; BP	C2H5NO2	NCC(O)=O	InChI=1S/C2H5NO2/c3-1-2(4)5/h1,3H2,(H,4,5)	Glycine; GC-EI-TOF; MS; 3 TMS; BP	http://example.com/glycine	7.50320000000E+01	[M]1+	1	[, , MS-DIAL algorithm matching score, ]	9.26000000000E+01	2.89172300000E+05	2.32538900000E+05	2.65559400000E+05	2.62423557292E+05	1.22489148438E+05	0	2.84466600000E+04	4.28918000000E+04	0	0	some value
+
+
+SFH	SMF_ID	SME_ID_REFS	SME_ID_REF_ambiguity_code	adduct_ion	isotopomer	exp_mass_to_charge	charge	retention_time_in_seconds	retention_time_in_seconds_start	retention_time_in_seconds_end	abundance_assay[1]	abundance_assay[2]	abundance_assay[3]	opt_global_cv_MS:1002217_decoy_peptide	opt_study_variable[2]_other_attribute
+SMF	1	1	null	[M]1+	[MS, , isotopomer 1, ]	7.60160000000E+01	1	2.40586000000E+02	2.40370500000E+02	2.40801500000E+02	3.03911100000E+03	2.94411100000E+03	4.58933300000E+03	0	some value
+SMF	2	2	null	[M]1+	[MS, , isotopomer 1, ]	8.90470000000E+01	1	2.41747500000E+02	2.40602300000E+02	2.42892700000E+02	3.52922200000E+03	3.67122200000E+03	3.76577800000E+03	0	some value
+SMF	3	3	null	[M]1+	[MS, , isotopomer 1, ]	7.50320000000E+01	1	2.44071800000E+02	2.43084200000E+02	2.45059500000E+02	4.23233300000E+03	4.62688900000E+03	4.73177800000E+03	0	some value
+
+
+SEH	SME_ID	evidence_input_id	database_identifier	chemical_formula	smiles	inchi	chemical_name	uri	derivatized_form	adduct_ion	exp_mass_to_charge	charge	theoretical_mass_to_charge	spectra_ref	identification_method	ms_level	id_confidence_measure[1]	id_confidence_measure[2]	id_confidence_measure[3]	rank
+SME	1	ms_run[1]:440	MSP: Glycolic acid; GC-EI-TOF; MS; 2 TMS; BP	C2H4O3	OCC(O)=O	InChI=1S/C2H4O3/c3-1-2(4)5/h3H,1H2,(H,4,5)	Glycolic acid; GC-EI-TOF; MS; 2 TMS; BP	http://example.com/glycolic_acid	null	[M]1+	7.60160000000E+01	1	7.60160000000E+01	ms_run[1]:scan=1	[, , MS-DIAL, ]	[MS, , ms level, 1]	8.29000000000E+01	90	9.55000000000E+01	1
+SME	2	ms_run[1]:441	MSP: L-Alanine; GC-EI-TOF; MS; 3 TMS; BP	C3H7NO2	CC(N)C(O)=O	InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1	L-Alanine; GC-EI-TOF; MS; 3 TMS; BP	http://example.com/alanine	null	[M]1+	8.90470000000E+01	1	8.90470000000E+01	ms_run[1]:scan=1	[, , MS-DIAL, ]	[MS, , ms level, 1]	9.71000000000E+01	95	98	1
+SME	3	ms_run[1]:442	MSP: Glycine; GC-EI-TOF; MS; 3 TMS; BP	C2H5NO2	NCC(O)=O	InChI=1S/C2H5NO2/c3-1-2(4)5/h1,3H2,(H,4,5)	Glycine; GC-EI-TOF; MS; 3 TMS; BP	http://example.com/glycine	null	[M]1+	7.50320000000E+01	1	7.50320000000E+01	ms_run[1]:scan=1	[, , MS-DIAL, ]	[MS, , ms level, 1]	9.26000000000E+01	90	94	1

@@ -1,15 +1,22 @@
 {
-    "cSpell.words": [
-        "iaaiaaspdr",
-        "mztab",
-        "mztabm",
-        "pydantic",
-        "pymztab",
-        "pytest"
-    ],
-    "python.testing.pytestArgs": [
-        "tests"
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+  "cSpell.words": [
+    "iaaiaaspdr",
+    "mztab",
+    "mztabm",
+    "pydantic",
+    "pymztab",
+    "pytest"
+  ],
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.testing.pytestArgs": ["tests"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "search.exclude": {
+    "**/__old*/**": true,
+    "**/.old*/**": true
+  },
+  "explorer.autoRevealExclude": {
+    "**/__old*/**": true,
+    "**/.temp*/**": true
+  }
 }
