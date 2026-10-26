@@ -207,7 +207,7 @@ def load_from_dict(data: Dict[str, Any]) -> MzTabMLoadResult:
     """
     result = MzTabMLoadResult(success=False, messages=[], source_format="json")
     try:
-        mztabm = MzTabM.from_dict(data, context=result)
+        mztabm, _serialization_context = MzTabM.from_dict(data, context=result)
         result.mztabm = mztabm
         result.success = True
     except ValidationError as ex:
